@@ -1,27 +1,57 @@
-﻿using Database;
+﻿using System.Linq;
+using Database;
 
 namespace Business
 {
     public class Usuario : Base
     {
-        public Usuario(string email, string nome, string senha, int resultado)
+        public Usuario(string email, string nome, string senha, string resultado, string validacao)
         {
             EmailUsuario = email;
             NomeUsuario = nome;
             SenhaUsuario = senha;
+            ValidaSenha = validacao;
             Resultado = resultado;
         }
         
         public Usuario() {}
 
-        public string Retorno()
+        public void ValidaCadastro()
         {
-            if (Resultado == 1)
+            if (EmailUsuario.Contains("@") && EmailUsuario.Contains(".com"))
             {
-                return "Dados validados com sucesso.";
+                Cadastrar(SenhaUsuario == ValidaSenha ? 1 : 0);
+                /*
+                if (SenhaUsuario == ValidaSenha)
+                {
+                    Cadastrar(1);
+                }
+                else
+                {
+                    Cadastrar(0);
+                }
+                */
+            }
+            else
+            {
+                Resultado = "O e-mail inserido está incorreto, tente novamente.";
+            }
+        }
+
+        public string Retorno(string retorno)
+        {
+            switch (retorno)
+            {
+                case "acesso":
+                    return Resultado == "1" ? @"Dados autenticados com sucesso!" : @"Dados incorretos, tente novamente.";
+                case "cadastro":
+                    return Resultado == "1" ? @"Usuário registrado com sucesso!" : Resultado;
+                default:
+                    break;
             }
 
-            return "Dados incorretos, tente novamente.";
+            return @"Ocorreu um erro no processamento.
+Tente novamente ou contate o administrador.";
         }
     }
 }
