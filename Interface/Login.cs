@@ -11,12 +11,6 @@ namespace Interface
         {
             InitializeComponent();
             menuStripLogin.Renderer = new ProjectRenderer();
-            menuNovoCadastro.ForeColor = Color.White;
-            menuNovoCadastro.BackColor = Color.Black;
-            menuRecuperarSenha.ForeColor = Color.White;
-            menuRecuperarSenha.BackColor = Color.Black;
-            menuFinalizarPrograma.ForeColor = Color.White;
-            menuFinalizarPrograma.BackColor = Color.Black;
         }
         
         /* Personalização de janelas */
@@ -27,20 +21,32 @@ namespace Interface
 
         private class ProjectColors : ProfessionalColorTable
         {
+            public override Color MenuBorder => Color.Empty;
             public override Color MenuItemBorder => Color.Empty;
-            public override Color ButtonPressedBorder => Color.Black;
-            public override Color MenuItemPressedGradientBegin => Color.DimGray;
-            public override Color MenuItemPressedGradientEnd => Color.DimGray;
-            public override Color MenuItemSelected => Color.DimGray;
-            public override Color MenuItemSelectedGradientBegin => Color.DimGray;
-            public override Color MenuItemSelectedGradientEnd => Color.DimGray;
+            public override Color MenuItemPressedGradientBegin => Color.Transparent;
+            public override Color MenuItemPressedGradientEnd => Color.FromArgb(255, 0, 100, 100);
+            public override Color MenuItemSelected => Color.FromArgb(255, 0, 100, 100);
+            public override Color MenuItemSelectedGradientBegin => Color.Transparent;
+            public override Color MenuItemSelectedGradientEnd => Color.FromArgb(255, 0, 100, 100);
         }
 
         private void menuLoginSeparator_Paint(object sender, PaintEventArgs e)
         {
             ToolStripSeparator separator = (ToolStripSeparator) sender;
-            e.Graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, separator.Width, separator.Height);
-            e.Graphics.DrawLine(new Pen(Color.White), 30, separator.Height / 2, separator.Width - 4, separator.Height / 2);
+            e.Graphics.FillRectangle(new SolidBrush(Color.DarkSlateGray), 0, 0, separator.Width, separator.Height);
+            e.Graphics.DrawLine(new Pen(Color.FromArgb(255, 0, 100, 100)), 30, separator.Height / 2, separator.Width - 4, separator.Height / 2);
+        }
+
+        private void btnLogin_MouseEnter(object sender, EventArgs e)
+        {
+            btnLogin.FlatAppearance.BorderColor = Color.White;
+            btnLogin.ForeColor = Color.White;
+        }
+
+        private void btnLogin_MouseLeave(object sender, EventArgs e)
+        {
+            btnLogin.FlatAppearance.BorderColor = Color.Green;
+            btnLogin.ForeColor = Color.Green;
         }
 
         /* Funcionalidades da aplicação */
@@ -152,9 +158,9 @@ namespace Interface
         private void menuToolSobre_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                @"Controle de almoxarifado
+                @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.2",
+Versão: 2019.0.4",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information

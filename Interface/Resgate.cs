@@ -12,8 +12,6 @@ namespace Interface
         {
             InitializeComponent();
             menuStripResgate.Renderer = new ProjectRenderer();
-            menuFinalizarPrograma.ForeColor = Color.White;
-            menuFinalizarPrograma.BackColor = Color.Black;
         }
         
         /* Personalização de janelas */
@@ -24,13 +22,37 @@ namespace Interface
 
         private class ProjectColors : ProfessionalColorTable
         {
+            public override Color MenuBorder => Color.Empty;
             public override Color MenuItemBorder => Color.Empty;
-            public override Color ButtonPressedBorder => Color.Black;
-            public override Color MenuItemPressedGradientBegin => Color.DimGray;
-            public override Color MenuItemPressedGradientEnd => Color.DimGray;
-            public override Color MenuItemSelected => Color.DimGray;
-            public override Color MenuItemSelectedGradientBegin => Color.Black;
-            public override Color MenuItemSelectedGradientEnd => Color.Black;
+            public override Color MenuItemPressedGradientBegin => Color.Transparent;
+            public override Color MenuItemPressedGradientEnd => Color.FromArgb(255, 0, 100, 100);
+            public override Color MenuItemSelected => Color.FromArgb(255, 0, 100, 100);
+            public override Color MenuItemSelectedGradientBegin => Color.Transparent;
+            public override Color MenuItemSelectedGradientEnd => Color.FromArgb(255, 0, 100, 100);
+        }
+
+        private void btnConfirma_MouseEnter(object sender, EventArgs e)
+        {
+            btnConfirma.FlatAppearance.BorderColor = Color.White;
+            btnConfirma.ForeColor = Color.White;
+        }
+
+        private void btnConfirma_MouseLeave(object sender, EventArgs e)
+        {
+            btnConfirma.FlatAppearance.BorderColor = Color.Green;
+            btnConfirma.ForeColor = Color.Green;
+        }
+
+        private void btnCancelar_MouseEnter(object sender, EventArgs e)
+        {
+            btnCancelar.FlatAppearance.BorderColor = Color.White;
+            btnCancelar.ForeColor = Color.White;
+        }
+
+        private void btnCancelar_MouseLeave(object sender, EventArgs e)
+        {
+            btnCancelar.FlatAppearance.BorderColor = Color.Red;
+            btnCancelar.ForeColor = Color.Red;
         }
 
         private void menuFinalizarPrograma_Click(object sender, EventArgs e)
@@ -50,16 +72,54 @@ namespace Interface
             WindowState = FormWindowState.Minimized;
         }
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            InterfaceInicial.Show();
+            Close();
+        }
+
         private void menuToolSobre_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                @"Controle de almoxarifado
+                @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.2",
+Versão: 2019.0.4",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+        }
+
+        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txtEmailResgate.Clear();
+            txtNascimentoResgate.Clear();
+            txtCpfResgate.Clear();
+        }
+
+        private void btnConfirma_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtEmailResgate.Text) || txtNascimentoResgate.Text == @"  /  /" ||
+                txtCpfResgate.Text == @"   .   .   -")
+            {
+                MessageBox.Show(
+                    @"É necessário o preenchimento de todos os campos.",
+                    @"Preenchimento obrigatório",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            else
+            {
+                MessageBox.Show(
+                    @"Seu acesso foi recuperado com sucesso.",
+                    @"Recuperação de acesso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                InterfaceInicial.Show();
+                Hide();
+            }
         }
     }
 }

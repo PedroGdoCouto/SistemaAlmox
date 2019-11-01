@@ -36,7 +36,6 @@ namespace Interface
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSenhaLogin = new System.Windows.Forms.TextBox();
@@ -44,6 +43,7 @@ namespace Interface
             this.chkExibeSenha = new System.Windows.Forms.CheckBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.menuStripLogin = new System.Windows.Forms.MenuStrip();
@@ -63,7 +63,6 @@ namespace Interface
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMain.Controls.Add(this.panelBottom);
-            this.panelMain.Controls.Add(this.label1);
             this.panelMain.Controls.Add(this.label3);
             this.panelMain.Controls.Add(this.label2);
             this.panelMain.Controls.Add(this.txtSenhaLogin);
@@ -99,19 +98,6 @@ namespace Interface
             this.label4.TabIndex = 0;
             this.label4.Text = "Copyright - Pedro Couto";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Font = new System.Drawing.Font("Ubuntu", 10F, System.Drawing.FontStyle.Regular,
-                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(250, -1);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 31);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Painel de acesso";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -152,22 +138,23 @@ namespace Interface
             // 
             // chkExibeSenha
             // 
-            this.chkExibeSenha.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkExibeSenha.Location = new System.Drawing.Point(438, 370);
+            this.chkExibeSenha.Font = new System.Drawing.Font("Ubuntu", 10F, System.Drawing.FontStyle.Regular,
+                System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.chkExibeSenha.Location = new System.Drawing.Point(250, 370);
             this.chkExibeSenha.Name = "chkExibeSenha";
             this.chkExibeSenha.Size = new System.Drawing.Size(112, 24);
             this.chkExibeSenha.TabIndex = 2;
             this.chkExibeSenha.Text = "Exibir senha";
-            this.chkExibeSenha.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExibeSenha.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkExibeSenha.UseVisualStyleBackColor = true;
             this.chkExibeSenha.CheckedChanged += new System.EventHandler(this.chkExibeSenha_CheckedChanged);
             // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.Color.Transparent;
-            this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGreen;
+            this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.ForeColor = System.Drawing.Color.Black;
+            this.btnLogin.ForeColor = System.Drawing.Color.Green;
             this.btnLogin.Location = new System.Drawing.Point(250, 400);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(300, 40);
@@ -175,10 +162,13 @@ namespace Interface
             this.btnLogin.Text = "Entrar";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            this.btnLogin.MouseEnter += new System.EventHandler(this.btnLogin_MouseEnter);
+            this.btnLogin.MouseLeave += new System.EventHandler(this.btnLogin_MouseLeave);
             // 
             // panelTop
             // 
-            this.panelTop.BackColor = System.Drawing.Color.Black;
+            this.panelTop.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panelTop.Controls.Add(this.label1);
             this.panelTop.Controls.Add(this.btnMinimize);
             this.panelTop.Controls.Add(this.btnClose);
             this.panelTop.Controls.Add(this.menuStripLogin);
@@ -190,12 +180,23 @@ namespace Interface
             this.panelTop.Size = new System.Drawing.Size(798, 30);
             this.panelTop.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(250, -1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(300, 31);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Painel de acesso";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btnMinimize
             // 
             this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.btnMinimize.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnMinimize.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnMinimize.FlatAppearance.BorderSize = 0;
-            this.btnMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btnMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte) (0)));
@@ -212,7 +213,7 @@ namespace Interface
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.Transparent;
-            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -230,6 +231,7 @@ namespace Interface
             // 
             // menuStripLogin
             // 
+            this.menuStripLogin.AutoSize = false;
             this.menuStripLogin.BackColor = System.Drawing.Color.Transparent;
             this.menuStripLogin.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStripLogin.Font = new System.Drawing.Font("Ubuntu", 10F, System.Drawing.FontStyle.Regular,
@@ -242,7 +244,6 @@ namespace Interface
             this.menuStripLogin.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStripLogin.Size = new System.Drawing.Size(134, 30);
             this.menuStripLogin.TabIndex = 7;
-            this.menuStripLogin.Text = "menuStripLogin";
             // 
             // menuToolSistema
             // 
@@ -257,6 +258,8 @@ namespace Interface
             // 
             // menuNovoCadastro
             // 
+            this.menuNovoCadastro.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.menuNovoCadastro.ForeColor = System.Drawing.Color.White;
             this.menuNovoCadastro.Name = "menuNovoCadastro";
             this.menuNovoCadastro.Size = new System.Drawing.Size(189, 22);
             this.menuNovoCadastro.Text = "&Novo cadastro";
@@ -264,6 +267,8 @@ namespace Interface
             // 
             // menuRecuperarSenha
             // 
+            this.menuRecuperarSenha.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.menuRecuperarSenha.ForeColor = System.Drawing.Color.White;
             this.menuRecuperarSenha.Name = "menuRecuperarSenha";
             this.menuRecuperarSenha.Size = new System.Drawing.Size(189, 22);
             this.menuRecuperarSenha.Text = "&Recuperar acesso";
@@ -277,6 +282,8 @@ namespace Interface
             // 
             // menuFinalizarPrograma
             // 
+            this.menuFinalizarPrograma.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.menuFinalizarPrograma.ForeColor = System.Drawing.Color.White;
             this.menuFinalizarPrograma.Name = "menuFinalizarPrograma";
             this.menuFinalizarPrograma.Size = new System.Drawing.Size(189, 22);
             this.menuFinalizarPrograma.Text = "&Finalizar";
@@ -303,16 +310,14 @@ namespace Interface
                 System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStripLogin;
+            this.Location = new System.Drawing.Point(15, 15);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.panelBottom.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
             this.menuStripLogin.ResumeLayout(false);
             this.menuStripLogin.PerformLayout();
             this.ResumeLayout(false);
@@ -335,10 +340,10 @@ namespace Interface
         private System.Windows.Forms.ToolStripMenuItem menuNovoCadastro;
         private System.Windows.Forms.ToolStripMenuItem menuToolSobre;
         private System.Windows.Forms.ToolStripMenuItem menuToolSistema;
-        private System.Windows.Forms.MenuStrip menuStripLogin;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripSeparator menuLoginSeparator;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panelBottom;
+        private System.Windows.Forms.MenuStrip menuStripLogin;
     }
 }
