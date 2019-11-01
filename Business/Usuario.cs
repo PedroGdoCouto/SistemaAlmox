@@ -18,7 +18,7 @@ namespace Business
 
         public void ValidaCadastro()
         {
-            if (EmailUsuario.Contains("@") && EmailUsuario.Contains(".com"))
+            if (EmailUsuario.Contains(".com") && EmailUsuario.Contains("@"))
             {
                 Cadastrar(SenhaUsuario == ValidaSenha ? 1 : 0);
                 /*
@@ -34,7 +34,7 @@ namespace Business
             }
             else
             {
-                Resultado = "O e-mail inserido está incorreto, tente novamente.";
+                Resultado = "O e-mail está incorreto, tente novamente.";
             }
         }
 

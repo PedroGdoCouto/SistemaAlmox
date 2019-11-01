@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Business;
 
@@ -9,9 +10,40 @@ namespace Interface
         public Login()
         {
             InitializeComponent();
+            menuStripLogin.Renderer = new ProjectRenderer();
+            menuNovoCadastro.ForeColor = Color.White;
+            menuNovoCadastro.BackColor = Color.Black;
+            menuRecuperarSenha.ForeColor = Color.White;
+            menuRecuperarSenha.BackColor = Color.Black;
+            menuFinalizarPrograma.ForeColor = Color.White;
+            menuFinalizarPrograma.BackColor = Color.Black;
+        }
+        
+        /* Personalização de janelas */
+        private class ProjectRenderer : ToolStripProfessionalRenderer
+        {
+            public ProjectRenderer() : base(new ProjectColors()) {}
         }
 
-        // Instruções de acesso ao sistema
+        private class ProjectColors : ProfessionalColorTable
+        {
+            public override Color MenuItemBorder => Color.Empty;
+            public override Color ButtonPressedBorder => Color.Black;
+            public override Color MenuItemPressedGradientBegin => Color.DimGray;
+            public override Color MenuItemPressedGradientEnd => Color.DimGray;
+            public override Color MenuItemSelected => Color.DimGray;
+            public override Color MenuItemSelectedGradientBegin => Color.DimGray;
+            public override Color MenuItemSelectedGradientEnd => Color.DimGray;
+        }
+
+        private void menuLoginSeparator_Paint(object sender, PaintEventArgs e)
+        {
+            ToolStripSeparator separator = (ToolStripSeparator) sender;
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, separator.Width, separator.Height);
+            e.Graphics.DrawLine(new Pen(Color.White), 30, separator.Height / 2, separator.Width - 4, separator.Height / 2);
+        }
+
+        /* Funcionalidades da aplicação */
         private void btnLogin_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtEmailLogin.Text) || string.IsNullOrEmpty(txtSenhaLogin.Text))
@@ -40,7 +72,30 @@ namespace Interface
             }
         }
 
-        // Instruções de encerramento do sistema
+        private void chkExibeSenha_CheckedChanged(object sender, EventArgs e)
+        {
+            txtSenhaLogin.UseSystemPasswordChar = !chkExibeSenha.Checked;
+            /*
+            if (chkExibeSenha.Checked){
+                txtSenhaLogin.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtSenhaLogin.UseSystemPasswordChar = true;
+            }
+            */
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+        
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -49,7 +104,7 @@ namespace Interface
                 @"Deseja sair do programa?",
                 @"Encerrar aplicação",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Exclamation
+                MessageBoxIcon.Question
             );
             switch (mensagem)
             {
@@ -69,25 +124,8 @@ namespace Interface
                     break;
             }
         }
-
-        private void menuEncerraPrograma_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        // Instruções de informação do sistema
-        private void menuSobrePrograma_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-                @"Sistema de cadastro - SAEP
-Criador: Pedro Couto
-Versão: 2019.1.1",
-                @"Sobre o sistema",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-        }
-
+        
+        /* Barra de ferramentas */
         private void menuNovoCadastro_Click(object sender, EventArgs e)
         {
             txtEmailLogin.Clear();
@@ -97,25 +135,27 @@ Versão: 2019.1.1",
             Hide();
         }
 
-        private void chkExibeSenha_CheckedChanged(object sender, EventArgs e)
+        private void menuRecuperarSenha_Click(object sender, EventArgs e)
         {
-            txtSenhaLogin.UseSystemPasswordChar = !chkExibeSenha.Checked;
-            /*
-            if (chkExibeSenha.Checked){
-                txtSenhaLogin.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                txtSenhaLogin.UseSystemPasswordChar = true;
-            }
-            */
+            txtEmailLogin.Clear();
+            txtSenhaLogin.Clear();
+            Resgate interfaceResgate = new Resgate() { InterfaceInicial = this };
+            interfaceResgate.Show();
+            Hide();
         }
 
-        private void menuRecuperaSenha_Click(object sender, EventArgs e)
+        private void menuFinalizarPrograma_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void menuToolSobre_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                @"Função estará disponível em breve.",
-                @"Recuperar acesso",
+                @"Controle de almoxarifado
+Desenvolvedor: Pedro Couto
+Versão: 2019.0.2",
+                @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
