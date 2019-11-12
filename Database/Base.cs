@@ -1,99 +1,231 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Data;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
-using Npgsql;
 
 namespace Database
 {
     public class Base
     {
-        public Base(string email, string nome, string senha)
-        {
-            EmailUsuario = email;
-            NomeUsuario = nome;
-            SenhaUsuario = senha;
-        }
-        
-        public Base() {}
-        
-        public string EmailUsuario { get; set; }
-        public string NomeUsuario { get; set; }
-        public string SenhaUsuario { get; set; }
-        public string ValidaSenha { get; set; }
-        public string Resultado { get; set; }
+        private const string ConnectionString =
+            "Server=127.0.0.1; Port=5432; Database=bd_login; Username=postgres; Password=by900b1xwm;";
 
-        private string _connectionString = String.Format(
-            "Server={0}; Port={1}; Username={2}; Password={3}; Database={4};",
-            "127.0.0.1", "5432", "postgres", "by900b1xwm", "bd_login"
-        );
-
-        public void Acessar()
+        protected static DataTable BuscaTodoRegistro(string tipoBusca)
         {
-            using (NpgsqlConnection pgConnection = new NpgsqlConnection(_connectionString))
+            var dataTable = new DataTable();
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
             {
-                // Define a instrução SQL
-                string queryString = String.Format(
-                    "SELECT count(*) FROM usuarios WHERE emailUsuario = '{0}' AND senhaUsuario = md5('{1}')",
-                    EmailUsuario, SenhaUsuario);
-
-                // Semântica similar ao Ruby
-                // string queryString = $"INSERT INTO usuarios ('{Cpf}', '{Nome}', '{Telefone}')";
-                
-                // Abre a conexão com o banco
-                pgConnection.Open();
-                using (NpgsqlCommand pgCommand = new NpgsqlCommand(queryString, pgConnection))
+                try
                 {
-                    pgCommand.Prepare();
-                    using (var reader = pgCommand.ExecuteReader())
+                    pgConnection.Open();
+                    switch (tipoBusca)
                     {
-                        while (reader.Read())
-                        {
-                            Resultado = reader.GetInt32(0).ToString();
-                        }
+                        case "instituicao":
+                            var querySelect = "SELECT cnpjInstituicao, razaoSocialInstituicao FROM instituicoes";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                        case "material":
+                            querySelect = "SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                        case "usuario":
+                            querySelect = "SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario FROM usuarios";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
                     }
+                }
+                catch (NpgsqlException e)
+                {
+                    return new DataTable(e.Message);
                 }
                 pgConnection.Close();
             }
+
+            return dataTable;
         }
 
-        protected void Cadastrar(int validacao)
+        protected static DataTable BuscaUnicoRegistro(string pesquisa, string termoBusca, string tipoBusca = "")
         {
-            using (NpgsqlConnection pgConnection = new NpgsqlConnection(_connectionString))
+            var dataTable = new DataTable();
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
             {
-                string queryString = String.Format(
-                    "INSERT INTO usuarios VALUES ('{0}', '{1}', md5('{2}'))",
-                    EmailUsuario, NomeUsuario, SenhaUsuario);
-                
-                pgConnection.Open();
-                using (NpgsqlCommand pgCommand = new NpgsqlCommand(queryString, pgConnection))
+                try
                 {
-                    if (validacao == 1)
+                    pgConnection.Open();
+                    var querySelect = "";
+                    switch (termoBusca)
                     {
-                        pgCommand.Prepare();
-                        pgCommand.ExecuteNonQuery();
-                        string selectString = String.Format(
-                            "SELECT count(*) FROM usuarios WHERE emailUsuario = '{0}' AND senhaUsuario = md5('{1}')",
-                            EmailUsuario, SenhaUsuario);
-                        using (NpgsqlCommand pgSelect = new NpgsqlCommand(selectString, pgConnection))
-                        {
-                            pgSelect.Prepare();
-                            using (var reader = pgSelect.ExecuteReader())
+                        case "instituicao":
+                            querySelect =
+                                $"SELECT cnpjInstituicao, razaoSocialInstituicao FROM instituicoes WHERE cnpjInstituicao = '{pesquisa}'";
+                            
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
-                                while (reader.Read())
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                        case "material":
+                            switch (tipoBusca)
+                            {
+                                case "codigo":
+                                    querySelect =
+                                        $"SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais WHERE idMaterial::text LIKE '%{pesquisa}%'";
+                                    break;
+                                case "local":
+                                    querySelect =
+                                        $"SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais WHERE localizacaoMaterial LIKE upper('%{pesquisa}%')";
+                                    break;
+                                case "nome":
+                                    querySelect =
+                                        $"SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais WHERE nomeMaterial LIKE initcap('%{pesquisa}%')";
+                                    break;
+                            }
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                        case "usuario":
+                            querySelect =
+                                $"SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario FROM usuarios WHERE cpfUsuario = '{pesquisa}'";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+
+            return dataTable;
+        }
+
+        protected static string LoginUsuario(string[] args)
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    const string querySelect =
+                        "SELECT tipoUsuario from usuarios WHERE emailUsuario = (@email) AND senhaUsuario = crypt((@senha), senhaUsuario)";
+
+                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                    {
+                        pgSelect.Parameters.AddWithValue("email", args[0]);
+                        pgSelect.Parameters.AddWithValue("senha", args[1]);
+                        
+                        using (var reader = pgSelect.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                return reader.GetString(0);
+                            }
+                        }
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema. " + e.Message;
+                }
+                pgConnection.Close();
+            }
+
+            return "nulo";
+        }
+
+        protected static string ResgateAcesso(string[] args)
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    var querySelect =
+                        "SELECT count(*) FROM usuarios WHERE emailUsuario = (@email) AND dataNascimento = (@nascimento) AND cpfUsuario = (@cpf)";
+                    var retorno = 0;
+
+                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                    {
+                        pgSelect.Parameters.AddWithValue("email", args[0]);
+                        pgSelect.Parameters.AddWithValue("nascimento", args[1]);
+                        pgSelect.Parameters.AddWithValue("cpf", args[2]);
+                        
+                        using (var reader = pgSelect.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                retorno = reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    if (retorno == 1)
+                    {
+                        const string queryUpdate =
+                            "UPDATE usuarios SET senhaUsuario = crypt((@senha), gen_salt((@crypt), 8)) WHERE emailUsuario = (@email) AND dataNascimento = (@nascimento) AND cpfUsuario = (@cpf)";
+
+                        using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
+                        {
+                            pgUpdate.Parameters.AddWithValue("email", args[0]);
+                            pgUpdate.Parameters.AddWithValue("nascimento", args[1]);
+                            pgUpdate.Parameters.AddWithValue("cpf", args[2]);
+                            pgUpdate.Parameters.AddWithValue("senha", args[3]);
+                            pgUpdate.Parameters.AddWithValue("crypt", "bf");
+                            pgUpdate.ExecuteNonQuery();
+                            
+                            querySelect =
+                                "SELECT count(*) FROM usuarios WHERE emailUsuario = (@email) AND senhaUsuario = crypt((@senha), senhaUsuario)";
+
+                            using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                            {
+                                pgSelect.Parameters.AddWithValue("email", args[0]);
+                                pgSelect.Parameters.AddWithValue("senha", args[3]);
+
+                                using (var reader = pgSelect.ExecuteReader())
                                 {
-                                    Resultado = reader.GetInt32(0).ToString();
+                                    while (reader.Read())
+                                    {
+                                        if (reader.GetInt32(0) == 1) return "atualizado";
+                                    }
                                 }
                             }
                         }
                     }
                     else
                     {
-                        Resultado = "Senhas estão divergentes, tente novamente.";
+                        return @"nulo";
                     }
+                }
+                catch (NpgsqlException e)
+                {
+                    return @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 }
                 pgConnection.Close();
             }
+
+            return "nulo";
         }
     }
 }

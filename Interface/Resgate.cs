@@ -55,26 +55,10 @@ namespace Interface
             btnCancelar.ForeColor = Color.Red;
         }
 
+        /* Barra de ferramentas */
         private void menuFinalizarPrograma_Click(object sender, EventArgs e)
         {
             InterfaceInicial.Close();
-            Close();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            InterfaceInicial.Close();
-            Close();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            InterfaceInicial.Show();
             Close();
         }
 
@@ -83,24 +67,19 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.4",
+Versão: 2019.0.5",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
         }
 
-        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            txtEmailResgate.Clear();
-            txtNascimentoResgate.Clear();
-            txtCpfResgate.Clear();
-        }
-
+        /* Funcionalidades da aplicação */
         private void btnConfirma_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtEmailResgate.Text) || txtNascimentoResgate.Text == @"  /  /" ||
-                txtCpfResgate.Text == @"   .   .   -")
+                txtCpfResgate.Text == @"   .   .   -" || string.IsNullOrEmpty(txtSenhaResgate.Text) ||
+                string.IsNullOrEmpty(txtValidaSenha.Text))
             {
                 MessageBox.Show(
                     @"É necessário o preenchimento de todos os campos.",
@@ -111,15 +90,94 @@ Versão: 2019.0.4",
             }
             else
             {
-                MessageBox.Show(
-                    @"Seu acesso foi recuperado com sucesso.",
-                    @"Recuperação de acesso",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-                InterfaceInicial.Show();
-                Hide();
+                var usuario = new Usuario();
+                var retorno = usuario.ValidarResgate(new[]
+                {
+                    txtEmailResgate.Text, txtNascimentoResgate.Text, txtCpfResgate.Text,
+                    txtSenhaResgate.Text, txtValidaSenha.Text
+                });
+                switch (retorno)
+                {
+                    case "atualizado":
+                        MessageBox.Show(
+                            @"Sua senha foi redefinida com sucesso.",
+                            @"Validação de registro",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                        Close();
+                        break;
+                    case "divergente":
+                        MessageBox.Show(
+                            @"Senhas inseridas estão divergentes, tente novamente.",
+                            @"Dados incorretos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        break;
+                    case "invalido":
+                        MessageBox.Show(
+                            @"O e-mail inserido é inválido, tente novamente.",
+                            @"Dados incorretos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        break;
+                    case "nulo":
+                        MessageBox.Show(
+                            @"Dados inválidos, tente novamente.
+Caso o erro persista contate o administrador.",
+                            @"Dados incorretos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        break;
+                    default:
+                        MessageBox.Show(
+                            retorno,
+                            @"Erro no processamento",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        break;
+                }
             }
+        }
+
+        private void chkExibeSenha_CheckedChanged(object sender, EventArgs e)
+        {
+            txtSenhaResgate.UseSystemPasswordChar = !chkExibeSenha.Checked;
+            txtValidaSenha.UseSystemPasswordChar = !chkExibeSenha.Checked;
+        }
+        
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txtEmailResgate.Clear();
+            txtNascimentoResgate.Clear();
+            txtCpfResgate.Clear();
+            txtSenhaResgate.Clear();
+            txtValidaSenha.Clear();
+        }
+        
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+        
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            InterfaceInicial.Close();
+            Close();
+        }
+
+        private void Resgate_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            InterfaceInicial.Show();
         }
     }
 }

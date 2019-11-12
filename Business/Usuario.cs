@@ -1,57 +1,56 @@
-﻿using System.Linq;
+﻿using System.Data;
 using Database;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Business
 {
     public class Usuario : Base
     {
-        public Usuario(string email, string nome, string senha, string resultado, string validacao)
+        private string CpfUsuario { get; set; }
+        private string NomeUsuario { get; set; }
+        private string DataNascimento { get; set; }
+        private string EmailUsuario { get; set; }
+        private string SenhaUsuario { get; set; }
+        private string ValidaSenha { get; set; }
+
+        public static DataTable BuscaCompleta()
         {
-            EmailUsuario = email;
-            NomeUsuario = nome;
-            SenhaUsuario = senha;
-            ValidaSenha = validacao;
-            Resultado = resultado;
+            return BuscaTodoRegistro("usuario");
+        }
+
+        public static DataTable BuscaUnica(string termoBusca)
+        {
+            return BuscaUnicoRegistro(termoBusca, "usuario");
         }
         
-        public Usuario() {}
-
-        public void ValidaCadastro()
+        public string ValidarLogin(string[] args)
         {
-            if (EmailUsuario.Contains(".com") && EmailUsuario.Contains("@"))
+            EmailUsuario = args[0];
+            SenhaUsuario = args[1];
+            if (EmailUsuario.Contains("@") && EmailUsuario.Contains(".com"))
             {
-                Cadastrar(SenhaUsuario == ValidaSenha ? 1 : 0);
-                /*
-                if (SenhaUsuario == ValidaSenha)
-                {
-                    Cadastrar(1);
-                }
-                else
-                {
-                    Cadastrar(0);
-                }
-                */
+                return LoginUsuario(new[] {EmailUsuario, SenhaUsuario});
             }
-            else
-            {
-                Resultado = "O e-mail está incorreto, tente novamente.";
-            }
+            
+            return @"invalido";
         }
 
-        public string Retorno(string retorno)
+        public string ValidarResgate(string[] args)
         {
-            switch (retorno)
+            EmailUsuario = args[0];
+            DataNascimento = args[1];
+            CpfUsuario = args[2];
+            SenhaUsuario = args[3];
+            ValidaSenha = args[4];
+            if (EmailUsuario.Contains("@") && EmailUsuario.Contains(".com"))
             {
-                case "acesso":
-                    return Resultado == "1" ? @"Dados autenticados com sucesso!" : @"Dados incorretos, tente novamente.";
-                case "cadastro":
-                    return Resultado == "1" ? @"Usuário registrado com sucesso!" : Resultado;
-                default:
-                    break;
+                return SenhaUsuario == ValidaSenha ?
+                    ResgateAcesso(new [] {EmailUsuario, DataNascimento, CpfUsuario, SenhaUsuario}) :
+                    @"divergente";
             }
 
-            return @"Ocorreu um erro no processamento.
-Tente novamente ou contate o administrador.";
+            return @"invalido";
         }
     }
 }

@@ -46,17 +46,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cadastro.cs">
+    <Compile Include="AdministraInstituicao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cadastro.Designer.cs">
-      <DependentUpon>Cadastro.cs</DependentUpon>
+    <Compile Include="AdministraInstituicao.Designer.cs">
+      <DependentUpon>AdministraInstituicao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministraMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministraMaterial.Designer.cs">
+      <DependentUpon>AdministraMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministraUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministraUsuario.Designer.cs">
+      <DependentUpon>AdministraUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CadastroUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CadastroUsuario.Designer.cs">
+      <DependentUpon>CadastroUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PainelAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PainelAdministrador.Designer.cs">
+      <DependentUpon>PainelAdministrador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PainelUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PainelUsuario.Designer.cs">
+      <DependentUpon>PainelUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,11 +96,26 @@
     <Compile Include="Resgate.Designer.cs">
       <DependentUpon>Resgate.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Cadastro.resx">
-      <DependentUpon>Cadastro.cs</DependentUpon>
+    <EmbeddedResource Include="AdministraInstituicao.resx">
+      <DependentUpon>AdministraInstituicao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministraMaterial.resx">
+      <DependentUpon>AdministraMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministraUsuario.resx">
+      <DependentUpon>AdministraUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CadastroUsuario.resx">
+      <DependentUpon>CadastroUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PainelAdministrador.resx">
+      <DependentUpon>PainelAdministrador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PainelUsuario.resx">
+      <DependentUpon>PainelUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
