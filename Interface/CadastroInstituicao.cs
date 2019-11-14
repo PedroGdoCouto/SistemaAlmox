@@ -1,26 +1,19 @@
 ﻿using Business;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace Interface
 {
-    public sealed partial class AdministraInstituicao : Form
+    public partial class CadastroInstituicao : Form
     {
         public Form InterfaceAdministrador;
-        public AdministraInstituicao(IReadOnlyList<string> args)
+        public CadastroInstituicao()
         {
             InitializeComponent();
-            txtCnpjInstituicao.Text = args[0];
-            txtRazaoSocialInstituicao.Text = args[1];
-            txtLogradouroEndereco.Text = args[2];
-            txtNumeroEndereco.Text = args[3];
-            txtBairroEndereco.Text = args[4];
-            txtCidadeEndereco.Text = args[5];
-            cmbEstadoEndereco.SelectedIndex = cmbEstadoEndereco.FindStringExact(args[6]);
-            txtCepEndereco.Text = args[7];
-            menuStripAdministraInstituicao.Renderer = new ProjectRenderer();
+            menuStripCadastroInstituicao.Renderer = new ProjectRenderer();
+            cmbEstadoEndereco.SelectedIndex = 0;
+            txtNumeroEndereco.ResetText();
         }
         
         /* Personalização de janelas */
@@ -28,7 +21,7 @@ namespace Interface
         {
             public ProjectRenderer() : base(new ProjectColors()) {}
         }
-
+        
         private class ProjectColors : ProfessionalColorTable
         {
             public override Color MenuBorder => Color.Empty;
@@ -40,16 +33,16 @@ namespace Interface
             public override Color MenuItemSelectedGradientEnd => Color.FromArgb(255, 0, 100, 100);
         }
 
-        private void btnConfirmar_MouseEnter(object sender, EventArgs e)
+        private void btnCadastrar_MouseEnter(object sender, EventArgs e)
         {
-            btnConfirmar.FlatAppearance.BorderColor = Color.White;
-            btnConfirmar.ForeColor = Color.White;
+            btnCadastrar.FlatAppearance.BorderColor = Color.White;
+            btnCadastrar.ForeColor = Color.White;
         }
 
-        private void btnConfirmar_MouseLeave(object sender, EventArgs e)
+        private void btnCadastrar_MouseLeave(object sender, EventArgs e)
         {
-            btnConfirmar.FlatAppearance.BorderColor = Color.Green;
-            btnConfirmar.ForeColor = Color.Green;
+            btnCadastrar.FlatAppearance.BorderColor = Color.Green;
+            btnCadastrar.ForeColor = Color.Green;
         }
 
         private void btnCancelar_MouseEnter(object sender, EventArgs e)
@@ -76,72 +69,21 @@ Versão: 2019.0.6",
                 MessageBoxIcon.Information
             );
         }
-
-        /* Funcionalidades da aplicação */
-        private void linkEditarRegistro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            txtRazaoSocialInstituicao.Clear();
-            txtRazaoSocialInstituicao.Enabled = true;
-            txtLogradouroEndereco.Clear();
-            txtLogradouroEndereco.Enabled = true;
-            txtNumeroEndereco.ResetText();
-            txtNumeroEndereco.Enabled = true;
-            txtBairroEndereco.Clear();
-            txtBairroEndereco.Enabled = true;
-            txtCidadeEndereco.Clear();
-            txtCidadeEndereco.Enabled = true;
-            cmbEstadoEndereco.SelectedIndex = 0;
-            cmbEstadoEndereco.Enabled = true;
-            txtCepEndereco.Clear();
-            txtCepEndereco.Enabled = true;
-            txtCepEndereco.Mask = @"00000-000";
-            linkExcluirRegistro.Enabled = false;
-            linkEditarRegistro.Enabled = false;
-            btnConfirmar.Enabled = true;
-        }
         
-        private void linkExcluirRegistro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        /* Funcionalidades da aplicação */
+        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var mensagem =
-                MessageBox.Show(
-                    @"Deseja excluir o registro da instituição?",
-                    @"Exclusão de dados",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-            if (!mensagem.Equals(DialogResult.Yes)) return;
-            var retorno = Instituicao.ExcluirRegistro(txtCnpjInstituicao.Text);
-            switch (retorno)
-            {
-                case "excluido":
-                    MessageBox.Show(
-                        @"Instituição excluída com sucesso!",
-                        @"Exclusão de instituição",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                    Close();
-                    break;
-                case "nulo":
-                    MessageBox.Show(
-                        @"Não foi possível realizar a exclusão do registro.",
-                        @"Exclusão de instituição",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    break;
-                default:
-                    MessageBox.Show(
-                        retorno,
-                        @"Erro no processamento",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                    break;
-            }
+            txtCnpjInstituicao.Clear();
+            txtRazaoSocialInstituicao.Clear();
+            txtLogradouroEndereco.Clear();
+            txtNumeroEndereco.Text = @"1";
+            txtBairroEndereco.Clear();
+            txtCidadeEndereco.Clear();
+            cmbEstadoEndereco.SelectedIndex = 0;
+            txtCepEndereco.Clear();
         }
 
-        private void btnConfirmar_Click(object sender, EventArgs e)
+        private void btnCadastrar_Click(object sender, EventArgs e)
         {
             var cep = txtCepEndereco.Text.Replace(" ", "").Replace("-", "");
             var cnpj = txtCnpjInstituicao.Text.Replace(" ", "");
@@ -167,7 +109,7 @@ Versão: 2019.0.6",
             else
             {
                 var instituicao = new Instituicao();
-                var retorno = instituicao.AtualizarRegistro(new []
+                var retorno = instituicao.ValidarCadastro(new []
                 {
                     txtCnpjInstituicao.Text,
                     txtRazaoSocialInstituicao.Text,
@@ -180,10 +122,10 @@ Versão: 2019.0.6",
                 });
                 switch (retorno)
                 {
-                    case "atualizado":
+                    case "registrado":
                         MessageBox.Show(
-                            @"Registro da instituição atualizado com sucesso!",
-                            @"Atualização de material",
+                            @"Instituição registrada com sucesso!",
+                            @"Validação de registro",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
                         );
@@ -191,8 +133,9 @@ Versão: 2019.0.6",
                         break;
                     case "nulo":
                         MessageBox.Show(
-                            @"Não foi possível realizar a atualização do registro.",
-                            @"Atualização de material",
+                            @"Não foi possível realizar o registro, tente novamente.
+Caso o erro persista contate o administrador.",
+                            @"Dados incorretos",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning
                         );
@@ -208,7 +151,7 @@ Versão: 2019.0.6",
                 }
             }
         }
-        
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
@@ -218,13 +161,13 @@ Versão: 2019.0.6",
         {
             WindowState = FormWindowState.Minimized;
         }
-        
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void AdministraInstituicao_FormClosing(object sender, FormClosingEventArgs e)
+        private void CadastroInstituicao_FormClosing(object sender, FormClosingEventArgs e)
         {
             InterfaceAdministrador.Show();
         }

@@ -56,8 +56,6 @@ namespace Interface
             this.btnClose = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStripResgate = new System.Windows.Forms.MenuStrip();
-            this.menuToolSistema = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuFinalizarPrograma = new System.Windows.Forms.ToolStripMenuItem();
             this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.picLogo)).BeginInit();
@@ -106,7 +104,7 @@ namespace Interface
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(250, 312);
+            this.label6.Location = new System.Drawing.Point(250, 319);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(300, 23);
             this.label6.TabIndex = 0;
@@ -115,9 +113,9 @@ namespace Interface
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(250, 257);
+            this.label5.Location = new System.Drawing.Point(250, 264);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(147, 23);
+            this.label5.Size = new System.Drawing.Size(300, 23);
             this.label5.TabIndex = 0;
             this.label5.Text = "Insira a nova senha";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -125,9 +123,9 @@ namespace Interface
             // chkExibeSenha
             // 
             this.chkExibeSenha.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.chkExibeSenha.Location = new System.Drawing.Point(250, 370);
+            this.chkExibeSenha.Location = new System.Drawing.Point(250, 374);
             this.chkExibeSenha.Name = "chkExibeSenha";
-            this.chkExibeSenha.Size = new System.Drawing.Size(112, 24);
+            this.chkExibeSenha.Size = new System.Drawing.Size(112, 23);
             this.chkExibeSenha.TabIndex = 5;
             this.chkExibeSenha.Text = "Exibe senha";
             this.chkExibeSenha.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -136,7 +134,7 @@ namespace Interface
             // 
             // txtValidaSenha
             // 
-            this.txtValidaSenha.Location = new System.Drawing.Point(250, 338);
+            this.txtValidaSenha.Location = new System.Drawing.Point(250, 345);
             this.txtValidaSenha.MaxLength = 50;
             this.txtValidaSenha.Name = "txtValidaSenha";
             this.txtValidaSenha.Size = new System.Drawing.Size(300, 26);
@@ -146,7 +144,7 @@ namespace Interface
             // 
             // txtSenhaResgate
             // 
-            this.txtSenhaResgate.Location = new System.Drawing.Point(250, 283);
+            this.txtSenhaResgate.Location = new System.Drawing.Point(250, 290);
             this.txtSenhaResgate.MaxLength = 50;
             this.txtSenhaResgate.Name = "txtSenhaResgate";
             this.txtSenhaResgate.Size = new System.Drawing.Size(300, 26);
@@ -159,7 +157,7 @@ namespace Interface
             this.linkLimpeza.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkLimpeza.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLimpeza.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpeza.Location = new System.Drawing.Point(495, 370);
+            this.linkLimpeza.Location = new System.Drawing.Point(495, 374);
             this.linkLimpeza.Name = "linkLimpeza";
             this.linkLimpeza.Size = new System.Drawing.Size(55, 23);
             this.linkLimpeza.TabIndex = 6;
@@ -172,7 +170,7 @@ namespace Interface
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(403, 202);
+            this.label4.Location = new System.Drawing.Point(403, 209);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 23);
             this.label4.TabIndex = 0;
@@ -181,7 +179,7 @@ namespace Interface
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(250, 202);
+            this.label3.Location = new System.Drawing.Point(250, 209);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(147, 23);
             this.label3.TabIndex = 0;
@@ -190,7 +188,7 @@ namespace Interface
             // 
             // txtCpfResgate
             // 
-            this.txtCpfResgate.Location = new System.Drawing.Point(403, 228);
+            this.txtCpfResgate.Location = new System.Drawing.Point(403, 235);
             this.txtCpfResgate.Mask = "000,000,000-00";
             this.txtCpfResgate.Name = "txtCpfResgate";
             this.txtCpfResgate.Size = new System.Drawing.Size(147, 26);
@@ -199,7 +197,7 @@ namespace Interface
             // 
             // txtNascimentoResgate
             // 
-            this.txtNascimentoResgate.Location = new System.Drawing.Point(250, 228);
+            this.txtNascimentoResgate.Location = new System.Drawing.Point(250, 235);
             this.txtNascimentoResgate.Mask = "00/00/0000";
             this.txtNascimentoResgate.Name = "txtNascimentoResgate";
             this.txtNascimentoResgate.Size = new System.Drawing.Size(147, 26);
@@ -209,7 +207,7 @@ namespace Interface
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(250, 147);
+            this.label2.Location = new System.Drawing.Point(250, 154);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(300, 23);
             this.label2.TabIndex = 0;
@@ -218,6 +216,7 @@ namespace Interface
             // 
             // btnCancelar
             // 
+            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.ForeColor = System.Drawing.Color.Red;
@@ -233,12 +232,15 @@ namespace Interface
             // 
             // txtEmailResgate
             // 
-            this.txtEmailResgate.Location = new System.Drawing.Point(250, 173);
+            this.txtEmailResgate.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.txtEmailResgate.Location = new System.Drawing.Point(250, 180);
             this.txtEmailResgate.MaxLength = 200;
             this.txtEmailResgate.Name = "txtEmailResgate";
             this.txtEmailResgate.Size = new System.Drawing.Size(300, 26);
             this.txtEmailResgate.TabIndex = 0;
             this.txtEmailResgate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEmailResgate.KeyPress +=
+                new System.Windows.Forms.KeyPressEventHandler(this.txtEmailResgate_KeyPress);
             // 
             // btnConfirma
             // 
@@ -343,8 +345,7 @@ namespace Interface
             this.menuStripResgate.BackColor = System.Drawing.Color.Transparent;
             this.menuStripResgate.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStripResgate.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.menuStripResgate.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
-                {this.menuToolSistema, this.menuToolSobre});
+            this.menuStripResgate.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.menuToolSobre});
             this.menuStripResgate.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStripResgate.Location = new System.Drawing.Point(0, 0);
             this.menuStripResgate.Name = "menuStripResgate";
@@ -353,37 +354,21 @@ namespace Interface
             this.menuStripResgate.TabIndex = 0;
             this.menuStripResgate.Text = "menuStripResgate";
             // 
-            // menuToolSistema
-            // 
-            this.menuToolSistema.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
-                {this.menuFinalizarPrograma});
-            this.menuToolSistema.ForeColor = System.Drawing.Color.White;
-            this.menuToolSistema.Name = "menuToolSistema";
-            this.menuToolSistema.Size = new System.Drawing.Size(70, 26);
-            this.menuToolSistema.Text = "&Sistema";
-            // 
-            // menuFinalizarPrograma
-            // 
-            this.menuFinalizarPrograma.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuFinalizarPrograma.ForeColor = System.Drawing.Color.White;
-            this.menuFinalizarPrograma.Name = "menuFinalizarPrograma";
-            this.menuFinalizarPrograma.Size = new System.Drawing.Size(131, 22);
-            this.menuFinalizarPrograma.Text = "&Finalizar";
-            this.menuFinalizarPrograma.Click += new System.EventHandler(this.menuFinalizarPrograma_Click);
-            // 
             // menuToolSobre
             // 
             this.menuToolSobre.ForeColor = System.Drawing.Color.White;
             this.menuToolSobre.Name = "menuToolSobre";
             this.menuToolSobre.Size = new System.Drawing.Size(56, 26);
-            this.menuToolSobre.Text = "Sobr&e";
+            this.menuToolSobre.Text = "&Sobre";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
             // Resgate
             // 
+            this.AcceptButton = this.btnConfirma;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panelMain);
             this.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -413,8 +398,6 @@ namespace Interface
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.MenuStrip menuStripResgate;
-        private System.Windows.Forms.ToolStripMenuItem menuFinalizarPrograma;
-        private System.Windows.Forms.ToolStripMenuItem menuToolSistema;
         private System.Windows.Forms.ToolStripMenuItem menuToolSobre;
         private System.Windows.Forms.Button btnConfirma;
         private System.Windows.Forms.TextBox txtEmailResgate;

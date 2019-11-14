@@ -14,6 +14,27 @@ namespace Business
         private string SenhaUsuario { get; set; }
         private string ValidaSenha { get; set; }
 
+        public string AtualizarRegistro(string[] args, bool adm)
+        {
+            CpfUsuario = args[0];
+            NomeUsuario = args[1];
+            DataNascimento = args[2];
+            EmailUsuario = args[3];
+            SenhaUsuario = args[4];
+            ValidaSenha = args[5];
+            if (!EmailUsuario.Contains("@") || !EmailUsuario.Contains(".com")) return @"invalido";
+            if (adm)
+            {
+                return SenhaUsuario == ValidaSenha
+                    ? AtualizarDados(new [] {CpfUsuario, NomeUsuario, DataNascimento, EmailUsuario, SenhaUsuario}, "usuario", "adm")
+                    : @"divergente";
+            }
+            
+            return SenhaUsuario == ValidaSenha
+                ? AtualizarDados(new [] {CpfUsuario, NomeUsuario, DataNascimento, EmailUsuario, SenhaUsuario}, "usuario", "usuario")
+                : @"divergente";
+        }
+
         public static DataTable BuscaCompleta()
         {
             return BuscaTodoRegistro("usuario");
@@ -22,6 +43,32 @@ namespace Business
         public static DataTable BuscaUnica(string termoBusca)
         {
             return BuscaUnicoRegistro(termoBusca, "usuario");
+        }
+
+        public static string ExcluirRegistro(string cpf)
+        {
+            return ExcluirDados(cpf, "usuario");
+        }
+
+        public string ValidarCadastro(string[] args, bool adm)
+        {
+            CpfUsuario = args[0];
+            NomeUsuario = args[1];
+            DataNascimento = args[2];
+            EmailUsuario = args[3];
+            SenhaUsuario = args[4];
+            ValidaSenha = args[5];
+            if (!EmailUsuario.Contains("@") || !EmailUsuario.Contains(".com")) return @"invalido";
+            if (adm)
+            {
+                return SenhaUsuario == ValidaSenha
+                    ? CadastrarDados(new [] {CpfUsuario, NomeUsuario, DataNascimento, EmailUsuario, SenhaUsuario}, "usuario", "adm")
+                    : @"divergente";
+            }
+            
+            return SenhaUsuario == ValidaSenha
+                    ? CadastrarDados(new [] {CpfUsuario, NomeUsuario, DataNascimento, EmailUsuario, SenhaUsuario}, "usuario", "usuario")
+                    : @"divergente";
         }
         
         public string ValidarLogin(string[] args)
@@ -45,9 +92,9 @@ namespace Business
             ValidaSenha = args[4];
             if (EmailUsuario.Contains("@") && EmailUsuario.Contains(".com"))
             {
-                return SenhaUsuario == ValidaSenha ?
-                    ResgateAcesso(new [] {EmailUsuario, DataNascimento, CpfUsuario, SenhaUsuario}) :
-                    @"divergente";
+                return SenhaUsuario == ValidaSenha
+                    ? ResgateAcesso(new[] {EmailUsuario, DataNascimento, CpfUsuario, SenhaUsuario})
+                    : @"divergente";
             }
 
             return @"invalido";

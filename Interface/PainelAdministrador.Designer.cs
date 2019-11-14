@@ -45,15 +45,17 @@ namespace Interface
             this.dataGridInstituicao = new System.Windows.Forms.DataGridView();
             this.colCnpjInstituicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRazaoSocialInstituicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEnderecoInstituicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabMaterial = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.linkLimpezaMaterial = new System.Windows.Forms.LinkLabel();
             this.txtPesquisaMaterial = new System.Windows.Forms.TextBox();
             this.btnPesquisarMaterial = new System.Windows.Forms.Button();
             this.dataGridMaterial = new System.Windows.Forms.DataGridView();
+            this.colIdMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNomeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescricaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colQuantidadeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescricaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLocalizacaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabUsuario = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,6 +66,7 @@ namespace Interface
             this.colCpfUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNomeUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEmailUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNascimentoUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.panelTop = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -71,14 +74,14 @@ namespace Interface
             this.btnClose = new System.Windows.Forms.Button();
             this.menuStripAdministrador = new System.Windows.Forms.MenuStrip();
             this.menuToolSistema = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuHistorico = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuEncerraSessao = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCadastro = new System.Windows.Forms.ToolStripMenuItem();
             this.submenuCadastrarInstituicao = new System.Windows.Forms.ToolStripMenuItem();
             this.submenuCadastrarMaterial = new System.Windows.Forms.ToolStripMenuItem();
             this.submenuCadastrarUsuario = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHistorico = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSeparatorAdministrador = new System.Windows.Forms.ToolStripSeparator();
+            this.menuEncerraSessao = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.tabControlAdministrador.SuspendLayout();
@@ -157,9 +160,9 @@ namespace Interface
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(458, 33);
+            this.label3.Location = new System.Drawing.Point(458, 36);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(192, 26);
+            this.label3.Size = new System.Drawing.Size(192, 23);
             this.label3.TabIndex = 0;
             this.label3.Text = "CNPJ da instituição";
             this.label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -214,7 +217,7 @@ namespace Interface
             this.dataGridInstituicao.ColumnHeadersHeightSizeMode =
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridInstituicao.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
-                {this.colCnpjInstituicao, this.colRazaoSocialInstituicao});
+                {this.colCnpjInstituicao, this.colRazaoSocialInstituicao, this.colEnderecoInstituicao});
             this.dataGridInstituicao.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridInstituicao.Location = new System.Drawing.Point(50, 94);
             this.dataGridInstituicao.Name = "dataGridInstituicao";
@@ -248,6 +251,17 @@ namespace Interface
             this.colRazaoSocialInstituicao.ReadOnly = true;
             this.colRazaoSocialInstituicao.Width = 413;
             // 
+            // colEnderecoInstituicao
+            // 
+            this.colEnderecoInstituicao.DataPropertyName = "enderecoInstituicao";
+            this.colEnderecoInstituicao.HeaderText = "Endereço";
+            this.colEnderecoInstituicao.MaxInputLength = 200;
+            this.colEnderecoInstituicao.MinimumWidth = 573;
+            this.colEnderecoInstituicao.Name = "colEnderecoInstituicao";
+            this.colEnderecoInstituicao.ReadOnly = true;
+            this.colEnderecoInstituicao.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colEnderecoInstituicao.Width = 573;
+            // 
             // tabMaterial
             // 
             this.tabMaterial.Controls.Add(this.label4);
@@ -267,9 +281,9 @@ namespace Interface
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(458, 33);
+            this.label4.Location = new System.Drawing.Point(458, 36);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(192, 26);
+            this.label4.Size = new System.Drawing.Size(192, 23);
             this.label4.TabIndex = 0;
             this.label4.Text = "Nome do material";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -325,7 +339,8 @@ namespace Interface
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMaterial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
             {
-                this.colNomeMaterial, this.colDescricaoMaterial, this.colQuantidadeMaterial, this.colLocalizacaoMaterial
+                this.colIdMaterial, this.colNomeMaterial, this.colQuantidadeMaterial, this.colDescricaoMaterial,
+                this.colLocalizacaoMaterial
             });
             this.dataGridMaterial.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridMaterial.Location = new System.Drawing.Point(50, 94);
@@ -340,38 +355,49 @@ namespace Interface
             this.dataGridMaterial.CellContentDoubleClick +=
                 new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridMaterial_CellContentDoubleClick);
             // 
+            // colIdMaterial
+            // 
+            this.colIdMaterial.DataPropertyName = "idMaterial";
+            this.colIdMaterial.HeaderText = "ID";
+            this.colIdMaterial.MaxInputLength = 10;
+            this.colIdMaterial.MinimumWidth = 45;
+            this.colIdMaterial.Name = "colIdMaterial";
+            this.colIdMaterial.ReadOnly = true;
+            this.colIdMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colIdMaterial.Width = 45;
+            // 
             // colNomeMaterial
             // 
             this.colNomeMaterial.DataPropertyName = "nomeMaterial";
             this.colNomeMaterial.HeaderText = "Nome";
             this.colNomeMaterial.MaxInputLength = 200;
-            this.colNomeMaterial.MinimumWidth = 250;
+            this.colNomeMaterial.MinimumWidth = 430;
             this.colNomeMaterial.Name = "colNomeMaterial";
             this.colNomeMaterial.ReadOnly = true;
             this.colNomeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colNomeMaterial.Width = 250;
+            this.colNomeMaterial.Width = 430;
+            // 
+            // colQuantidadeMaterial
+            // 
+            this.colQuantidadeMaterial.DataPropertyName = "quantidadeMaterial";
+            this.colQuantidadeMaterial.HeaderText = "Quantidade";
+            this.colQuantidadeMaterial.MaxInputLength = 5;
+            this.colQuantidadeMaterial.MinimumWidth = 98;
+            this.colQuantidadeMaterial.Name = "colQuantidadeMaterial";
+            this.colQuantidadeMaterial.ReadOnly = true;
+            this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colQuantidadeMaterial.Width = 98;
             // 
             // colDescricaoMaterial
             // 
             this.colDescricaoMaterial.DataPropertyName = "descricaoMaterial";
             this.colDescricaoMaterial.HeaderText = "Descrição";
-            this.colDescricaoMaterial.MaxInputLength = 50;
-            this.colDescricaoMaterial.MinimumWidth = 160;
+            this.colDescricaoMaterial.MaxInputLength = 200;
+            this.colDescricaoMaterial.MinimumWidth = 475;
             this.colDescricaoMaterial.Name = "colDescricaoMaterial";
             this.colDescricaoMaterial.ReadOnly = true;
             this.colDescricaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colDescricaoMaterial.Width = 160;
-            // 
-            // colQuantidadeMaterial
-            // 
-            this.colQuantidadeMaterial.DataPropertyName = "quantidadeMaterial";
-            this.colQuantidadeMaterial.HeaderText = "Quant.";
-            this.colQuantidadeMaterial.MaxInputLength = 5;
-            this.colQuantidadeMaterial.MinimumWidth = 65;
-            this.colQuantidadeMaterial.Name = "colQuantidadeMaterial";
-            this.colQuantidadeMaterial.ReadOnly = true;
-            this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colQuantidadeMaterial.Width = 65;
+            this.colDescricaoMaterial.Width = 475;
             // 
             // colLocalizacaoMaterial
             // 
@@ -403,9 +429,9 @@ namespace Interface
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(458, 33);
+            this.label5.Location = new System.Drawing.Point(458, 36);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(192, 26);
+            this.label5.Size = new System.Drawing.Size(192, 23);
             this.label5.TabIndex = 0;
             this.label5.Text = "CPF do usuário";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -460,7 +486,7 @@ namespace Interface
             this.dataGridUsuario.ColumnHeadersHeightSizeMode =
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
-                {this.colCpfUsuario, this.colNomeUsuario, this.colEmailUsuario});
+                {this.colCpfUsuario, this.colNomeUsuario, this.colEmailUsuario, this.colNascimentoUsuario});
             this.dataGridUsuario.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridUsuario.Location = new System.Drawing.Point(50, 94);
             this.dataGridUsuario.Name = "dataGridUsuario";
@@ -487,25 +513,35 @@ namespace Interface
             // 
             // colNomeUsuario
             // 
-            this.colNomeUsuario.DataPropertyName = "substring";
+            this.colNomeUsuario.DataPropertyName = "nomeUsuario";
             this.colNomeUsuario.HeaderText = "Usuário";
             this.colNomeUsuario.MaxInputLength = 200;
-            this.colNomeUsuario.MinimumWidth = 130;
+            this.colNomeUsuario.MinimumWidth = 443;
             this.colNomeUsuario.Name = "colNomeUsuario";
             this.colNomeUsuario.ReadOnly = true;
             this.colNomeUsuario.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colNomeUsuario.Width = 130;
+            this.colNomeUsuario.Width = 443;
             // 
             // colEmailUsuario
             // 
             this.colEmailUsuario.DataPropertyName = "emailUsuario";
             this.colEmailUsuario.HeaderText = "E-mail registrado";
             this.colEmailUsuario.MaxInputLength = 200;
-            this.colEmailUsuario.MinimumWidth = 313;
+            this.colEmailUsuario.MinimumWidth = 573;
             this.colEmailUsuario.Name = "colEmailUsuario";
             this.colEmailUsuario.ReadOnly = true;
             this.colEmailUsuario.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colEmailUsuario.Width = 313;
+            this.colEmailUsuario.Width = 573;
+            // 
+            // colNascimentoUsuario
+            // 
+            this.colNascimentoUsuario.DataPropertyName = "dataNascimento";
+            this.colNascimentoUsuario.HeaderText = "Data de nascimento";
+            this.colNascimentoUsuario.MaxInputLength = 15;
+            this.colNascimentoUsuario.MinimumWidth = 100;
+            this.colNascimentoUsuario.Name = "colNascimentoUsuario";
+            this.colNascimentoUsuario.ReadOnly = true;
+            this.colNascimentoUsuario.Visible = false;
             // 
             // picLogo
             // 
@@ -566,6 +602,7 @@ namespace Interface
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
@@ -606,6 +643,43 @@ namespace Interface
             this.menuToolSistema.Size = new System.Drawing.Size(70, 26);
             this.menuToolSistema.Text = "&Sistema";
             // 
+            // menuCadastro
+            // 
+            this.menuCadastro.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.menuCadastro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
+                {this.submenuCadastrarInstituicao, this.submenuCadastrarMaterial, this.submenuCadastrarUsuario});
+            this.menuCadastro.ForeColor = System.Drawing.Color.White;
+            this.menuCadastro.Name = "menuCadastro";
+            this.menuCadastro.Size = new System.Drawing.Size(176, 22);
+            this.menuCadastro.Text = "&Cadastro";
+            // 
+            // submenuCadastrarInstituicao
+            // 
+            this.submenuCadastrarInstituicao.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.submenuCadastrarInstituicao.ForeColor = System.Drawing.Color.White;
+            this.submenuCadastrarInstituicao.Name = "submenuCadastrarInstituicao";
+            this.submenuCadastrarInstituicao.Size = new System.Drawing.Size(144, 22);
+            this.submenuCadastrarInstituicao.Text = "&Instituição";
+            this.submenuCadastrarInstituicao.Click += new System.EventHandler(this.submenuCadastrarInstituicao_Click);
+            // 
+            // submenuCadastrarMaterial
+            // 
+            this.submenuCadastrarMaterial.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.submenuCadastrarMaterial.ForeColor = System.Drawing.Color.White;
+            this.submenuCadastrarMaterial.Name = "submenuCadastrarMaterial";
+            this.submenuCadastrarMaterial.Size = new System.Drawing.Size(144, 22);
+            this.submenuCadastrarMaterial.Text = "&Material";
+            this.submenuCadastrarMaterial.Click += new System.EventHandler(this.submenuCadastrarMaterial_Click);
+            // 
+            // submenuCadastrarUsuario
+            // 
+            this.submenuCadastrarUsuario.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.submenuCadastrarUsuario.ForeColor = System.Drawing.Color.White;
+            this.submenuCadastrarUsuario.Name = "submenuCadastrarUsuario";
+            this.submenuCadastrarUsuario.Size = new System.Drawing.Size(144, 22);
+            this.submenuCadastrarUsuario.Text = "&Usuário";
+            this.submenuCadastrarUsuario.Click += new System.EventHandler(this.submenuCadastrarUsuario_Click);
+            // 
             // menuHistorico
             // 
             this.menuHistorico.BackColor = System.Drawing.Color.DarkSlateGray;
@@ -613,6 +687,15 @@ namespace Interface
             this.menuHistorico.Name = "menuHistorico";
             this.menuHistorico.Size = new System.Drawing.Size(176, 22);
             this.menuHistorico.Text = "&Histórico";
+            // 
+            // menuSeparatorAdministrador
+            // 
+            this.menuSeparatorAdministrador.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.menuSeparatorAdministrador.ForeColor = System.Drawing.Color.Teal;
+            this.menuSeparatorAdministrador.Name = "menuSeparatorAdministrador";
+            this.menuSeparatorAdministrador.Size = new System.Drawing.Size(173, 6);
+            this.menuSeparatorAdministrador.Paint +=
+                new System.Windows.Forms.PaintEventHandler(this.menuSeparatorAdministrador_Paint);
             // 
             // menuEncerraSessao
             // 
@@ -631,55 +714,12 @@ namespace Interface
             this.menuToolSobre.Text = "Sobr&e";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
-            // menuCadastro
-            // 
-            this.menuCadastro.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuCadastro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
-                {this.submenuCadastrarInstituicao, this.submenuCadastrarMaterial, this.submenuCadastrarUsuario});
-            this.menuCadastro.ForeColor = System.Drawing.Color.White;
-            this.menuCadastro.Name = "menuCadastro";
-            this.menuCadastro.Size = new System.Drawing.Size(176, 22);
-            this.menuCadastro.Text = "&Cadastro";
-            // 
-            // submenuCadastrarInstituicao
-            // 
-            this.submenuCadastrarInstituicao.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.submenuCadastrarInstituicao.ForeColor = System.Drawing.Color.White;
-            this.submenuCadastrarInstituicao.Name = "submenuCadastrarInstituicao";
-            this.submenuCadastrarInstituicao.Size = new System.Drawing.Size(152, 22);
-            this.submenuCadastrarInstituicao.Text = "&Instituição";
-            // 
-            // submenuCadastrarMaterial
-            // 
-            this.submenuCadastrarMaterial.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.submenuCadastrarMaterial.ForeColor = System.Drawing.Color.White;
-            this.submenuCadastrarMaterial.Name = "submenuCadastrarMaterial";
-            this.submenuCadastrarMaterial.Size = new System.Drawing.Size(152, 22);
-            this.submenuCadastrarMaterial.Text = "&Material";
-            // 
-            // submenuCadastrarUsuario
-            // 
-            this.submenuCadastrarUsuario.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.submenuCadastrarUsuario.ForeColor = System.Drawing.Color.White;
-            this.submenuCadastrarUsuario.Name = "submenuCadastrarUsuario";
-            this.submenuCadastrarUsuario.Size = new System.Drawing.Size(152, 22);
-            this.submenuCadastrarUsuario.Text = "&Usuário";
-            this.submenuCadastrarUsuario.Click += new System.EventHandler(this.submenuCadastrarUsuario_Click);
-            // 
-            // menuSeparatorAdministrador
-            // 
-            this.menuSeparatorAdministrador.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuSeparatorAdministrador.ForeColor = System.Drawing.Color.Teal;
-            this.menuSeparatorAdministrador.Name = "menuSeparatorAdministrador";
-            this.menuSeparatorAdministrador.Size = new System.Drawing.Size(173, 6);
-            this.menuSeparatorAdministrador.Paint +=
-                new System.Windows.Forms.PaintEventHandler(this.menuSeparatorAdministrador_Paint);
-            // 
             // PainelAdministrador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panelMain);
             this.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -690,6 +730,7 @@ namespace Interface
             this.Name = "PainelAdministrador";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PainelAdministrador";
+            this.Activated += new System.EventHandler(this.PainelAdministrador_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PainelAdministrador_FormClosing);
             this.panelMain.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
@@ -759,5 +800,8 @@ namespace Interface
         private System.Windows.Forms.ToolStripMenuItem submenuCadastrarInstituicao;
         private System.Windows.Forms.ToolStripMenuItem menuCadastro;
         private System.Windows.Forms.ToolStripSeparator menuSeparatorAdministrador;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIdMaterial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNascimentoUsuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEnderecoInstituicao;
     }
 }

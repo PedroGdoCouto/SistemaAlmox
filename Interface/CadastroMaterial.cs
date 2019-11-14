@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Business;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Business;
 
 namespace Interface
 {
-    public sealed partial class Resgate : Form
+    public sealed partial class CadastroMaterial : Form
     {
-        public Form InterfaceInicial;
-        public Resgate()
+        public Form InterfaceAdministrador;
+        public CadastroMaterial()
         {
             InitializeComponent();
-            menuStripResgate.Renderer = new ProjectRenderer();
+            menuStripCadastroMaterial.Renderer = new ProjectRenderer();
         }
         
         /* Personalização de janelas */
@@ -19,7 +19,7 @@ namespace Interface
         {
             public ProjectRenderer() : base(new ProjectColors()) {}
         }
-
+        
         private class ProjectColors : ProfessionalColorTable
         {
             public override Color MenuBorder => Color.Empty;
@@ -31,16 +31,16 @@ namespace Interface
             public override Color MenuItemSelectedGradientEnd => Color.FromArgb(255, 0, 100, 100);
         }
 
-        private void btnConfirma_MouseEnter(object sender, EventArgs e)
+        private void btnCadastrar_MouseEnter(object sender, EventArgs e)
         {
-            btnConfirma.FlatAppearance.BorderColor = Color.White;
-            btnConfirma.ForeColor = Color.White;
+            btnCadastrar.FlatAppearance.BorderColor = Color.White;
+            btnCadastrar.ForeColor = Color.White;
         }
 
-        private void btnConfirma_MouseLeave(object sender, EventArgs e)
+        private void btnCadastrar_MouseLeave(object sender, EventArgs e)
         {
-            btnConfirma.FlatAppearance.BorderColor = Color.Green;
-            btnConfirma.ForeColor = Color.Green;
+            btnCadastrar.FlatAppearance.BorderColor = Color.Green;
+            btnCadastrar.ForeColor = Color.Green;
         }
 
         private void btnCancelar_MouseEnter(object sender, EventArgs e)
@@ -67,19 +67,25 @@ Versão: 2019.0.6",
                 MessageBoxIcon.Information
             );
         }
-
+        
         /* Funcionalidades da aplicação */
-        private void txtEmailResgate_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtLocalizacaoMaterial_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = e.KeyChar == (char) Keys.Space;
         }
-        
-        private void btnConfirma_Click(object sender, EventArgs e)
+
+        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var cpf = txtCpfResgate.Text.Replace(" ", "");
-            var nascimento = txtNascimentoResgate.Text.Replace(" ", "");
-            if (string.IsNullOrEmpty(txtEmailResgate.Text) || txtNascimentoResgate.Text == @"  /  /" ||
-                string.IsNullOrEmpty(txtValidaSenha.Text))
+            txtNomeMaterial.Clear();
+            txtDescricaoMaterial.Clear();
+            txtQuantidadeMaterial.Text = @"1";
+            txtLocalizacaoMaterial.Clear();
+        }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNomeMaterial.Text) || string.IsNullOrEmpty(txtDescricaoMaterial.Text) ||
+                string.IsNullOrEmpty(txtQuantidadeMaterial.Text) || string.IsNullOrEmpty(txtLocalizacaoMaterial.Text))
             {
                 MessageBox.Show(
                     @"É necessário o preenchimento de todos os campos.",
@@ -88,53 +94,30 @@ Versão: 2019.0.6",
                     MessageBoxIcon.Warning
                 );
             }
-            else if (nascimento.Length < 10 || cpf.Length < 14)
-            {
-                MessageBox.Show(
-                    @"Data de nascimento e/ou CPF inválidos.",
-                    @"Preenchimento obrigatório",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-            }
             else
             {
-                var usuario = new Usuario();
-                var retorno = usuario.ValidarResgate(new[]
+                var material = new Material();
+                var retorno = material.ValidarCadastro(new []
                 {
-                    txtEmailResgate.Text, txtNascimentoResgate.Text, txtCpfResgate.Text,
-                    txtSenhaResgate.Text, txtValidaSenha.Text
+                    txtNomeMaterial.Text,
+                    txtDescricaoMaterial.Text,
+                    txtQuantidadeMaterial.Text,
+                    txtLocalizacaoMaterial.Text
                 });
                 switch (retorno)
                 {
-                    case "atualizado":
+                    case "registrado":
                         MessageBox.Show(
-                            @"Sua senha foi redefinida com sucesso.",
+                            @"Material registrado com sucesso!",
                             @"Validação de registro",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
                         );
                         Close();
                         break;
-                    case "divergente":
-                        MessageBox.Show(
-                            @"Senhas inseridas estão divergentes, tente novamente.",
-                            @"Dados incorretos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                        break;
-                    case "invalido":
-                        MessageBox.Show(
-                            @"O e-mail inserido é inválido, tente novamente.",
-                            @"Dados incorretos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                        break;
                     case "nulo":
                         MessageBox.Show(
-                            @"Dados inválidos, tente novamente.
+                            @"Não foi possível realizar o registro, tente novamente.
 Caso o erro persista contate o administrador.",
                             @"Dados incorretos",
                             MessageBoxButtons.OK,
@@ -153,40 +136,24 @@ Caso o erro persista contate o administrador.",
             }
         }
 
-        private void chkExibeSenha_CheckedChanged(object sender, EventArgs e)
-        {
-            txtSenhaResgate.UseSystemPasswordChar = !chkExibeSenha.Checked;
-            txtValidaSenha.UseSystemPasswordChar = !chkExibeSenha.Checked;
-        }
-        
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            txtEmailResgate.Clear();
-            txtNascimentoResgate.Clear();
-            txtCpfResgate.Clear();
-            txtSenhaResgate.Clear();
-            txtValidaSenha.Clear();
-        }
-        
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
-        
+
         private void btnClose_Click(object sender, EventArgs e)
         {
-            InterfaceInicial.Close();
             Close();
         }
 
-        private void Resgate_FormClosing(object sender, FormClosingEventArgs e)
+        private void CadastroMaterial_FormClosing(object sender, FormClosingEventArgs e)
         {
-            InterfaceInicial.Show();
+            InterfaceAdministrador.Show();
         }
     }
 }

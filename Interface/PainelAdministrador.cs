@@ -1,5 +1,7 @@
 ﻿using Business;
 using System;
+using System.Collections;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,9 +14,6 @@ namespace Interface
         {
             InitializeComponent();
             menuStripAdministrador.Renderer = new ProjectRenderer();
-            dataGridInstituicao.DataSource = Instituicao.BuscaCompleta();
-            dataGridMaterial.DataSource = Material.BuscaCompleta();
-            dataGridUsuario.DataSource = Usuario.BuscaCompleta();
         }
         
         /* Personalização de janelas */
@@ -42,9 +41,23 @@ namespace Interface
         }
 
         /* Barra de ferramentas */
+        private void submenuCadastrarInstituicao_Click(object sender, EventArgs e)
+        {
+            var interfaceCadastroInstituicao = new CadastroInstituicao {InterfaceAdministrador = this};
+            interfaceCadastroInstituicao.Show();
+            Hide();
+        }
+
+        private void submenuCadastrarMaterial_Click(object sender, EventArgs e)
+        {
+            var interfaceCadastroMaterial = new CadastroMaterial {InterfaceAdministrador = this};
+            interfaceCadastroMaterial.Show();
+            Hide();
+        }
+        
         private void submenuCadastrarUsuario_Click(object sender, EventArgs e)
         {
-            var interfaceCadastroUsuario = new CadastroUsuario { InterfaceAdministrador = this };
+            var interfaceCadastroUsuario = new CadastroUsuario {InterfaceAdministrador = this};
             interfaceCadastroUsuario.Show();
             Hide();
         }
@@ -59,7 +72,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.5",
+Versão: 2019.0.6",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -67,6 +80,12 @@ Versão: 2019.0.5",
         }
 
         /* Funcionalidades da aplicação */
+        private void PainelAdministrador_Activated(object sender, EventArgs e)
+        {
+            dataGridInstituicao.DataSource = Instituicao.BuscaCompleta();
+            dataGridMaterial.DataSource = Material.BuscaCompleta();
+            dataGridUsuario.DataSource = Usuario.BuscaCompleta();
+        }
         
         /* Aba instituição */
         private void btnPesquisarInstituicao_Click(object sender, EventArgs e)
@@ -94,8 +113,17 @@ Versão: 2019.0.5",
 
         private void dataGridInstituicao_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var interfaceAdministraInstituicao = new AdministraInstituicao();
+            var endereco = dataGridInstituicao.Rows[e.RowIndex].Cells["colEnderecoInstituicao"].Value.ToString()
+                .Split('-');
+            endereco[4] = endereco[4].Replace(" ", "");
+            var interfaceAdministraInstituicao = new AdministraInstituicao(new []
+            {
+                dataGridInstituicao.Rows[e.RowIndex].Cells["colCnpjInstituicao"].Value.ToString(),
+                dataGridInstituicao.Rows[e.RowIndex].Cells["colRazaoSocialInstituicao"].Value.ToString(),
+                endereco[0], endereco[1], endereco[2], endereco[3], endereco[4], endereco[5]
+            }) {InterfaceAdministrador = this};
             interfaceAdministraInstituicao.Show();
+            Hide();
         }
         
         /* Aba material */
@@ -124,14 +152,22 @@ Versão: 2019.0.5",
 
         private void dataGridMaterial_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var interfaceAdministraMaterial = new AdministraMaterial();
+            var interfaceAdministraMaterial = new AdministraMaterial(new []
+            {
+                dataGridMaterial.Rows[e.RowIndex].Cells["colIdMaterial"].Value.ToString(),
+                dataGridMaterial.Rows[e.RowIndex].Cells["colNomeMaterial"].Value.ToString(),
+                dataGridMaterial.Rows[e.RowIndex].Cells["colDescricaoMaterial"].Value.ToString(),
+                dataGridMaterial.Rows[e.RowIndex].Cells["colQuantidadeMaterial"].Value.ToString(),
+                dataGridMaterial.Rows[e.RowIndex].Cells["colLocalizacaoMaterial"].Value.ToString()
+            }) {InterfaceAdministrador = this};
             interfaceAdministraMaterial.Show();
+            Hide();
         }
 
         /* Aba usuário */
         private void btnPesquisarUsuario_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtPesquisaUsuario.Text))
+            if (txtPesquisaUsuario.Text == @"   .   .   -")
             {
                 MessageBox.Show(
                     @"É necessário o preenchimento do campo.",
@@ -154,8 +190,15 @@ Versão: 2019.0.5",
 
         private void dataGridUsuario_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var interfaceAdministraUsuario = new AdministraUsuario();
+            var interfaceAdministraUsuario = new AdministraUsuario(new []
+            {
+                dataGridUsuario.Rows[e.RowIndex].Cells["colCpfUsuario"].Value.ToString(),
+                dataGridUsuario.Rows[e.RowIndex].Cells["colNomeUsuario"].Value.ToString(),
+                dataGridUsuario.Rows[e.RowIndex].Cells["colEmailUsuario"].Value.ToString(),
+                dataGridUsuario.Rows[e.RowIndex].Cells["colNascimentoUsuario"].Value.ToString()
+            }) {InterfaceAdministrador = this};
             interfaceAdministraUsuario.Show();
+            Hide();
         }
         
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -171,12 +214,13 @@ Versão: 2019.0.5",
         private void PainelAdministrador_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
-            var mensagem = MessageBox.Show(
-                @"Deseja sair do seu acesso?",
-                @"Encerrar sessão",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            var mensagem =
+                MessageBox.Show(
+                    @"Deseja sair do seu acesso?", 
+                    @"Encerrar sessão", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question
+                );
             e.Cancel = mensagem != DialogResult.Yes;
             if (mensagem == DialogResult.No) return;
             InterfaceInicial.Show();

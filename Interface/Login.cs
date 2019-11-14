@@ -52,17 +52,12 @@ namespace Interface
         }
         
         /* Barra de ferramentas */
-        private void menuFinalizarPrograma_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void menuToolSobre_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.5",
+Versão: 2019.0.6",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -70,6 +65,11 @@ Versão: 2019.0.5",
         }
 
         /* Funcionalidades da aplicação */
+        private void txtEmailLogin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = e.KeyChar == (char) Keys.Space;
+        }
+        
         private void btnLogin_Click(object sender, EventArgs e)
         {
             var interfaceAdministrador = new PainelAdministrador {InterfaceInicial = this};
@@ -88,7 +88,8 @@ Versão: 2019.0.5",
             else
             {
                 var usuario = new Usuario();
-                switch (usuario.ValidarLogin(new[] {txtEmailLogin.Text, txtSenhaLogin.Text}))
+                var retorno = usuario.ValidarLogin(new[] {txtEmailLogin.Text, txtSenhaLogin.Text});
+                switch (retorno)
                 {
                     case "adm":
                         txtEmailLogin.Clear();
@@ -122,7 +123,7 @@ Versão: 2019.0.5",
                         break;
                     default:
                         MessageBox.Show(
-                            usuario.ValidarLogin(new []{txtEmailLogin.Text, txtSenhaLogin.Text}),
+                            retorno,
                             @"Erro no processamento",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
@@ -169,12 +170,13 @@ Versão: 2019.0.5",
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
-            var mensagem = MessageBox.Show(
-                @"Deseja sair do programa?",
-                @"Encerrar aplicação",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            var mensagem =
+                MessageBox.Show(
+                    @"Deseja sair do programa?",
+                    @"Encerrar aplicação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
             e.Cancel = mensagem != DialogResult.Yes;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Business;
 
 namespace Interface
 {
@@ -10,25 +11,25 @@ namespace Interface
         public CadastroUsuario()
         {
             InitializeComponent();
-            menuStripCadastro.Renderer = new ProjectRenderer();
+            menuStripCadastroUsuario.Renderer = new ProjectRenderer();
         }
         
         /* Personalização de janelas */
-                private class ProjectRenderer : ToolStripProfessionalRenderer
-                {
-                    public ProjectRenderer() : base(new ProjectColors()) {}
-                }
+        private class ProjectRenderer : ToolStripProfessionalRenderer
+        {
+            public ProjectRenderer() : base(new ProjectColors()) {}
+        }
         
-                private class ProjectColors : ProfessionalColorTable
-                {
-                    public override Color MenuBorder => Color.Empty;
-                    public override Color MenuItemBorder => Color.Empty;
-                    public override Color MenuItemPressedGradientBegin => Color.Transparent;
-                    public override Color MenuItemPressedGradientEnd => Color.FromArgb(255, 0, 100, 100);
-                    public override Color MenuItemSelected => Color.FromArgb(255, 0, 100, 100);
-                    public override Color MenuItemSelectedGradientBegin => Color.Transparent;
-                    public override Color MenuItemSelectedGradientEnd => Color.FromArgb(255, 0, 100, 100);
-                }
+        private class ProjectColors : ProfessionalColorTable
+        {
+            public override Color MenuBorder => Color.Empty;
+            public override Color MenuItemBorder => Color.Empty;
+            public override Color MenuItemPressedGradientBegin => Color.Transparent;
+            public override Color MenuItemPressedGradientEnd => Color.FromArgb(255, 0, 100, 100);
+            public override Color MenuItemSelected => Color.FromArgb(255, 0, 100, 100);
+            public override Color MenuItemSelectedGradientBegin => Color.Transparent;
+            public override Color MenuItemSelectedGradientEnd => Color.FromArgb(255, 0, 100, 100);
+        }
 
         private void btnCadastrar_MouseEnter(object sender, EventArgs e)
         {
@@ -60,7 +61,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.5",
+Versão: 2019.0.6",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -68,11 +69,17 @@ Versão: 2019.0.5",
         }
         
         /* Funcionalidades da aplicação */
+        private void txtEmailCadastro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = e.KeyChar == (char) Keys.Space;
+        }
+        
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtEmailCadastro.Text) || string.IsNullOrEmpty(txtNomeCadastro.Text) ||
-                txtNascimentoCadastro.Text == @"  /  /" || txtCpfCadastro.Text == @"   .   .   -" ||
-                string.IsNullOrEmpty(txtSenhaCadastro.Text) || string.IsNullOrEmpty(txtValidaSenha.Text))
+            var cpf = txtCpfUsuario.Text.Replace(" ", "");
+            var nascimento = txtNascimentoUsuario.Text.Replace(" ", "");
+            if (string.IsNullOrEmpty(txtEmailUsuario.Text) || string.IsNullOrEmpty(txtNomeUsuario.Text) ||
+                string.IsNullOrEmpty(txtSenhaUsuario.Text) || string.IsNullOrEmpty(txtValidaSenha.Text))
             {
                 MessageBox.Show(
                     @"É necessário o preenchimento de todos os campos.",
@@ -81,9 +88,67 @@ Versão: 2019.0.5",
                     MessageBoxIcon.Warning
                 );
             }
+            else if (nascimento.Length < 10 || cpf.Length < 14)
+            {
+                MessageBox.Show(
+                    @"Data de nascimento e/ou CPF inválidos.",
+                    @"Preenchimento obrigatório",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
             else
             {
-                MessageBox.Show(@"Autenticado.");
+                var usuario = new Usuario();
+                var retorno = usuario.ValidarCadastro(new []
+                {
+                    txtCpfUsuario.Text, txtNomeUsuario.Text, txtNascimentoUsuario.Text, txtEmailUsuario.Text,
+                    txtSenhaUsuario.Text, txtValidaSenha.Text
+                }, chkAdministrador.Checked);
+                switch (retorno)
+                {
+                    case "registrado":
+                        MessageBox.Show(
+                            @"Usuário registrado com sucesso!",
+                            @"Validação de registro",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                        Close();
+                        break;
+                    case "divergente":
+                        MessageBox.Show(
+                            @"Senhas inseridas estão divergentes, tente novamente.",
+                            @"Dados incorretos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        break;
+                    case "invalido":
+                        MessageBox.Show(
+                            @"O e-mail inserido é inválido, tente novamente.",
+                            @"Dados incorretos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        break;
+                    case "nulo":
+                        MessageBox.Show(
+                            retorno,
+                            @"Dados incorretos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        break;
+                    default:
+                        MessageBox.Show(
+                            retorno,
+                            @"Erro no processamento",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        break;
+                }
             }
         }
 
@@ -94,11 +159,11 @@ Versão: 2019.0.5",
         
         private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            txtNomeCadastro.Clear();
-            txtEmailCadastro.Clear();
-            txtNascimentoCadastro.Clear();
-            txtCpfCadastro.Clear();
-            txtSenhaCadastro.Clear();
+            txtNomeUsuario.Clear();
+            txtEmailUsuario.Clear();
+            txtNascimentoUsuario.Clear();
+            txtCpfUsuario.Clear();
+            txtSenhaUsuario.Clear();
             txtValidaSenha.Clear();
         }
 

@@ -42,9 +42,10 @@ namespace Interface
             this.panelBottom = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridMaterial = new System.Windows.Forms.DataGridView();
+            this.colIdMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNomeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescricaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colQuantidadeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescricaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLocalizacaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnPesquisarMaterial = new System.Windows.Forms.Button();
@@ -175,7 +176,8 @@ namespace Interface
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMaterial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
             {
-                this.colNomeMaterial, this.colDescricaoMaterial, this.colQuantidadeMaterial, this.colLocalizacaoMaterial
+                this.colIdMaterial, this.colNomeMaterial, this.colQuantidadeMaterial, this.colDescricaoMaterial,
+                this.colLocalizacaoMaterial
             });
             this.dataGridMaterial.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridMaterial.Location = new System.Drawing.Point(50, 139);
@@ -187,38 +189,49 @@ namespace Interface
             this.dataGridMaterial.Size = new System.Drawing.Size(700, 400);
             this.dataGridMaterial.TabIndex = 7;
             // 
+            // colIdMaterial
+            // 
+            this.colIdMaterial.DataPropertyName = "idMaterial";
+            this.colIdMaterial.HeaderText = "ID";
+            this.colIdMaterial.MaxInputLength = 10;
+            this.colIdMaterial.MinimumWidth = 45;
+            this.colIdMaterial.Name = "colIdMaterial";
+            this.colIdMaterial.ReadOnly = true;
+            this.colIdMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colIdMaterial.Width = 45;
+            // 
             // colNomeMaterial
             // 
             this.colNomeMaterial.DataPropertyName = "nomeMaterial";
             this.colNomeMaterial.HeaderText = "Nome";
             this.colNomeMaterial.MaxInputLength = 200;
-            this.colNomeMaterial.MinimumWidth = 300;
+            this.colNomeMaterial.MinimumWidth = 530;
             this.colNomeMaterial.Name = "colNomeMaterial";
             this.colNomeMaterial.ReadOnly = true;
             this.colNomeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colNomeMaterial.Width = 300;
+            this.colNomeMaterial.Width = 530;
+            // 
+            // colQuantidadeMaterial
+            // 
+            this.colQuantidadeMaterial.DataPropertyName = "quantidadeMaterial";
+            this.colQuantidadeMaterial.HeaderText = "Quantidade";
+            this.colQuantidadeMaterial.MaxInputLength = 5;
+            this.colQuantidadeMaterial.MinimumWidth = 98;
+            this.colQuantidadeMaterial.Name = "colQuantidadeMaterial";
+            this.colQuantidadeMaterial.ReadOnly = true;
+            this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colQuantidadeMaterial.Width = 98;
             // 
             // colDescricaoMaterial
             // 
             this.colDescricaoMaterial.DataPropertyName = "descricaoMaterial";
             this.colDescricaoMaterial.HeaderText = "Descrição";
-            this.colDescricaoMaterial.MaxInputLength = 50;
-            this.colDescricaoMaterial.MinimumWidth = 210;
+            this.colDescricaoMaterial.MaxInputLength = 200;
+            this.colDescricaoMaterial.MinimumWidth = 575;
             this.colDescricaoMaterial.Name = "colDescricaoMaterial";
             this.colDescricaoMaterial.ReadOnly = true;
             this.colDescricaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colDescricaoMaterial.Width = 210;
-            // 
-            // colQuantidadeMaterial
-            // 
-            this.colQuantidadeMaterial.DataPropertyName = "quantidadeMaterial";
-            this.colQuantidadeMaterial.HeaderText = "Quant.";
-            this.colQuantidadeMaterial.MaxInputLength = 5;
-            this.colQuantidadeMaterial.MinimumWidth = 65;
-            this.colQuantidadeMaterial.Name = "colQuantidadeMaterial";
-            this.colQuantidadeMaterial.ReadOnly = true;
-            this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colQuantidadeMaterial.Width = 65;
+            this.colDescricaoMaterial.Width = 575;
             // 
             // colLocalizacaoMaterial
             // 
@@ -316,6 +329,7 @@ namespace Interface
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
@@ -374,9 +388,11 @@ namespace Interface
             // 
             // PainelUsuario
             // 
+            this.AcceptButton = this.btnPesquisarMaterial;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panelMain);
             this.Font = new System.Drawing.Font("Ubuntu", 12F);
@@ -426,5 +442,6 @@ namespace Interface
         private System.Windows.Forms.ToolStripMenuItem menuEncerraSessao;
         private System.Windows.Forms.ToolStripMenuItem menuToolSobre;
         private System.Windows.Forms.ToolStripMenuItem menuToolSistema;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIdMaterial;
     }
 }

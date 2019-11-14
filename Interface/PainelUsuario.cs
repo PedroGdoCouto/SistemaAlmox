@@ -44,7 +44,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.5",
+Versão: 2019.0.6",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -91,12 +91,13 @@ Versão: 2019.0.5",
         
         private void PainelUsuario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var mensagem = MessageBox.Show(
-                @"Deseja sair do seu acesso?",
-                @"Encerrar sessão",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            var mensagem =
+                MessageBox.Show(
+                    @"Deseja sair do seu acesso?", 
+                    @"Encerrar sessão", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question
+                );
             e.Cancel = mensagem != DialogResult.Yes;
             if (mensagem == DialogResult.No) return;
             InterfaceInicial.Show();

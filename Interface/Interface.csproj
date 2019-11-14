@@ -64,6 +64,18 @@
     <Compile Include="AdministraUsuario.Designer.cs">
       <DependentUpon>AdministraUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CadastroInstituicao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CadastroInstituicao.Designer.cs">
+      <DependentUpon>CadastroInstituicao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CadastroMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CadastroMaterial.Designer.cs">
+      <DependentUpon>CadastroMaterial.cs</DependentUpon>
+    </Compile>
     <Compile Include="CadastroUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AdministraUsuario.resx">
       <DependentUpon>AdministraUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CadastroInstituicao.resx">
+      <DependentUpon>CadastroInstituicao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CadastroMaterial.resx">
+      <DependentUpon>CadastroMaterial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CadastroUsuario.resx">
       <DependentUpon>CadastroUsuario.cs</DependentUpon>

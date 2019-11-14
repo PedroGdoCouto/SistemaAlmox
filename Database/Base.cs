@@ -11,6 +11,70 @@ namespace Database
         private const string ConnectionString =
             "Server=127.0.0.1; Port=5432; Database=bd_login; Username=postgres; Password=by900b1xwm;";
 
+        protected static string AtualizarDados(string[] args, string termoBusca, string tipoUsuario = "")
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    switch (termoBusca)
+                    {
+                        case "instituicao":
+                            var queryUpdate =
+                                 "UPDATE instituicoes SET razaoSocialInstituicao = (@razaoSocial), enderecoInstituicao = (@endereco) WHERE cnpjInstituicao = (@cnpj)";
+
+                            using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
+                            {
+                                pgUpdate.Parameters.AddWithValue("cnpj", args[0]);
+                                pgUpdate.Parameters.AddWithValue("razaoSocial", args[1]);
+                                pgUpdate.Parameters.AddWithValue("endereco", args[2]);
+                                if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
+                            }
+                            break;
+                        case "material":
+                            queryUpdate =
+                                "UPDATE materiais SET nomeMaterial = (@nome), descricaoMaterial = (@descricao), quantidadeMaterial = (@quantidade), localizacaoMaterial = (@localizacao) WHERE idMaterial::text = (@id)";
+
+                            using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
+                            {
+                                pgUpdate.Parameters.AddWithValue("id", args[0]);
+                                pgUpdate.Parameters.AddWithValue("nome", args[1]);
+                                pgUpdate.Parameters.AddWithValue("descricao", args[2]);
+                                pgUpdate.Parameters.AddWithValue("quantidade", int.Parse(args[3]));
+                                pgUpdate.Parameters.AddWithValue("localizacao", args[4]);
+                                if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
+                            }
+                            break;
+                        case "usuario":
+                            queryUpdate =
+                                "UPDATE usuarios SET nomeUsuario = (@nome), dataNascimento = (@nascimento), emailUsuario = (@email), senhaUsuario = crypt((@senha), gen_salt((@crypt), 8)), tipoUsuario = (@tipo) WHERE cpfUsuario = (@cpf)";
+
+                            using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
+                            {
+                                pgUpdate.Parameters.AddWithValue("cpf", args[0]);
+                                pgUpdate.Parameters.AddWithValue("nome", args[1]);
+                                pgUpdate.Parameters.AddWithValue("nascimento", args[2]);
+                                pgUpdate.Parameters.AddWithValue("email", args[3]);
+                                pgUpdate.Parameters.AddWithValue("senha", args[4]);
+                               
+                                pgUpdate.Parameters.AddWithValue("tipo", tipoUsuario);
+                                pgUpdate.Parameters.AddWithValue("crypt", "bf");
+                                if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema. " + e.Message;
+                }
+            }
+
+            return "nulo";
+        }
+
         protected static DataTable BuscaTodoRegistro(string tipoBusca)
         {
             var dataTable = new DataTable();
@@ -22,7 +86,7 @@ namespace Database
                     switch (tipoBusca)
                     {
                         case "instituicao":
-                            var querySelect = "SELECT cnpjInstituicao, razaoSocialInstituicao FROM instituicoes";
+                            var querySelect = "SELECT cnpjInstituicao, razaoSocialInstituicao, enderecoInstituicao FROM instituicoes";
 
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
@@ -30,7 +94,8 @@ namespace Database
                             }
                             break;
                         case "material":
-                            querySelect = "SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais";
+                            querySelect =
+                                "SELECT * FROM materiais";
 
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
@@ -38,7 +103,8 @@ namespace Database
                             }
                             break;
                         case "usuario":
-                            querySelect = "SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario FROM usuarios";
+                            querySelect = "SELECT cpfUsuario, nomeUsuario, emailUsuario, DataNascimento FROM usuarios";
+                                /* "SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario, dataNascimento FROM usuarios"; */
 
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
@@ -70,7 +136,7 @@ namespace Database
                     {
                         case "instituicao":
                             querySelect =
-                                $"SELECT cnpjInstituicao, razaoSocialInstituicao FROM instituicoes WHERE cnpjInstituicao = '{pesquisa}'";
+                                $"SELECT cnpjInstituicao, razaoSocialInstituicao, enderecoInstituicao FROM instituicoes WHERE cnpjInstituicao = '{pesquisa}'";
                             
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
@@ -82,15 +148,15 @@ namespace Database
                             {
                                 case "codigo":
                                     querySelect =
-                                        $"SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais WHERE idMaterial::text LIKE '%{pesquisa}%'";
+                                        $"SELECT * FROM materiais WHERE idMaterial::text LIKE '%{pesquisa}%'";
                                     break;
                                 case "local":
                                     querySelect =
-                                        $"SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais WHERE localizacaoMaterial LIKE upper('%{pesquisa}%')";
+                                        $"SELECT * FROM materiais WHERE localizacaoMaterial LIKE upper('%{pesquisa}%')";
                                     break;
                                 case "nome":
                                     querySelect =
-                                        $"SELECT nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial FROM materiais WHERE nomeMaterial LIKE initcap('%{pesquisa}%')";
+                                        $"SELECT * FROM materiais WHERE nomeMaterial LIKE initcap('%{pesquisa}%')";
                                     break;
                             }
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
@@ -100,7 +166,8 @@ namespace Database
                             break;
                         case "usuario":
                             querySelect =
-                                $"SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario FROM usuarios WHERE cpfUsuario = '{pesquisa}'";
+                                $"SELECT cpfUsuario, nomeUsuario, emailUsuario, dataNascimento FROM usuarios WHERE cpfUsuario = '{pesquisa}'";
+                                /* $"SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario, dataNascimento FROM usuarios WHERE cpfUsuario = '{pesquisa}'"; */
 
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
@@ -111,12 +178,126 @@ namespace Database
                 }
                 catch (NpgsqlException e)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    return new DataTable(e.Message);
                 }
             }
 
             return dataTable;
+        }
+
+        protected static string CadastrarDados(string[] args, string termoBusca, string tipoUsuario = "")
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    switch (termoBusca)
+                    {
+                        case "instituicao":
+                            var queryInsert =
+                                "INSERT INTO instituicoes VALUES (DEFAULT, (@cnpj), (@razaoSocial), (@endereco))";
+
+                            using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                            {
+                                pgInsert.Parameters.AddWithValue("cnpj", args[0]);
+                                pgInsert.Parameters.AddWithValue("razaoSocial", args[1]);
+                                pgInsert.Parameters.AddWithValue("endereco", args[2]);
+                                if (pgInsert.ExecuteNonQuery() == 1) return "registrado";
+                            }
+                            break;
+                        case "material":
+                            queryInsert =
+                                "INSERT INTO materiais VALUES (DEFAULT, (@nome), (@descricao), (@quantidade), (@localizacao))";
+
+                            using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                            {
+                                pgInsert.Parameters.AddWithValue("nome", args[0]);
+                                pgInsert.Parameters.AddWithValue("descricao", args[1]);
+                                pgInsert.Parameters.AddWithValue("quantidade", int.Parse(args[2]));
+                                pgInsert.Parameters.AddWithValue("localizacao", args[3]);
+                                if (pgInsert.ExecuteNonQuery() == 1) return "registrado";
+                            }
+                            break;
+                        case "usuario":
+                            queryInsert =
+                                "INSERT INTO usuarios VALUES ((@cpf), (@nome), (@nascimento), (@email), crypt((@senha), gen_salt((@crypt), 8)), (@tipo))";
+
+                            using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                            {
+                                pgInsert.Parameters.AddWithValue("cpf", args[0]);
+                                pgInsert.Parameters.AddWithValue("nome", args[1]);
+                                pgInsert.Parameters.AddWithValue("nascimento", args[2]);
+                                pgInsert.Parameters.AddWithValue("email", args[3]);
+                                pgInsert.Parameters.AddWithValue("senha", args[4]);
+                                pgInsert.Parameters.AddWithValue("crypt", "bf");
+                                pgInsert.Parameters.AddWithValue("tipo", tipoUsuario);
+                                if (pgInsert.ExecuteNonQuery() == 1) return "registrado";
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema. " + e.Message;
+                }
+                pgConnection.Close();
+            }
+            
+            return @"nulo";
+        }
+
+        protected static string ExcluirDados(string pesquisa, string termoBusca)
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    switch (termoBusca)
+                    {
+                        case "instituicao":
+                            var queryDelete =
+                                "DELETE FROM instituicoes WHERE cnpjInstituicao = (@cnpj)";
+                            
+                            using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
+                            {
+                                pgDelete.Parameters.AddWithValue("cnpj", pesquisa);
+                                if (pgDelete.ExecuteNonQuery() == 1) return "excluido";
+                            }
+                            break;
+                        case "material":
+                            queryDelete =
+                                "DELETE FROM materiais WHERE idMaterial::text = (@id)";
+
+                            using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
+                            {
+                                pgDelete.Parameters.AddWithValue("id", pesquisa);
+                                if (pgDelete.ExecuteNonQuery() == 1) return "excluido";
+                            }
+                            break;
+                        case "usuario":
+                            queryDelete =
+                                "DELETE FROM usuarios WHERE cpfUsuario = (@cpf)";
+
+                            using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
+                            {
+                                pgDelete.Parameters.AddWithValue("cpf", pesquisa);
+                                if (pgDelete.ExecuteNonQuery() == 1) return "excluido";
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema. " + e.Message;
+                }
+                pgConnection.Close();
+            }
+            
+            return "nulo";
         }
 
         protected static string LoginUsuario(string[] args)
@@ -161,7 +342,7 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 try
                 {
                     pgConnection.Open();
-                    var querySelect =
+                    const string querySelect =
                         "SELECT count(*) FROM usuarios WHERE emailUsuario = (@email) AND dataNascimento = (@nascimento) AND cpfUsuario = (@cpf)";
                     var retorno = 0;
 
@@ -192,24 +373,7 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                             pgUpdate.Parameters.AddWithValue("cpf", args[2]);
                             pgUpdate.Parameters.AddWithValue("senha", args[3]);
                             pgUpdate.Parameters.AddWithValue("crypt", "bf");
-                            pgUpdate.ExecuteNonQuery();
-                            
-                            querySelect =
-                                "SELECT count(*) FROM usuarios WHERE emailUsuario = (@email) AND senhaUsuario = crypt((@senha), senhaUsuario)";
-
-                            using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
-                            {
-                                pgSelect.Parameters.AddWithValue("email", args[0]);
-                                pgSelect.Parameters.AddWithValue("senha", args[3]);
-
-                                using (var reader = pgSelect.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        if (reader.GetInt32(0) == 1) return "atualizado";
-                                    }
-                                }
-                            }
+                            if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
                         }
                     }
                     else

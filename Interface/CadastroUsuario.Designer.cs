@@ -34,33 +34,33 @@ namespace Interface
             System.ComponentModel.ComponentResourceManager resources =
                 new System.ComponentModel.ComponentResourceManager(typeof(CadastroUsuario));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.linkLimpeza = new System.Windows.Forms.LinkLabel();
             this.chkAdministrador = new System.Windows.Forms.CheckBox();
             this.txtValidaSenha = new System.Windows.Forms.TextBox();
-            this.txtSenhaCadastro = new System.Windows.Forms.TextBox();
+            this.txtSenhaUsuario = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtCpfCadastro = new System.Windows.Forms.MaskedTextBox();
-            this.txtNascimentoCadastro = new System.Windows.Forms.MaskedTextBox();
+            this.txtCpfUsuario = new System.Windows.Forms.MaskedTextBox();
+            this.txtNascimentoUsuario = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtEmailCadastro = new System.Windows.Forms.TextBox();
+            this.txtEmailUsuario = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtNomeCadastro = new System.Windows.Forms.TextBox();
+            this.txtNomeUsuario = new System.Windows.Forms.TextBox();
             this.panelTop = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.menuStripCadastro = new System.Windows.Forms.MenuStrip();
+            this.menuStripCadastroUsuario = new System.Windows.Forms.MenuStrip();
             this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
-            this.picLogo = new System.Windows.Forms.PictureBox();
             this.panelMain.SuspendLayout();
-            this.panelTop.SuspendLayout();
-            this.menuStripCadastro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.picLogo)).BeginInit();
+            this.panelTop.SuspendLayout();
+            this.menuStripCadastroUsuario.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -72,17 +72,17 @@ namespace Interface
             this.panelMain.Controls.Add(this.linkLimpeza);
             this.panelMain.Controls.Add(this.chkAdministrador);
             this.panelMain.Controls.Add(this.txtValidaSenha);
-            this.panelMain.Controls.Add(this.txtSenhaCadastro);
+            this.panelMain.Controls.Add(this.txtSenhaUsuario);
             this.panelMain.Controls.Add(this.label7);
             this.panelMain.Controls.Add(this.label6);
-            this.panelMain.Controls.Add(this.txtCpfCadastro);
-            this.panelMain.Controls.Add(this.txtNascimentoCadastro);
+            this.panelMain.Controls.Add(this.txtCpfUsuario);
+            this.panelMain.Controls.Add(this.txtNascimentoUsuario);
             this.panelMain.Controls.Add(this.label5);
             this.panelMain.Controls.Add(this.label4);
-            this.panelMain.Controls.Add(this.txtEmailCadastro);
+            this.panelMain.Controls.Add(this.txtEmailUsuario);
             this.panelMain.Controls.Add(this.label3);
             this.panelMain.Controls.Add(this.label2);
-            this.panelMain.Controls.Add(this.txtNomeCadastro);
+            this.panelMain.Controls.Add(this.txtNomeUsuario);
             this.panelMain.Controls.Add(this.panelTop);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
@@ -90,16 +90,30 @@ namespace Interface
             this.panelMain.Size = new System.Drawing.Size(800, 600);
             this.panelMain.TabIndex = 0;
             // 
+            // picLogo
+            // 
+            this.picLogo.BackColor = System.Drawing.Color.Transparent;
+            this.picLogo.ErrorImage = ((System.Drawing.Image) (resources.GetObject("picLogo.ErrorImage")));
+            this.picLogo.Image = ((System.Drawing.Image) (resources.GetObject("picLogo.Image")));
+            this.picLogo.InitialImage = null;
+            this.picLogo.Location = new System.Drawing.Point(687, 36);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(100, 40);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabIndex = 14;
+            this.picLogo.TabStop = false;
+            // 
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.ForeColor = System.Drawing.Color.Red;
             this.btnCancelar.Location = new System.Drawing.Point(403, 403);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(147, 40);
-            this.btnCancelar.TabIndex = 13;
+            this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -115,7 +129,7 @@ namespace Interface
             this.btnCadastrar.Location = new System.Drawing.Point(250, 403);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(147, 40);
-            this.btnCadastrar.TabIndex = 12;
+            this.btnCadastrar.TabIndex = 8;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = false;
             this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
@@ -127,10 +141,10 @@ namespace Interface
             this.linkLimpeza.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkLimpeza.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLimpeza.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpeza.Location = new System.Drawing.Point(495, 370);
+            this.linkLimpeza.Location = new System.Drawing.Point(495, 377);
             this.linkLimpeza.Name = "linkLimpeza";
             this.linkLimpeza.Size = new System.Drawing.Size(55, 23);
-            this.linkLimpeza.TabIndex = 11;
+            this.linkLimpeza.TabIndex = 7;
             this.linkLimpeza.TabStop = true;
             this.linkLimpeza.Text = "Limpar";
             this.linkLimpeza.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -141,104 +155,108 @@ namespace Interface
             // chkAdministrador
             // 
             this.chkAdministrador.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.chkAdministrador.Location = new System.Drawing.Point(250, 373);
+            this.chkAdministrador.Location = new System.Drawing.Point(250, 377);
             this.chkAdministrador.Name = "chkAdministrador";
-            this.chkAdministrador.Size = new System.Drawing.Size(116, 24);
-            this.chkAdministrador.TabIndex = 10;
+            this.chkAdministrador.Size = new System.Drawing.Size(116, 23);
+            this.chkAdministrador.TabIndex = 6;
             this.chkAdministrador.Text = "Administrador";
+            this.chkAdministrador.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkAdministrador.UseVisualStyleBackColor = true;
             // 
             // txtValidaSenha
             // 
-            this.txtValidaSenha.Location = new System.Drawing.Point(403, 341);
-            this.txtValidaSenha.MaxLength = 200;
+            this.txtValidaSenha.Location = new System.Drawing.Point(403, 348);
+            this.txtValidaSenha.MaxLength = 50;
             this.txtValidaSenha.Name = "txtValidaSenha";
             this.txtValidaSenha.Size = new System.Drawing.Size(147, 26);
-            this.txtValidaSenha.TabIndex = 9;
+            this.txtValidaSenha.TabIndex = 5;
             this.txtValidaSenha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtValidaSenha.UseSystemPasswordChar = true;
             // 
-            // txtSenhaCadastro
+            // txtSenhaUsuario
             // 
-            this.txtSenhaCadastro.Location = new System.Drawing.Point(250, 341);
-            this.txtSenhaCadastro.MaxLength = 200;
-            this.txtSenhaCadastro.Name = "txtSenhaCadastro";
-            this.txtSenhaCadastro.Size = new System.Drawing.Size(147, 26);
-            this.txtSenhaCadastro.TabIndex = 8;
-            this.txtSenhaCadastro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSenhaCadastro.UseSystemPasswordChar = true;
+            this.txtSenhaUsuario.Location = new System.Drawing.Point(250, 348);
+            this.txtSenhaUsuario.MaxLength = 50;
+            this.txtSenhaUsuario.Name = "txtSenhaUsuario";
+            this.txtSenhaUsuario.Size = new System.Drawing.Size(147, 26);
+            this.txtSenhaUsuario.TabIndex = 4;
+            this.txtSenhaUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSenhaUsuario.UseSystemPasswordChar = true;
             // 
             // label7
             // 
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Location = new System.Drawing.Point(403, 312);
+            this.label7.Location = new System.Drawing.Point(403, 319);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(147, 26);
-            this.label7.TabIndex = 7;
+            this.label7.TabIndex = 0;
             this.label7.Text = "Confirme a senha";
             this.label7.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(250, 312);
+            this.label6.Location = new System.Drawing.Point(250, 319);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(147, 26);
-            this.label6.TabIndex = 6;
+            this.label6.TabIndex = 0;
             this.label6.Text = "Insira a senha";
             this.label6.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // txtCpfCadastro
+            // txtCpfUsuario
             // 
-            this.txtCpfCadastro.Location = new System.Drawing.Point(403, 283);
-            this.txtCpfCadastro.Mask = "000,000,000-00";
-            this.txtCpfCadastro.Name = "txtCpfCadastro";
-            this.txtCpfCadastro.Size = new System.Drawing.Size(147, 26);
-            this.txtCpfCadastro.TabIndex = 5;
-            this.txtCpfCadastro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCpfUsuario.Location = new System.Drawing.Point(403, 290);
+            this.txtCpfUsuario.Mask = "000,000,000-00";
+            this.txtCpfUsuario.Name = "txtCpfUsuario";
+            this.txtCpfUsuario.Size = new System.Drawing.Size(147, 26);
+            this.txtCpfUsuario.TabIndex = 3;
+            this.txtCpfUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtNascimentoCadastro
+            // txtNascimentoUsuario
             // 
-            this.txtNascimentoCadastro.Location = new System.Drawing.Point(250, 283);
-            this.txtNascimentoCadastro.Mask = "00/00/0000";
-            this.txtNascimentoCadastro.Name = "txtNascimentoCadastro";
-            this.txtNascimentoCadastro.Size = new System.Drawing.Size(147, 26);
-            this.txtNascimentoCadastro.TabIndex = 4;
-            this.txtNascimentoCadastro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNascimentoUsuario.Location = new System.Drawing.Point(250, 290);
+            this.txtNascimentoUsuario.Mask = "00/00/0000";
+            this.txtNascimentoUsuario.Name = "txtNascimentoUsuario";
+            this.txtNascimentoUsuario.Size = new System.Drawing.Size(147, 26);
+            this.txtNascimentoUsuario.TabIndex = 2;
+            this.txtNascimentoUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(403, 254);
+            this.label5.Location = new System.Drawing.Point(403, 261);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(147, 26);
-            this.label5.TabIndex = 3;
+            this.label5.TabIndex = 0;
             this.label5.Text = "Insira seu CPF";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(250, 254);
+            this.label4.Location = new System.Drawing.Point(250, 261);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 26);
-            this.label4.TabIndex = 2;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Data nascimento";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // txtEmailCadastro
+            // txtEmailUsuario
             // 
-            this.txtEmailCadastro.Location = new System.Drawing.Point(250, 225);
-            this.txtEmailCadastro.MaxLength = 200;
-            this.txtEmailCadastro.Name = "txtEmailCadastro";
-            this.txtEmailCadastro.Size = new System.Drawing.Size(300, 26);
-            this.txtEmailCadastro.TabIndex = 1;
-            this.txtEmailCadastro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEmailUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.txtEmailUsuario.Location = new System.Drawing.Point(250, 232);
+            this.txtEmailUsuario.MaxLength = 200;
+            this.txtEmailUsuario.Name = "txtEmailUsuario";
+            this.txtEmailUsuario.Size = new System.Drawing.Size(300, 26);
+            this.txtEmailUsuario.TabIndex = 1;
+            this.txtEmailUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEmailUsuario.KeyPress +=
+                new System.Windows.Forms.KeyPressEventHandler(this.txtEmailCadastro_KeyPress);
             // 
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(250, 199);
+            this.label3.Location = new System.Drawing.Point(250, 206);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(300, 23);
             this.label3.TabIndex = 0;
@@ -248,21 +266,22 @@ namespace Interface
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(250, 144);
+            this.label2.Location = new System.Drawing.Point(250, 151);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(300, 23);
             this.label2.TabIndex = 0;
             this.label2.Text = "Nome completo";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // txtNomeCadastro
+            // txtNomeUsuario
             // 
-            this.txtNomeCadastro.Location = new System.Drawing.Point(250, 170);
-            this.txtNomeCadastro.MaxLength = 200;
-            this.txtNomeCadastro.Name = "txtNomeCadastro";
-            this.txtNomeCadastro.Size = new System.Drawing.Size(300, 26);
-            this.txtNomeCadastro.TabIndex = 0;
-            this.txtNomeCadastro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNomeUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNomeUsuario.Location = new System.Drawing.Point(250, 177);
+            this.txtNomeUsuario.MaxLength = 200;
+            this.txtNomeUsuario.Name = "txtNomeUsuario";
+            this.txtNomeUsuario.Size = new System.Drawing.Size(300, 26);
+            this.txtNomeUsuario.TabIndex = 0;
+            this.txtNomeUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panelTop
             // 
@@ -270,7 +289,7 @@ namespace Interface
             this.panelTop.Controls.Add(this.label1);
             this.panelTop.Controls.Add(this.btnMinimize);
             this.panelTop.Controls.Add(this.btnClose);
-            this.panelTop.Controls.Add(this.menuStripCadastro);
+            this.panelTop.Controls.Add(this.menuStripCadastroUsuario);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.panelTop.Location = new System.Drawing.Point(0, 0);
@@ -286,7 +305,7 @@ namespace Interface
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(300, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Cadastrar novo usuário";
+            this.label1.Text = "Cadastrar usuário";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnMinimize
@@ -325,19 +344,20 @@ namespace Interface
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // menuStripCadastro
+            // menuStripCadastroUsuario
             // 
-            this.menuStripCadastro.BackColor = System.Drawing.Color.Transparent;
-            this.menuStripCadastro.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menuStripCadastro.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.menuStripCadastro.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.menuToolSobre});
-            this.menuStripCadastro.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.menuStripCadastro.Location = new System.Drawing.Point(0, 0);
-            this.menuStripCadastro.Name = "menuStripCadastro";
-            this.menuStripCadastro.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStripCadastro.Size = new System.Drawing.Size(64, 30);
-            this.menuStripCadastro.TabIndex = 1;
-            this.menuStripCadastro.Text = "menuStripCadastro";
+            this.menuStripCadastroUsuario.BackColor = System.Drawing.Color.Transparent;
+            this.menuStripCadastroUsuario.Dock = System.Windows.Forms.DockStyle.Left;
+            this.menuStripCadastroUsuario.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.menuStripCadastroUsuario.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.menuToolSobre});
+            this.menuStripCadastroUsuario.LayoutStyle =
+                System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.menuStripCadastroUsuario.Location = new System.Drawing.Point(0, 0);
+            this.menuStripCadastroUsuario.Name = "menuStripCadastroUsuario";
+            this.menuStripCadastroUsuario.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStripCadastroUsuario.Size = new System.Drawing.Size(64, 30);
+            this.menuStripCadastroUsuario.TabIndex = 1;
+            this.menuStripCadastroUsuario.Text = "menuStripCadastroUsuario";
             // 
             // menuToolSobre
             // 
@@ -347,30 +367,19 @@ namespace Interface
             this.menuToolSobre.Text = "&Sobre";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
-            // picLogo
-            // 
-            this.picLogo.BackColor = System.Drawing.Color.Transparent;
-            this.picLogo.ErrorImage = ((System.Drawing.Image) (resources.GetObject("picLogo.ErrorImage")));
-            this.picLogo.Image = ((System.Drawing.Image) (resources.GetObject("picLogo.Image")));
-            this.picLogo.InitialImage = null;
-            this.picLogo.Location = new System.Drawing.Point(687, 36);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(100, 40);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picLogo.TabIndex = 14;
-            this.picLogo.TabStop = false;
-            // 
             // CadastroUsuario
             // 
+            this.AcceptButton = this.btnCadastrar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panelMain);
             this.Font = new System.Drawing.Font("Ubuntu", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStripCadastro;
+            this.MainMenuStrip = this.menuStripCadastroUsuario;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CadastroUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -378,11 +387,11 @@ namespace Interface
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CadastroUsuario_FormClosing);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.picLogo)).EndInit();
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.menuStripCadastro.ResumeLayout(false);
-            this.menuStripCadastro.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.picLogo)).EndInit();
+            this.menuStripCadastroUsuario.ResumeLayout(false);
+            this.menuStripCadastroUsuario.PerformLayout();
             this.ResumeLayout(false);
         }
 
@@ -394,7 +403,6 @@ namespace Interface
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNomeCadastro;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -404,13 +412,14 @@ namespace Interface
         private System.Windows.Forms.CheckBox chkAdministrador;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnCadastrar;
-        private System.Windows.Forms.TextBox txtEmailCadastro;
-        private System.Windows.Forms.MaskedTextBox txtNascimentoCadastro;
-        private System.Windows.Forms.MaskedTextBox txtCpfCadastro;
-        private System.Windows.Forms.TextBox txtSenhaCadastro;
         private System.Windows.Forms.TextBox txtValidaSenha;
-        private System.Windows.Forms.MenuStrip menuStripCadastro;
         private System.Windows.Forms.ToolStripMenuItem menuToolSobre;
         private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.MenuStrip menuStripCadastroUsuario;
+        private System.Windows.Forms.TextBox txtSenhaUsuario;
+        private System.Windows.Forms.MaskedTextBox txtCpfUsuario;
+        private System.Windows.Forms.MaskedTextBox txtNascimentoUsuario;
+        private System.Windows.Forms.TextBox txtEmailUsuario;
+        private System.Windows.Forms.TextBox txtNomeUsuario;
     }
 }
