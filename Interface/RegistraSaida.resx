@@ -659,7 +659,19 @@
         AAAAAAAAAAAAAAAAAAAAAABE1GGH/T+fJ98Qyc9bxwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="menuStripCadastroMaterial.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="btnPesquisarMaterial.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAXVJREFUOE+V
+        kj1PwmAUhQ0YHZzcjIuDZSCU0lI7OBkm4+DqP8CRwV/ghiNhdjFObiZE+BGOQHQgYXOTRAcZSNTnpBf5
+        aEnwJCfve7/Ovb19N+ZRKpUqvu/fl8vlPhzADna1UChsWUo6lBAEwV0Yhu+wzv2Ms8JZ4+zCnuu6h5ae
+        hIrhcxRFe+aaR5ZJGnBYLBZ3zTeDxlbnFcV/QKBNXsPMGfTNdK87jrONmY29SdD9GJER18UcnH19M5Nc
+        cO6bOw0ZJhjTMGd2DAQGBLSwK+5Vc6eC+Ifnea6ZMXB2KK7BE+5vq6bI5/MHNJogsGOuGPrPBLpcNxF4
+        gEOSzrEXvhXhG2ItM2fQG0CgR1Ab1i+7JPkR3iLuK4f9nJLzNbUT0CNRZ9jWtnFl5NfY6qxiYt/cn9C4
+        nsYXoEdCoh7MiHMMP+EEu6XOKsb+ETUdJUkRQ5b8nLY9vzB1ngqsI5KGjIqWRJoWWxvLIi/m/xck0mQ3
+        r0EQHP0Cgd1/Gj6ITgQAAAAASUVORK5CYII=
+</value>
+  </data>
+  <metadata name="menuStripRegistraSaida.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

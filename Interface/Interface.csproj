@@ -82,6 +82,12 @@
     <Compile Include="CadastroUsuario.Designer.cs">
       <DependentUpon>CadastroUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetalhamentoMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetalhamentoMaterial.Designer.cs">
+      <DependentUpon>DetalhamentoMaterial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistraEntrada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistraEntrada.Designer.cs">
+      <DependentUpon>RegistraEntrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistraSaida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistraSaida.Designer.cs">
+      <DependentUpon>RegistraSaida.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resgate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +144,9 @@
     <EmbeddedResource Include="CadastroUsuario.resx">
       <DependentUpon>CadastroUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DetalhamentoMaterial.resx">
+      <DependentUpon>DetalhamentoMaterial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +165,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistraEntrada.resx">
+      <DependentUpon>RegistraEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistraSaida.resx">
+      <DependentUpon>RegistraSaida.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resgate.resx">
       <DependentUpon>Resgate.cs</DependentUpon>
     </EmbeddedResource>

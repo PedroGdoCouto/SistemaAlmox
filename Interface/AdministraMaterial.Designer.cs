@@ -115,7 +115,7 @@ namespace Interface
             // labelIdMaterial
             // 
             this.labelIdMaterial.BackColor = System.Drawing.Color.Transparent;
-            this.labelIdMaterial.Location = new System.Drawing.Point(250, 395);
+            this.labelIdMaterial.Location = new System.Drawing.Point(250, 36);
             this.labelIdMaterial.Name = "labelIdMaterial";
             this.labelIdMaterial.Size = new System.Drawing.Size(300, 23);
             this.labelIdMaterial.TabIndex = 0;
@@ -323,7 +323,7 @@ namespace Interface
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(300, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Administrar registros";
+            this.label1.Text = "Gerenciar registros de materiais";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuStripAdministraMaterial

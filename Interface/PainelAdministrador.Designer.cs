@@ -34,11 +34,12 @@ namespace Interface
             System.ComponentModel.ComponentResourceManager resources =
                 new System.ComponentModel.ComponentResourceManager(typeof(PainelAdministrador));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.linkHistorico = new System.Windows.Forms.LinkLabel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.tabControlAdministrador = new System.Windows.Forms.TabControl();
             this.tabInstituicao = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
+            this.linkCadastrarInstituicao = new System.Windows.Forms.LinkLabel();
             this.linkLimpezaInstituicao = new System.Windows.Forms.LinkLabel();
             this.btnPesquisarInstituicao = new System.Windows.Forms.Button();
             this.txtPesquisaInstituicao = new System.Windows.Forms.MaskedTextBox();
@@ -47,18 +48,19 @@ namespace Interface
             this.colRazaoSocialInstituicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEnderecoInstituicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabMaterial = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
+            this.linkCadastrarMaterial = new System.Windows.Forms.LinkLabel();
             this.linkLimpezaMaterial = new System.Windows.Forms.LinkLabel();
             this.txtPesquisaMaterial = new System.Windows.Forms.TextBox();
             this.btnPesquisarMaterial = new System.Windows.Forms.Button();
             this.dataGridMaterial = new System.Windows.Forms.DataGridView();
             this.colIdMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNomeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colQuantidadeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescricaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colQuantidadeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLocalizacaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colChaveNotaFiscal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabUsuario = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
+            this.linkCadastrarUsuario = new System.Windows.Forms.LinkLabel();
             this.linkLimpezaUsuario = new System.Windows.Forms.LinkLabel();
             this.txtPesquisaUsuario = new System.Windows.Forms.MaskedTextBox();
             this.btnPesquisarUsuario = new System.Windows.Forms.Button();
@@ -73,14 +75,6 @@ namespace Interface
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.menuStripAdministrador = new System.Windows.Forms.MenuStrip();
-            this.menuToolSistema = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuCadastro = new System.Windows.Forms.ToolStripMenuItem();
-            this.submenuCadastrarInstituicao = new System.Windows.Forms.ToolStripMenuItem();
-            this.submenuCadastrarMaterial = new System.Windows.Forms.ToolStripMenuItem();
-            this.submenuCadastrarUsuario = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuHistorico = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSeparatorAdministrador = new System.Windows.Forms.ToolStripSeparator();
-            this.menuEncerraSessao = new System.Windows.Forms.ToolStripMenuItem();
             this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.panelBottom.SuspendLayout();
@@ -99,6 +93,7 @@ namespace Interface
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMain.Controls.Add(this.linkHistorico);
             this.panelMain.Controls.Add(this.panelBottom);
             this.panelMain.Controls.Add(this.tabControlAdministrador);
             this.panelMain.Controls.Add(this.picLogo);
@@ -108,6 +103,20 @@ namespace Interface
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(800, 600);
             this.panelMain.TabIndex = 0;
+            // 
+            // linkHistorico
+            // 
+            this.linkHistorico.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.linkHistorico.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkHistorico.LinkColor = System.Drawing.Color.DimGray;
+            this.linkHistorico.Location = new System.Drawing.Point(3, 542);
+            this.linkHistorico.Name = "linkHistorico";
+            this.linkHistorico.Size = new System.Drawing.Size(110, 23);
+            this.linkHistorico.TabIndex = 9;
+            this.linkHistorico.TabStop = true;
+            this.linkHistorico.Text = "Histórico";
+            this.linkHistorico.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkHistorico.VisitedLinkColor = System.Drawing.Color.DarkGray;
             // 
             // panelBottom
             // 
@@ -143,7 +152,7 @@ namespace Interface
             // 
             // tabInstituicao
             // 
-            this.tabInstituicao.Controls.Add(this.label3);
+            this.tabInstituicao.Controls.Add(this.linkCadastrarInstituicao);
             this.tabInstituicao.Controls.Add(this.linkLimpezaInstituicao);
             this.tabInstituicao.Controls.Add(this.btnPesquisarInstituicao);
             this.tabInstituicao.Controls.Add(this.txtPesquisaInstituicao);
@@ -156,28 +165,34 @@ namespace Interface
             this.tabInstituicao.Text = "Instituições";
             this.tabInstituicao.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // linkCadastrarInstituicao
             // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(458, 36);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(192, 23);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "CNPJ da instituição";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.linkCadastrarInstituicao.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.linkCadastrarInstituicao.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkCadastrarInstituicao.LinkColor = System.Drawing.Color.Green;
+            this.linkCadastrarInstituicao.Location = new System.Drawing.Point(424, 374);
+            this.linkCadastrarInstituicao.Name = "linkCadastrarInstituicao";
+            this.linkCadastrarInstituicao.Size = new System.Drawing.Size(110, 23);
+            this.linkCadastrarInstituicao.TabIndex = 3;
+            this.linkCadastrarInstituicao.TabStop = true;
+            this.linkCadastrarInstituicao.Text = "Novo registro";
+            this.linkCadastrarInstituicao.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkCadastrarInstituicao.VisitedLinkColor = System.Drawing.Color.DarkGray;
+            this.linkCadastrarInstituicao.LinkClicked +=
+                new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCadastrarInstituicao_LinkClicked);
             // 
             // linkLimpezaInstituicao
             // 
             this.linkLimpezaInstituicao.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkLimpezaInstituicao.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLimpezaInstituicao.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpezaInstituicao.Location = new System.Drawing.Point(540, 347);
+            this.linkLimpezaInstituicao.Location = new System.Drawing.Point(540, 374);
             this.linkLimpezaInstituicao.Name = "linkLimpezaInstituicao";
             this.linkLimpezaInstituicao.Size = new System.Drawing.Size(110, 23);
             this.linkLimpezaInstituicao.TabIndex = 2;
             this.linkLimpezaInstituicao.TabStop = true;
             this.linkLimpezaInstituicao.Text = "Limpar pesquisa";
+            this.linkLimpezaInstituicao.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.linkLimpezaInstituicao.VisitedLinkColor = System.Drawing.Color.DarkGray;
             this.linkLimpezaInstituicao.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLimpezaInstituicao_LinkClicked);
@@ -191,7 +206,7 @@ namespace Interface
             this.btnPesquisarInstituicao.ForeColor = System.Drawing.Color.DimGray;
             this.btnPesquisarInstituicao.Image =
                 ((System.Drawing.Image) (resources.GetObject("btnPesquisarInstituicao.Image")));
-            this.btnPesquisarInstituicao.Location = new System.Drawing.Point(624, 62);
+            this.btnPesquisarInstituicao.Location = new System.Drawing.Point(624, 39);
             this.btnPesquisarInstituicao.Name = "btnPesquisarInstituicao";
             this.btnPesquisarInstituicao.Size = new System.Drawing.Size(26, 26);
             this.btnPesquisarInstituicao.TabIndex = 1;
@@ -200,10 +215,10 @@ namespace Interface
             // 
             // txtPesquisaInstituicao
             // 
-            this.txtPesquisaInstituicao.Location = new System.Drawing.Point(458, 62);
+            this.txtPesquisaInstituicao.Location = new System.Drawing.Point(448, 39);
             this.txtPesquisaInstituicao.Mask = "00,000,000/0000-00";
             this.txtPesquisaInstituicao.Name = "txtPesquisaInstituicao";
-            this.txtPesquisaInstituicao.Size = new System.Drawing.Size(160, 26);
+            this.txtPesquisaInstituicao.Size = new System.Drawing.Size(170, 26);
             this.txtPesquisaInstituicao.TabIndex = 0;
             this.txtPesquisaInstituicao.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -219,13 +234,13 @@ namespace Interface
             this.dataGridInstituicao.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
                 {this.colCnpjInstituicao, this.colRazaoSocialInstituicao, this.colEnderecoInstituicao});
             this.dataGridInstituicao.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridInstituicao.Location = new System.Drawing.Point(50, 94);
+            this.dataGridInstituicao.Location = new System.Drawing.Point(50, 71);
             this.dataGridInstituicao.Name = "dataGridInstituicao";
             this.dataGridInstituicao.ReadOnly = true;
             this.dataGridInstituicao.RowHeadersWidth = 25;
             this.dataGridInstituicao.RowHeadersWidthSizeMode =
                 System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridInstituicao.Size = new System.Drawing.Size(600, 250);
+            this.dataGridInstituicao.Size = new System.Drawing.Size(600, 300);
             this.dataGridInstituicao.TabIndex = 0;
             this.dataGridInstituicao.TabStop = false;
             this.dataGridInstituicao.CellContentDoubleClick +=
@@ -264,7 +279,7 @@ namespace Interface
             // 
             // tabMaterial
             // 
-            this.tabMaterial.Controls.Add(this.label4);
+            this.tabMaterial.Controls.Add(this.linkCadastrarMaterial);
             this.tabMaterial.Controls.Add(this.linkLimpezaMaterial);
             this.tabMaterial.Controls.Add(this.txtPesquisaMaterial);
             this.tabMaterial.Controls.Add(this.btnPesquisarMaterial);
@@ -277,38 +292,45 @@ namespace Interface
             this.tabMaterial.Text = "Materiais";
             this.tabMaterial.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // linkCadastrarMaterial
             // 
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(458, 36);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(192, 23);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Nome do material";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.linkCadastrarMaterial.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.linkCadastrarMaterial.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkCadastrarMaterial.LinkColor = System.Drawing.Color.Green;
+            this.linkCadastrarMaterial.Location = new System.Drawing.Point(424, 374);
+            this.linkCadastrarMaterial.Name = "linkCadastrarMaterial";
+            this.linkCadastrarMaterial.Size = new System.Drawing.Size(110, 23);
+            this.linkCadastrarMaterial.TabIndex = 4;
+            this.linkCadastrarMaterial.TabStop = true;
+            this.linkCadastrarMaterial.Text = "Novo registro";
+            this.linkCadastrarMaterial.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkCadastrarMaterial.VisitedLinkColor = System.Drawing.Color.DarkGray;
+            this.linkCadastrarMaterial.LinkClicked +=
+                new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCadastrarMaterial_LinkClicked);
             // 
             // linkLimpezaMaterial
             // 
             this.linkLimpezaMaterial.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkLimpezaMaterial.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLimpezaMaterial.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpezaMaterial.Location = new System.Drawing.Point(540, 347);
+            this.linkLimpezaMaterial.Location = new System.Drawing.Point(540, 374);
             this.linkLimpezaMaterial.Name = "linkLimpezaMaterial";
             this.linkLimpezaMaterial.Size = new System.Drawing.Size(110, 23);
             this.linkLimpezaMaterial.TabIndex = 5;
             this.linkLimpezaMaterial.TabStop = true;
             this.linkLimpezaMaterial.Text = "Limpar pesquisa";
+            this.linkLimpezaMaterial.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.linkLimpezaMaterial.VisitedLinkColor = System.Drawing.Color.DarkGray;
             this.linkLimpezaMaterial.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLimpezaMaterial_LinkClicked);
             // 
             // txtPesquisaMaterial
             // 
-            this.txtPesquisaMaterial.Location = new System.Drawing.Point(458, 62);
+            this.txtPesquisaMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtPesquisaMaterial.Location = new System.Drawing.Point(448, 39);
             this.txtPesquisaMaterial.MaxLength = 200;
             this.txtPesquisaMaterial.Name = "txtPesquisaMaterial";
-            this.txtPesquisaMaterial.Size = new System.Drawing.Size(160, 26);
+            this.txtPesquisaMaterial.Size = new System.Drawing.Size(170, 26);
             this.txtPesquisaMaterial.TabIndex = 3;
             this.txtPesquisaMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -321,7 +343,7 @@ namespace Interface
             this.btnPesquisarMaterial.ForeColor = System.Drawing.Color.DimGray;
             this.btnPesquisarMaterial.Image =
                 ((System.Drawing.Image) (resources.GetObject("btnPesquisarMaterial.Image")));
-            this.btnPesquisarMaterial.Location = new System.Drawing.Point(624, 62);
+            this.btnPesquisarMaterial.Location = new System.Drawing.Point(624, 39);
             this.btnPesquisarMaterial.Name = "btnPesquisarMaterial";
             this.btnPesquisarMaterial.Size = new System.Drawing.Size(26, 26);
             this.btnPesquisarMaterial.TabIndex = 4;
@@ -339,17 +361,17 @@ namespace Interface
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMaterial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
             {
-                this.colIdMaterial, this.colNomeMaterial, this.colQuantidadeMaterial, this.colDescricaoMaterial,
-                this.colLocalizacaoMaterial
+                this.colIdMaterial, this.colNomeMaterial, this.colDescricaoMaterial, this.colQuantidadeMaterial,
+                this.colLocalizacaoMaterial, this.colChaveNotaFiscal
             });
             this.dataGridMaterial.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridMaterial.Location = new System.Drawing.Point(50, 94);
+            this.dataGridMaterial.Location = new System.Drawing.Point(50, 71);
             this.dataGridMaterial.Name = "dataGridMaterial";
             this.dataGridMaterial.ReadOnly = true;
             this.dataGridMaterial.RowHeadersWidth = 25;
             this.dataGridMaterial.RowHeadersWidthSizeMode =
                 System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridMaterial.Size = new System.Drawing.Size(600, 250);
+            this.dataGridMaterial.Size = new System.Drawing.Size(600, 300);
             this.dataGridMaterial.TabIndex = 0;
             this.dataGridMaterial.TabStop = false;
             this.dataGridMaterial.CellContentDoubleClick +=
@@ -371,11 +393,22 @@ namespace Interface
             this.colNomeMaterial.DataPropertyName = "nomeMaterial";
             this.colNomeMaterial.HeaderText = "Nome";
             this.colNomeMaterial.MaxInputLength = 200;
-            this.colNomeMaterial.MinimumWidth = 430;
+            this.colNomeMaterial.MinimumWidth = 528;
             this.colNomeMaterial.Name = "colNomeMaterial";
             this.colNomeMaterial.ReadOnly = true;
             this.colNomeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colNomeMaterial.Width = 430;
+            this.colNomeMaterial.Width = 528;
+            // 
+            // colDescricaoMaterial
+            // 
+            this.colDescricaoMaterial.DataPropertyName = "descricaoMaterial";
+            this.colDescricaoMaterial.HeaderText = "Descrição";
+            this.colDescricaoMaterial.MaxInputLength = 200;
+            this.colDescricaoMaterial.MinimumWidth = 377;
+            this.colDescricaoMaterial.Name = "colDescricaoMaterial";
+            this.colDescricaoMaterial.ReadOnly = true;
+            this.colDescricaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colDescricaoMaterial.Width = 377;
             // 
             // colQuantidadeMaterial
             // 
@@ -388,17 +421,6 @@ namespace Interface
             this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colQuantidadeMaterial.Width = 98;
             // 
-            // colDescricaoMaterial
-            // 
-            this.colDescricaoMaterial.DataPropertyName = "descricaoMaterial";
-            this.colDescricaoMaterial.HeaderText = "Descrição";
-            this.colDescricaoMaterial.MaxInputLength = 200;
-            this.colDescricaoMaterial.MinimumWidth = 475;
-            this.colDescricaoMaterial.Name = "colDescricaoMaterial";
-            this.colDescricaoMaterial.ReadOnly = true;
-            this.colDescricaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colDescricaoMaterial.Width = 475;
-            // 
             // colLocalizacaoMaterial
             // 
             this.colLocalizacaoMaterial.DataPropertyName = "localizacaoMaterial";
@@ -410,9 +432,20 @@ namespace Interface
             this.colLocalizacaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colLocalizacaoMaterial.Width = 98;
             // 
+            // colChaveNotaFiscal
+            // 
+            this.colChaveNotaFiscal.DataPropertyName = "chaveNotaFiscal";
+            this.colChaveNotaFiscal.HeaderText = "NF";
+            this.colChaveNotaFiscal.MaxInputLength = 44;
+            this.colChaveNotaFiscal.MinimumWidth = 100;
+            this.colChaveNotaFiscal.Name = "colChaveNotaFiscal";
+            this.colChaveNotaFiscal.ReadOnly = true;
+            this.colChaveNotaFiscal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colChaveNotaFiscal.Visible = false;
+            // 
             // tabUsuario
             // 
-            this.tabUsuario.Controls.Add(this.label5);
+            this.tabUsuario.Controls.Add(this.linkCadastrarUsuario);
             this.tabUsuario.Controls.Add(this.linkLimpezaUsuario);
             this.tabUsuario.Controls.Add(this.txtPesquisaUsuario);
             this.tabUsuario.Controls.Add(this.btnPesquisarUsuario);
@@ -425,38 +458,44 @@ namespace Interface
             this.tabUsuario.Text = "Usuários";
             this.tabUsuario.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // linkCadastrarUsuario
             // 
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(458, 36);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(192, 23);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "CPF do usuário";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.linkCadastrarUsuario.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.linkCadastrarUsuario.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkCadastrarUsuario.LinkColor = System.Drawing.Color.Green;
+            this.linkCadastrarUsuario.Location = new System.Drawing.Point(424, 374);
+            this.linkCadastrarUsuario.Name = "linkCadastrarUsuario";
+            this.linkCadastrarUsuario.Size = new System.Drawing.Size(110, 23);
+            this.linkCadastrarUsuario.TabIndex = 6;
+            this.linkCadastrarUsuario.TabStop = true;
+            this.linkCadastrarUsuario.Text = "Novo registro";
+            this.linkCadastrarUsuario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkCadastrarUsuario.VisitedLinkColor = System.Drawing.Color.DarkGray;
+            this.linkCadastrarUsuario.LinkClicked +=
+                new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCadastrarUsuario_LinkClicked);
             // 
             // linkLimpezaUsuario
             // 
             this.linkLimpezaUsuario.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkLimpezaUsuario.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLimpezaUsuario.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpezaUsuario.Location = new System.Drawing.Point(540, 347);
+            this.linkLimpezaUsuario.Location = new System.Drawing.Point(540, 374);
             this.linkLimpezaUsuario.Name = "linkLimpezaUsuario";
             this.linkLimpezaUsuario.Size = new System.Drawing.Size(110, 23);
             this.linkLimpezaUsuario.TabIndex = 8;
             this.linkLimpezaUsuario.TabStop = true;
             this.linkLimpezaUsuario.Text = "Limpar pesquisa";
+            this.linkLimpezaUsuario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.linkLimpezaUsuario.VisitedLinkColor = System.Drawing.Color.DarkGray;
             this.linkLimpezaUsuario.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLimpezaUsuario_LinkClicked);
             // 
             // txtPesquisaUsuario
             // 
-            this.txtPesquisaUsuario.Location = new System.Drawing.Point(458, 62);
+            this.txtPesquisaUsuario.Location = new System.Drawing.Point(448, 39);
             this.txtPesquisaUsuario.Mask = "000,000,000-00";
             this.txtPesquisaUsuario.Name = "txtPesquisaUsuario";
-            this.txtPesquisaUsuario.Size = new System.Drawing.Size(160, 26);
+            this.txtPesquisaUsuario.Size = new System.Drawing.Size(170, 26);
             this.txtPesquisaUsuario.TabIndex = 6;
             this.txtPesquisaUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -469,7 +508,7 @@ namespace Interface
             this.btnPesquisarUsuario.ForeColor = System.Drawing.Color.DimGray;
             this.btnPesquisarUsuario.Image =
                 ((System.Drawing.Image) (resources.GetObject("btnPesquisarUsuario.Image")));
-            this.btnPesquisarUsuario.Location = new System.Drawing.Point(624, 62);
+            this.btnPesquisarUsuario.Location = new System.Drawing.Point(624, 39);
             this.btnPesquisarUsuario.Name = "btnPesquisarUsuario";
             this.btnPesquisarUsuario.Size = new System.Drawing.Size(26, 26);
             this.btnPesquisarUsuario.TabIndex = 7;
@@ -488,13 +527,13 @@ namespace Interface
             this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
                 {this.colCpfUsuario, this.colNomeUsuario, this.colEmailUsuario, this.colNascimentoUsuario});
             this.dataGridUsuario.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridUsuario.Location = new System.Drawing.Point(50, 94);
+            this.dataGridUsuario.Location = new System.Drawing.Point(50, 71);
             this.dataGridUsuario.Name = "dataGridUsuario";
             this.dataGridUsuario.ReadOnly = true;
             this.dataGridUsuario.RowHeadersWidth = 25;
             this.dataGridUsuario.RowHeadersWidthSizeMode =
                 System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridUsuario.Size = new System.Drawing.Size(600, 250);
+            this.dataGridUsuario.Size = new System.Drawing.Size(600, 300);
             this.dataGridUsuario.TabIndex = 0;
             this.dataGridUsuario.TabStop = false;
             this.dataGridUsuario.CellContentDoubleClick +=
@@ -623,95 +662,22 @@ namespace Interface
             this.menuStripAdministrador.BackColor = System.Drawing.Color.Transparent;
             this.menuStripAdministrador.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStripAdministrador.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.menuStripAdministrador.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
-                {this.menuToolSistema, this.menuToolSobre});
+            this.menuStripAdministrador.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.menuToolSobre});
             this.menuStripAdministrador.LayoutStyle =
                 System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStripAdministrador.Location = new System.Drawing.Point(0, 0);
             this.menuStripAdministrador.Name = "menuStripAdministrador";
             this.menuStripAdministrador.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStripAdministrador.Size = new System.Drawing.Size(134, 30);
+            this.menuStripAdministrador.Size = new System.Drawing.Size(64, 30);
             this.menuStripAdministrador.TabIndex = 0;
             this.menuStripAdministrador.Text = "menuStripAdministrador";
-            // 
-            // menuToolSistema
-            // 
-            this.menuToolSistema.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
-                {this.menuCadastro, this.menuHistorico, this.menuSeparatorAdministrador, this.menuEncerraSessao});
-            this.menuToolSistema.ForeColor = System.Drawing.Color.White;
-            this.menuToolSistema.Name = "menuToolSistema";
-            this.menuToolSistema.Size = new System.Drawing.Size(70, 26);
-            this.menuToolSistema.Text = "&Sistema";
-            // 
-            // menuCadastro
-            // 
-            this.menuCadastro.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuCadastro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
-                {this.submenuCadastrarInstituicao, this.submenuCadastrarMaterial, this.submenuCadastrarUsuario});
-            this.menuCadastro.ForeColor = System.Drawing.Color.White;
-            this.menuCadastro.Name = "menuCadastro";
-            this.menuCadastro.Size = new System.Drawing.Size(176, 22);
-            this.menuCadastro.Text = "&Cadastro";
-            // 
-            // submenuCadastrarInstituicao
-            // 
-            this.submenuCadastrarInstituicao.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.submenuCadastrarInstituicao.ForeColor = System.Drawing.Color.White;
-            this.submenuCadastrarInstituicao.Name = "submenuCadastrarInstituicao";
-            this.submenuCadastrarInstituicao.Size = new System.Drawing.Size(144, 22);
-            this.submenuCadastrarInstituicao.Text = "&Instituição";
-            this.submenuCadastrarInstituicao.Click += new System.EventHandler(this.submenuCadastrarInstituicao_Click);
-            // 
-            // submenuCadastrarMaterial
-            // 
-            this.submenuCadastrarMaterial.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.submenuCadastrarMaterial.ForeColor = System.Drawing.Color.White;
-            this.submenuCadastrarMaterial.Name = "submenuCadastrarMaterial";
-            this.submenuCadastrarMaterial.Size = new System.Drawing.Size(144, 22);
-            this.submenuCadastrarMaterial.Text = "&Material";
-            this.submenuCadastrarMaterial.Click += new System.EventHandler(this.submenuCadastrarMaterial_Click);
-            // 
-            // submenuCadastrarUsuario
-            // 
-            this.submenuCadastrarUsuario.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.submenuCadastrarUsuario.ForeColor = System.Drawing.Color.White;
-            this.submenuCadastrarUsuario.Name = "submenuCadastrarUsuario";
-            this.submenuCadastrarUsuario.Size = new System.Drawing.Size(144, 22);
-            this.submenuCadastrarUsuario.Text = "&Usuário";
-            this.submenuCadastrarUsuario.Click += new System.EventHandler(this.submenuCadastrarUsuario_Click);
-            // 
-            // menuHistorico
-            // 
-            this.menuHistorico.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuHistorico.ForeColor = System.Drawing.Color.White;
-            this.menuHistorico.Name = "menuHistorico";
-            this.menuHistorico.Size = new System.Drawing.Size(176, 22);
-            this.menuHistorico.Text = "&Histórico";
-            // 
-            // menuSeparatorAdministrador
-            // 
-            this.menuSeparatorAdministrador.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuSeparatorAdministrador.ForeColor = System.Drawing.Color.Teal;
-            this.menuSeparatorAdministrador.Name = "menuSeparatorAdministrador";
-            this.menuSeparatorAdministrador.Size = new System.Drawing.Size(173, 6);
-            this.menuSeparatorAdministrador.Paint +=
-                new System.Windows.Forms.PaintEventHandler(this.menuSeparatorAdministrador_Paint);
-            // 
-            // menuEncerraSessao
-            // 
-            this.menuEncerraSessao.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.menuEncerraSessao.ForeColor = System.Drawing.Color.White;
-            this.menuEncerraSessao.Name = "menuEncerraSessao";
-            this.menuEncerraSessao.Size = new System.Drawing.Size(176, 22);
-            this.menuEncerraSessao.Text = "Encerrar &sessão";
-            this.menuEncerraSessao.Click += new System.EventHandler(this.menuEncerraSessao_Click);
             // 
             // menuToolSobre
             // 
             this.menuToolSobre.ForeColor = System.Drawing.Color.White;
             this.menuToolSobre.Name = "menuToolSobre";
             this.menuToolSobre.Size = new System.Drawing.Size(56, 26);
-            this.menuToolSobre.Text = "Sobr&e";
+            this.menuToolSobre.Text = "&Sobre";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
             // PainelAdministrador
@@ -761,8 +727,6 @@ namespace Interface
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStripAdministrador;
         private System.Windows.Forms.ToolStripMenuItem menuToolSobre;
-        private System.Windows.Forms.ToolStripMenuItem menuToolSistema;
-        private System.Windows.Forms.ToolStripMenuItem menuEncerraSessao;
         private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.TabControl tabControlAdministrador;
         private System.Windows.Forms.TabPage tabInstituicao;
@@ -785,23 +749,19 @@ namespace Interface
         private System.Windows.Forms.DataGridView dataGridUsuario;
         private System.Windows.Forms.LinkLabel linkLimpezaInstituicao;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescricaoMaterial;
-        private System.Windows.Forms.ToolStripMenuItem menuHistorico;
         private System.Windows.Forms.MaskedTextBox txtPesquisaUsuario;
         private System.Windows.Forms.TextBox txtPesquisaMaterial;
         private System.Windows.Forms.LinkLabel linkLimpezaUsuario;
         private System.Windows.Forms.LinkLabel linkLimpezaMaterial;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panelBottom;
-        private System.Windows.Forms.ToolStripMenuItem submenuCadastrarUsuario;
-        private System.Windows.Forms.ToolStripMenuItem submenuCadastrarMaterial;
-        private System.Windows.Forms.ToolStripMenuItem submenuCadastrarInstituicao;
-        private System.Windows.Forms.ToolStripMenuItem menuCadastro;
-        private System.Windows.Forms.ToolStripSeparator menuSeparatorAdministrador;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdMaterial;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNascimentoUsuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEnderecoInstituicao;
+        private System.Windows.Forms.LinkLabel linkCadastrarUsuario;
+        private System.Windows.Forms.LinkLabel linkCadastrarMaterial;
+        private System.Windows.Forms.LinkLabel linkCadastrarInstituicao;
+        private System.Windows.Forms.LinkLabel linkHistorico;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colChaveNotaFiscal;
     }
 }

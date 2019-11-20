@@ -20,6 +20,11 @@ namespace Business
                 CnpjInstituicao, RazaoSocial, EnderecoInstituicao
             }, "instituicao");
         }
+
+        public static string BuscaCnpj(string cnpj)
+        {
+            return BuscaUnicoCnpj(cnpj);
+        }
         
         public static DataTable BuscaCompleta()
         {

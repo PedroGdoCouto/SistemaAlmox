@@ -373,7 +373,7 @@ namespace Interface
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(300, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Administrar registros";
+            this.label1.Text = "Gerenciar registros de usuário";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuStripAdministraUsuario

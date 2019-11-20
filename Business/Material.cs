@@ -10,8 +10,8 @@ namespace Business
         private string DescricaoMaterial { get; set; }
         private string QuantidadeMaterial { get; set; }
         private string LocalizacaoMaterial { get; set; }
-        private string UltimaEntrada { get; set; }
-        private string UltimaSaida { get; set; }
+        private static string UltimaEntrada { get; set; }
+        private static string UltimaSaida { get; set; }
         private string ChaveNotaFiscal { get; set; }
 
         public string AtualizarRegistro(string[] args)
@@ -37,9 +37,45 @@ namespace Business
             return BuscaUnicoRegistro(pesquisa, "material", tipoBusca);
         }
 
+        public static string EntradaEstoque(string id, string operacao)
+        {
+            /*
+            var retorno = RegistroEstoque(new []
+            {
+            }, operacao, "saida");
+            switch (retorno)
+            {
+                case "offline":
+                    return retorno;
+                case "nulo":
+                    return retorno;
+                default:
+                    return retorno;
+            }
+            */
+
+            return "nulo";
+        }
+
         public static string ExcluirRegistro(string id)
         {
             return ExcluirDados(id, "material");
+        }
+
+        public string SaidaEstoque(string[] args, string operacao, string cnpj = "", string estoque = "")
+        {
+            IdMaterial = args[0];
+            if (operacao == "busca") return RegistroEstoque(new[] {IdMaterial}, operacao, "saida");
+            
+            QuantidadeMaterial = args[1];
+            UltimaSaida = args[2];
+            if (int.Parse(estoque) - int.Parse(QuantidadeMaterial) < 0) return "invalido";
+            estoque = (int.Parse(estoque) - int.Parse(QuantidadeMaterial)).ToString();
+            
+            return RegistroEstoque(new []
+            {
+                IdMaterial, QuantidadeMaterial, UltimaSaida, cnpj
+            }, operacao, "saida", estoque);
         }
 
         public string ValidarCadastro(string[] args)

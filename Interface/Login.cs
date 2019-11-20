@@ -33,7 +33,7 @@ namespace Interface
         /* Separador personalizado para a barra de ferramentas
         private void menuLoginSeparator_Paint(object sender, PaintEventArgs e)
         {
-            ToolStripSeparator separator = (ToolStripSeparator) sender;
+            var separator = (ToolStripSeparator) sender;
             e.Graphics.FillRectangle(new SolidBrush(Color.DarkSlateGray), 0, 0, separator.Width, separator.Height);
             e.Graphics.DrawLine(new Pen(Color.FromArgb(255, 0, 100, 100)), 30, separator.Height / 2, separator.Width - 4, separator.Height / 2);
         }
@@ -41,8 +41,8 @@ namespace Interface
 
         private void btnLogin_MouseEnter(object sender, EventArgs e)
         {
-            btnLogin.ForeColor = Color.White;
             btnLogin.FlatAppearance.BorderColor = Color.White;
+            btnLogin.ForeColor = Color.White;
         }
 
         private void btnLogin_MouseLeave(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.6",
+Versão: 2019.0.7",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -72,6 +72,10 @@ Versão: 2019.0.6",
         
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            var interfaceUsuario = new PainelUsuario {InterfaceInicial = this};
+            interfaceUsuario.Show();
+            Hide();
+            /*
             var interfaceAdministrador = new PainelAdministrador {InterfaceInicial = this};
             interfaceAdministrador.Show();
             Hide();

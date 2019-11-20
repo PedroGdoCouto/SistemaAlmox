@@ -12,7 +12,6 @@ namespace Interface
         {
             InitializeComponent();
             menuStripUsuario.Renderer = new ProjectRenderer();
-            dataGridMaterial.DataSource = Material.BuscaCompleta();
         }
         
         /* Personalização de janelas */
@@ -33,24 +32,23 @@ namespace Interface
         }
 
         /* Barra de ferramentas */
-        
-        private void menuEncerraSessao_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void menuToolSobre_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.6",
+Versão: 2019.0.7",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
         }
         /* Funcionalidades da aplicação */
+        private void PainelUsuario_Activated(object sender, EventArgs e)
+        {
+            dataGridMaterial.DataSource = Material.BuscaCompleta();
+        }
+        
         private void btnPesquisarMaterial_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPesquisaMaterial.Text))
@@ -77,6 +75,46 @@ Versão: 2019.0.6",
                     dataGridMaterial.DataSource = Material.BuscaUnica(txtPesquisaMaterial.Text, "nome");
                 }
             }
+        }
+
+        private void dataGridMaterial_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                var interfaceDetalhamento = new DetalhamentoMaterial(new[]
+                {
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colIdMaterial"].Value.ToString(),
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colNomeMaterial"].Value.ToString(),
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colDescricaoMaterial"].Value.ToString(),
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colQuantidadeMaterial"].Value.ToString(),
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colLocalizacaoMaterial"].Value.ToString(),
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colChaveNotaFiscal"].Value.ToString()
+                }) {InterfaceUsuario = this};
+                interfaceDetalhamento.Show();
+                Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    @"Ocorreu um erro no carregamento das tabelas, reinicie a aplicação. " + ex.Message,
+                    @"Erro de detalhamento",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txtPesquisaMaterial.Clear();
+            dataGridMaterial.DataSource = Material.BuscaCompleta();
+        }
+
+        private void linkRegistrarEntrada_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var interfaceRegistraEntrada = new RegistraEntrada {InterfaceUsuario = this};
+            interfaceRegistraEntrada.Show();
+            Hide();
         }
         
         private void btnMinimize_Click(object sender, EventArgs e)
