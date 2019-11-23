@@ -36,28 +36,28 @@ namespace Interface
             this.panelMain = new System.Windows.Forms.Panel();
             this.linkRegistrarEntrada = new System.Windows.Forms.LinkLabel();
             this.linkLimpeza = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.rdoPesquisaLocal = new System.Windows.Forms.RadioButton();
             this.rdoPesquisaNome = new System.Windows.Forms.RadioButton();
             this.rdoPesquisaCodigo = new System.Windows.Forms.RadioButton();
             this.panelBottom = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.dataGridMaterial = new System.Windows.Forms.DataGridView();
+            this.picLogo = new System.Windows.Forms.PictureBox();
+            this.btnPesquisarMaterial = new System.Windows.Forms.Button();
+            this.txtPesquisaMaterial = new System.Windows.Forms.TextBox();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.labelNomeUsuario = new System.Windows.Forms.Label();
+            this.btnMinimize = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.menuStripUsuario = new System.Windows.Forms.MenuStrip();
+            this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.colIdMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNomeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colQuantidadeMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescricaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLocalizacaoMaterial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colChaveNotaFiscal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.picLogo = new System.Windows.Forms.PictureBox();
-            this.btnPesquisarMaterial = new System.Windows.Forms.Button();
-            this.txtPesquisaMaterial = new System.Windows.Forms.TextBox();
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnMinimize = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.menuStripUsuario = new System.Windows.Forms.MenuStrip();
-            this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.dataGridMaterial)).BeginInit();
@@ -71,7 +71,7 @@ namespace Interface
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMain.Controls.Add(this.linkRegistrarEntrada);
             this.panelMain.Controls.Add(this.linkLimpeza);
-            this.panelMain.Controls.Add(this.label2);
+            this.panelMain.Controls.Add(this.label1);
             this.panelMain.Controls.Add(this.rdoPesquisaLocal);
             this.panelMain.Controls.Add(this.rdoPesquisaNome);
             this.panelMain.Controls.Add(this.rdoPesquisaCodigo);
@@ -121,15 +121,15 @@ namespace Interface
             this.linkLimpeza.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLimpeza_LinkClicked);
             // 
-            // label2
+            // label1
             // 
-            this.label2.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.label2.Location = new System.Drawing.Point(50, 113);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Filtro de busca";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.label1.Location = new System.Drawing.Point(50, 113);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Filtro de busca";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // rdoPesquisaLocal
             // 
@@ -168,7 +168,7 @@ namespace Interface
             // 
             // panelBottom
             // 
-            this.panelBottom.Controls.Add(this.label3);
+            this.panelBottom.Controls.Add(this.label2);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.panelBottom.Location = new System.Drawing.Point(0, 568);
@@ -176,15 +176,15 @@ namespace Interface
             this.panelBottom.Size = new System.Drawing.Size(798, 30);
             this.panelBottom.TabIndex = 0;
             // 
-            // label3
+            // label2
             // 
-            this.label3.ForeColor = System.Drawing.Color.LightGray;
-            this.label3.Location = new System.Drawing.Point(250, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(300, 24);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Copyright - Pedro Couto";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.ForeColor = System.Drawing.Color.LightGray;
+            this.label2.Location = new System.Drawing.Point(250, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(300, 24);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Copyright - Pedro Couto";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridMaterial
             // 
@@ -211,72 +211,6 @@ namespace Interface
             this.dataGridMaterial.TabIndex = 7;
             this.dataGridMaterial.CellContentDoubleClick +=
                 new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridMaterial_CellContentDoubleClick);
-            // 
-            // colIdMaterial
-            // 
-            this.colIdMaterial.DataPropertyName = "idMaterial";
-            this.colIdMaterial.HeaderText = "ID";
-            this.colIdMaterial.MaxInputLength = 10;
-            this.colIdMaterial.MinimumWidth = 45;
-            this.colIdMaterial.Name = "colIdMaterial";
-            this.colIdMaterial.ReadOnly = true;
-            this.colIdMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colIdMaterial.Width = 45;
-            // 
-            // colNomeMaterial
-            // 
-            this.colNomeMaterial.DataPropertyName = "nomeMaterial";
-            this.colNomeMaterial.HeaderText = "Nome";
-            this.colNomeMaterial.MaxInputLength = 200;
-            this.colNomeMaterial.MinimumWidth = 530;
-            this.colNomeMaterial.Name = "colNomeMaterial";
-            this.colNomeMaterial.ReadOnly = true;
-            this.colNomeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colNomeMaterial.Width = 530;
-            // 
-            // colQuantidadeMaterial
-            // 
-            this.colQuantidadeMaterial.DataPropertyName = "quantidadeMaterial";
-            this.colQuantidadeMaterial.HeaderText = "Quantidade";
-            this.colQuantidadeMaterial.MaxInputLength = 5;
-            this.colQuantidadeMaterial.MinimumWidth = 98;
-            this.colQuantidadeMaterial.Name = "colQuantidadeMaterial";
-            this.colQuantidadeMaterial.ReadOnly = true;
-            this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colQuantidadeMaterial.Width = 98;
-            // 
-            // colDescricaoMaterial
-            // 
-            this.colDescricaoMaterial.DataPropertyName = "descricaoMaterial";
-            this.colDescricaoMaterial.HeaderText = "Descrição";
-            this.colDescricaoMaterial.MaxInputLength = 200;
-            this.colDescricaoMaterial.MinimumWidth = 575;
-            this.colDescricaoMaterial.Name = "colDescricaoMaterial";
-            this.colDescricaoMaterial.ReadOnly = true;
-            this.colDescricaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colDescricaoMaterial.Width = 575;
-            // 
-            // colLocalizacaoMaterial
-            // 
-            this.colLocalizacaoMaterial.DataPropertyName = "localizacaoMaterial";
-            this.colLocalizacaoMaterial.HeaderText = "Localização";
-            this.colLocalizacaoMaterial.MaxInputLength = 10;
-            this.colLocalizacaoMaterial.MinimumWidth = 98;
-            this.colLocalizacaoMaterial.Name = "colLocalizacaoMaterial";
-            this.colLocalizacaoMaterial.ReadOnly = true;
-            this.colLocalizacaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colLocalizacaoMaterial.Width = 98;
-            // 
-            // colChaveNotaFiscal
-            // 
-            this.colChaveNotaFiscal.DataPropertyName = "chaveNotaFiscal";
-            this.colChaveNotaFiscal.HeaderText = "NF";
-            this.colChaveNotaFiscal.MaxInputLength = 44;
-            this.colChaveNotaFiscal.MinimumWidth = 100;
-            this.colChaveNotaFiscal.Name = "colChaveNotaFiscal";
-            this.colChaveNotaFiscal.ReadOnly = true;
-            this.colChaveNotaFiscal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colChaveNotaFiscal.Visible = false;
             // 
             // picLogo
             // 
@@ -321,7 +255,7 @@ namespace Interface
             // panelTop
             // 
             this.panelTop.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.panelTop.Controls.Add(this.label1);
+            this.panelTop.Controls.Add(this.labelNomeUsuario);
             this.panelTop.Controls.Add(this.btnMinimize);
             this.panelTop.Controls.Add(this.btnClose);
             this.panelTop.Controls.Add(this.menuStripUsuario);
@@ -332,16 +266,16 @@ namespace Interface
             this.panelTop.Size = new System.Drawing.Size(798, 30);
             this.panelTop.TabIndex = 0;
             // 
-            // label1
+            // labelNomeUsuario
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(250, -1);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 31);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nome do usuário";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelNomeUsuario.BackColor = System.Drawing.Color.Transparent;
+            this.labelNomeUsuario.ForeColor = System.Drawing.Color.White;
+            this.labelNomeUsuario.Location = new System.Drawing.Point(250, -1);
+            this.labelNomeUsuario.Name = "labelNomeUsuario";
+            this.labelNomeUsuario.Size = new System.Drawing.Size(300, 31);
+            this.labelNomeUsuario.TabIndex = 0;
+            this.labelNomeUsuario.Text = "Usuário Teste";
+            this.labelNomeUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnMinimize
             // 
@@ -402,6 +336,73 @@ namespace Interface
             this.menuToolSobre.Text = "&Sobre";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
+            // colIdMaterial
+            // 
+            this.colIdMaterial.DataPropertyName = "idMaterial";
+            this.colIdMaterial.HeaderText = "ID";
+            this.colIdMaterial.MaxInputLength = 10;
+            this.colIdMaterial.MinimumWidth = 45;
+            this.colIdMaterial.Name = "colIdMaterial";
+            this.colIdMaterial.ReadOnly = true;
+            this.colIdMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colIdMaterial.Width = 45;
+            // 
+            // colNomeMaterial
+            // 
+            this.colNomeMaterial.DataPropertyName = "nomeMaterial";
+            this.colNomeMaterial.HeaderText = "Nome";
+            this.colNomeMaterial.MaxInputLength = 200;
+            this.colNomeMaterial.MinimumWidth = 530;
+            this.colNomeMaterial.Name = "colNomeMaterial";
+            this.colNomeMaterial.ReadOnly = true;
+            this.colNomeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colNomeMaterial.Width = 530;
+            // 
+            // colQuantidadeMaterial
+            // 
+            this.colQuantidadeMaterial.DataPropertyName = "quantidadeMaterial";
+            this.colQuantidadeMaterial.HeaderText = "Quantidade";
+            this.colQuantidadeMaterial.MaxInputLength = 5;
+            this.colQuantidadeMaterial.MinimumWidth = 98;
+            this.colQuantidadeMaterial.Name = "colQuantidadeMaterial";
+            this.colQuantidadeMaterial.ReadOnly = true;
+            this.colQuantidadeMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colQuantidadeMaterial.Width = 98;
+            // 
+            // colDescricaoMaterial
+            // 
+            this.colDescricaoMaterial.DataPropertyName = "descricaoMaterial";
+            this.colDescricaoMaterial.HeaderText = "Descrição";
+            this.colDescricaoMaterial.MaxInputLength = 200;
+            this.colDescricaoMaterial.MinimumWidth = 575;
+            this.colDescricaoMaterial.Name = "colDescricaoMaterial";
+            this.colDescricaoMaterial.ReadOnly = true;
+            this.colDescricaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colDescricaoMaterial.Visible = false;
+            this.colDescricaoMaterial.Width = 575;
+            // 
+            // colLocalizacaoMaterial
+            // 
+            this.colLocalizacaoMaterial.DataPropertyName = "localizacaoMaterial";
+            this.colLocalizacaoMaterial.HeaderText = "Localização";
+            this.colLocalizacaoMaterial.MaxInputLength = 10;
+            this.colLocalizacaoMaterial.MinimumWidth = 98;
+            this.colLocalizacaoMaterial.Name = "colLocalizacaoMaterial";
+            this.colLocalizacaoMaterial.ReadOnly = true;
+            this.colLocalizacaoMaterial.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colLocalizacaoMaterial.Width = 98;
+            // 
+            // colChaveNotaFiscal
+            // 
+            this.colChaveNotaFiscal.DataPropertyName = "chaveNotaFiscal";
+            this.colChaveNotaFiscal.HeaderText = "Última Nota Fiscal";
+            this.colChaveNotaFiscal.MaxInputLength = 44;
+            this.colChaveNotaFiscal.MinimumWidth = 575;
+            this.colChaveNotaFiscal.Name = "colChaveNotaFiscal";
+            this.colChaveNotaFiscal.ReadOnly = true;
+            this.colChaveNotaFiscal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colChaveNotaFiscal.Width = 575;
+            // 
             // PainelUsuario
             // 
             this.AcceptButton = this.btnPesquisarMaterial;
@@ -448,7 +449,6 @@ namespace Interface
         private System.Windows.Forms.RadioButton rdoPesquisaCodigo;
         private System.Windows.Forms.RadioButton rdoPesquisaNome;
         private System.Windows.Forms.RadioButton rdoPesquisaLocal;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLocalizacaoMaterial;
         private System.Windows.Forms.DataGridViewTextBoxColumn colQuantidadeMaterial;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescricaoMaterial;
@@ -460,5 +460,6 @@ namespace Interface
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdMaterial;
         private System.Windows.Forms.DataGridViewTextBoxColumn colChaveNotaFiscal;
         private System.Windows.Forms.LinkLabel linkRegistrarEntrada;
+        private System.Windows.Forms.Label labelNomeUsuario;
     }
 }

@@ -14,6 +14,7 @@ namespace Interface
         {
             InitializeComponent();
             labelIdMaterial.Text = args[0];
+            labelQuantidadeEstoque.Text = args[1];
             txtQuantidadeMaterial.Maximum = int.Parse(args[1]);
             txtNomeMaterial.Text = args[2];
             menuStripRegistraSaida.Renderer = new ProjectRenderer();
@@ -66,7 +67,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.7",
+Versão: 2019.0.8",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -74,6 +75,13 @@ Versão: 2019.0.7",
         }
         
         /* Funcionalidades da aplicação */
+        private void linkLimpeza_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txtCnpjInstituicao.Clear();
+            txtRazaoSocial.Clear();
+            txtQuantidadeMaterial.Text = @"1";
+        }
+        
         private void btnPesquisarMaterial_Click(object sender, EventArgs e)
         {
             var cnpj = txtCnpjInstituicao.Text.Replace(" ", "");
@@ -88,7 +96,7 @@ Versão: 2019.0.7",
             }
             else
             {
-                var retorno = Instituicao.BuscaCnpj(txtCnpjInstituicao.Text);
+                var retorno = Instituicao.BuscaInstituicao(txtCnpjInstituicao.Text);
                 switch (retorno)
                 {
                     case "offline":
@@ -122,8 +130,10 @@ Caso o erro persista, contate o administrador do sistema.",
             {
                 labelIdMaterial.Text,
                 txtQuantidadeMaterial.Text,
-                DateTime.Now.ToShortDateString()
-            }, "registro", txtCnpjInstituicao.Text, txtQuantidadeMaterial.Maximum.ToString(CultureInfo.CurrentCulture));
+                DateTime.Now.ToShortDateString(),
+                labelQuantidadeEstoque.Text,
+                txtCnpjInstituicao.Text
+            }, "registro");
             switch (retorno)
             {
                 case "invalido":
@@ -164,7 +174,7 @@ Caso o erro persista, contate o administrador.",
                 default:
                     MessageBox.Show(
                         retorno,
-                        @"Registro de retirada",
+                        @"Erro no processamento",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );

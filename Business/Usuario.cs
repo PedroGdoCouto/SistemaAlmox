@@ -45,6 +45,11 @@ namespace Business
             return BuscaUnicoRegistro(termoBusca, "usuario");
         }
 
+        public static string BuscaUsuario(string email)
+        {
+            return BuscaRegistroUsuario(email);
+        }
+
         public static string ExcluirRegistro(string cpf)
         {
             return ExcluirDados(cpf, "usuario");

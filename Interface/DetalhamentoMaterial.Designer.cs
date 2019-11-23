@@ -143,7 +143,7 @@ namespace Interface
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(400, 23);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Número de chave da nota fiscal";
+            this.label4.Text = "Chave da última Nota Fiscal";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // txtChaveNotaFiscal
@@ -237,7 +237,7 @@ namespace Interface
             // 
             this.labelIdMaterial.BackColor = System.Drawing.Color.Transparent;
             this.labelIdMaterial.ForeColor = System.Drawing.Color.Black;
-            this.labelIdMaterial.Location = new System.Drawing.Point(250, 374);
+            this.labelIdMaterial.Location = new System.Drawing.Point(250, 33);
             this.labelIdMaterial.Name = "labelIdMaterial";
             this.labelIdMaterial.Size = new System.Drawing.Size(300, 23);
             this.labelIdMaterial.TabIndex = 0;

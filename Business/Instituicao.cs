@@ -21,9 +21,9 @@ namespace Business
             }, "instituicao");
         }
 
-        public static string BuscaCnpj(string cnpj)
+        public static string BuscaInstituicao(string cnpj)
         {
-            return BuscaUnicoCnpj(cnpj);
+            return BuscaRegistroInstituicao(cnpj);
         }
         
         public static DataTable BuscaCompleta()

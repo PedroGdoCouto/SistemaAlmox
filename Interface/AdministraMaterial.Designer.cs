@@ -34,10 +34,10 @@ namespace Interface
             System.ComponentModel.ComponentResourceManager resources =
                 new System.ComponentModel.ComponentResourceManager(typeof(AdministraMaterial));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.labelChaveNotaFiscal = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.txtQuantidadeMaterial = new System.Windows.Forms.NumericUpDown();
             this.labelIdMaterial = new System.Windows.Forms.Label();
-            this.linkExcluirRegistro = new System.Windows.Forms.LinkLabel();
             this.linkEditarRegistro = new System.Windows.Forms.LinkLabel();
             this.txtLocalizacaoMaterial = new System.Windows.Forms.TextBox();
             this.txtDescricaoMaterial = new System.Windows.Forms.TextBox();
@@ -64,10 +64,10 @@ namespace Interface
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMain.Controls.Add(this.labelChaveNotaFiscal);
             this.panelMain.Controls.Add(this.picLogo);
             this.panelMain.Controls.Add(this.txtQuantidadeMaterial);
             this.panelMain.Controls.Add(this.labelIdMaterial);
-            this.panelMain.Controls.Add(this.linkExcluirRegistro);
             this.panelMain.Controls.Add(this.linkEditarRegistro);
             this.panelMain.Controls.Add(this.txtLocalizacaoMaterial);
             this.panelMain.Controls.Add(this.txtDescricaoMaterial);
@@ -84,6 +84,17 @@ namespace Interface
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(800, 600);
             this.panelMain.TabIndex = 0;
+            // 
+            // labelChaveNotaFiscal
+            // 
+            this.labelChaveNotaFiscal.BackColor = System.Drawing.Color.Transparent;
+            this.labelChaveNotaFiscal.Location = new System.Drawing.Point(250, 56);
+            this.labelChaveNotaFiscal.Name = "labelChaveNotaFiscal";
+            this.labelChaveNotaFiscal.Size = new System.Drawing.Size(300, 23);
+            this.labelChaveNotaFiscal.TabIndex = 0;
+            this.labelChaveNotaFiscal.Text = "Chave NF";
+            this.labelChaveNotaFiscal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelChaveNotaFiscal.Visible = false;
             // 
             // picLogo
             // 
@@ -115,7 +126,7 @@ namespace Interface
             // labelIdMaterial
             // 
             this.labelIdMaterial.BackColor = System.Drawing.Color.Transparent;
-            this.labelIdMaterial.Location = new System.Drawing.Point(250, 36);
+            this.labelIdMaterial.Location = new System.Drawing.Point(250, 33);
             this.labelIdMaterial.Name = "labelIdMaterial";
             this.labelIdMaterial.Size = new System.Drawing.Size(300, 23);
             this.labelIdMaterial.TabIndex = 0;
@@ -123,34 +134,19 @@ namespace Interface
             this.labelIdMaterial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelIdMaterial.Visible = false;
             // 
-            // linkExcluirRegistro
-            // 
-            this.linkExcluirRegistro.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.linkExcluirRegistro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkExcluirRegistro.LinkColor = System.Drawing.Color.Red;
-            this.linkExcluirRegistro.Location = new System.Drawing.Point(440, 326);
-            this.linkExcluirRegistro.Name = "linkExcluirRegistro";
-            this.linkExcluirRegistro.Size = new System.Drawing.Size(110, 23);
-            this.linkExcluirRegistro.TabIndex = 5;
-            this.linkExcluirRegistro.TabStop = true;
-            this.linkExcluirRegistro.Text = "Excluir registro";
-            this.linkExcluirRegistro.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.linkExcluirRegistro.VisitedLinkColor = System.Drawing.Color.DarkGray;
-            this.linkExcluirRegistro.LinkClicked +=
-                new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkExcluirRegistro_LinkClicked);
-            // 
             // linkEditarRegistro
             // 
             this.linkEditarRegistro.BackColor = System.Drawing.Color.Transparent;
             this.linkEditarRegistro.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkEditarRegistro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkEditarRegistro.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkEditarRegistro.Location = new System.Drawing.Point(250, 326);
+            this.linkEditarRegistro.Location = new System.Drawing.Point(450, 326);
             this.linkEditarRegistro.Name = "linkEditarRegistro";
             this.linkEditarRegistro.Size = new System.Drawing.Size(100, 23);
             this.linkEditarRegistro.TabIndex = 4;
             this.linkEditarRegistro.TabStop = true;
             this.linkEditarRegistro.Text = "Editar registro";
+            this.linkEditarRegistro.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.linkEditarRegistro.VisitedLinkColor = System.Drawing.Color.DarkGray;
             this.linkEditarRegistro.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkEditarRegistro_LinkClicked);
@@ -394,12 +390,12 @@ namespace Interface
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.LinkLabel linkExcluirRegistro;
         private System.Windows.Forms.LinkLabel linkEditarRegistro;
         private System.Windows.Forms.TextBox txtLocalizacaoMaterial;
         private System.Windows.Forms.TextBox txtDescricaoMaterial;
         private System.Windows.Forms.Label labelIdMaterial;
         private System.Windows.Forms.NumericUpDown txtQuantidadeMaterial;
         private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.Label labelChaveNotaFiscal;
     }
 }

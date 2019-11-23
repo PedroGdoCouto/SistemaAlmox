@@ -34,6 +34,8 @@ namespace Interface
             System.ComponentModel.ComponentResourceManager resources =
                 new System.ComponentModel.ComponentResourceManager(typeof(RegistraSaida));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.linkLimpeza = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.txtCnpjInstituicao = new System.Windows.Forms.MaskedTextBox();
             this.txtRazaoSocial = new System.Windows.Forms.TextBox();
@@ -51,7 +53,7 @@ namespace Interface
             this.label1 = new System.Windows.Forms.Label();
             this.menuStripRegistraSaida = new System.Windows.Forms.MenuStrip();
             this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelQuantidadeEstoque = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.txtQuantidadeMaterial)).BeginInit();
@@ -62,6 +64,8 @@ namespace Interface
             // panelMain
             // 
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMain.Controls.Add(this.labelQuantidadeEstoque);
+            this.panelMain.Controls.Add(this.linkLimpeza);
             this.panelMain.Controls.Add(this.label2);
             this.panelMain.Controls.Add(this.picLogo);
             this.panelMain.Controls.Add(this.txtCnpjInstituicao);
@@ -80,6 +84,32 @@ namespace Interface
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(800, 600);
             this.panelMain.TabIndex = 0;
+            // 
+            // linkLimpeza
+            // 
+            this.linkLimpeza.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.linkLimpeza.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLimpeza.LinkColor = System.Drawing.Color.SteelBlue;
+            this.linkLimpeza.Location = new System.Drawing.Point(545, 324);
+            this.linkLimpeza.Name = "linkLimpeza";
+            this.linkLimpeza.Size = new System.Drawing.Size(55, 23);
+            this.linkLimpeza.TabIndex = 5;
+            this.linkLimpeza.TabStop = true;
+            this.linkLimpeza.Text = "Limpar";
+            this.linkLimpeza.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLimpeza.VisitedLinkColor = System.Drawing.Color.DarkGray;
+            this.linkLimpeza.LinkClicked +=
+                new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLimpeza_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(200, 214);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(400, 23);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Nome do material";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // picLogo
             // 
@@ -110,7 +140,7 @@ namespace Interface
             this.txtRazaoSocial.MaxLength = 200;
             this.txtRazaoSocial.Name = "txtRazaoSocial";
             this.txtRazaoSocial.Size = new System.Drawing.Size(300, 26);
-            this.txtRazaoSocial.TabIndex = 4;
+            this.txtRazaoSocial.TabIndex = 3;
             this.txtRazaoSocial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtQuantidadeMaterial
@@ -120,7 +150,7 @@ namespace Interface
             this.txtQuantidadeMaterial.Minimum = new decimal(new int[] {1, 0, 0, 0});
             this.txtQuantidadeMaterial.Name = "txtQuantidadeMaterial";
             this.txtQuantidadeMaterial.Size = new System.Drawing.Size(94, 26);
-            this.txtQuantidadeMaterial.TabIndex = 3;
+            this.txtQuantidadeMaterial.TabIndex = 4;
             this.txtQuantidadeMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtQuantidadeMaterial.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             this.txtQuantidadeMaterial.Value = new decimal(new int[] {1, 0, 0, 0});
@@ -179,7 +209,7 @@ namespace Interface
             // labelIdMaterial
             // 
             this.labelIdMaterial.BackColor = System.Drawing.Color.Transparent;
-            this.labelIdMaterial.Location = new System.Drawing.Point(250, 324);
+            this.labelIdMaterial.Location = new System.Drawing.Point(250, 33);
             this.labelIdMaterial.Name = "labelIdMaterial";
             this.labelIdMaterial.Size = new System.Drawing.Size(300, 23);
             this.labelIdMaterial.TabIndex = 0;
@@ -299,15 +329,16 @@ namespace Interface
             this.menuToolSobre.Text = "&Sobre";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
-            // label2
+            // labelQuantidadeEstoque
             // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(200, 214);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(400, 23);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Nome do material";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.labelQuantidadeEstoque.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuantidadeEstoque.Location = new System.Drawing.Point(250, 56);
+            this.labelQuantidadeEstoque.Name = "labelQuantidadeEstoque";
+            this.labelQuantidadeEstoque.Size = new System.Drawing.Size(300, 23);
+            this.labelQuantidadeEstoque.TabIndex = 0;
+            this.labelQuantidadeEstoque.Text = "Quantidade estoque";
+            this.labelQuantidadeEstoque.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelQuantidadeEstoque.Visible = false;
             // 
             // RegistraSaida
             // 
@@ -359,5 +390,7 @@ namespace Interface
         private System.Windows.Forms.MaskedTextBox txtCnpjInstituicao;
         private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLimpeza;
+        private System.Windows.Forms.Label labelQuantidadeEstoque;
     }
 }

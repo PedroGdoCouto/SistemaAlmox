@@ -17,6 +17,7 @@ namespace Interface
             txtDescricaoMaterial.Text = args[2];
             txtQuantidadeMaterial.Text = args[3];
             txtLocalizacaoMaterial.Text = args[4];
+            labelChaveNotaFiscal.Text = args[5];
             menuStripAdministraMaterial.Renderer = new ProjectRenderer();
         }
         
@@ -67,7 +68,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.7",
+Versão: 2019.0.8",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -90,50 +91,8 @@ Versão: 2019.0.7",
             txtQuantidadeMaterial.Enabled = true;
             txtLocalizacaoMaterial.Clear();
             txtLocalizacaoMaterial.Enabled = true;
-            linkExcluirRegistro.Enabled = false;
             linkEditarRegistro.Enabled = false;
             btnConfirmar.Enabled = true;
-        }
-
-        private void linkExcluirRegistro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var mensagem =
-                MessageBox.Show(
-                    @"Deseja excluir o registro do material?",
-                    @"Exclusão de dados",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-            if (!mensagem.Equals(DialogResult.Yes)) return;
-            var retorno = Material.ExcluirRegistro(labelIdMaterial.Text);
-            switch (retorno)
-            {
-                case "excluido":
-                    MessageBox.Show(
-                        @"Material excluído com sucesso!",
-                        @"Exclusão de material",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                    Close();
-                    break;
-                case "nulo":
-                    MessageBox.Show(
-                        @"Não foi possível realizar a exclusão do registro.",
-                        @"Exclusão de material",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    break;
-                default:
-                    MessageBox.Show(
-                        retorno,
-                        @"Erro no processamento",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                    break;
-            }
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -157,7 +116,8 @@ Versão: 2019.0.7",
                     txtNomeMaterial.Text,
                     txtDescricaoMaterial.Text,
                     txtQuantidadeMaterial.Text,
-                    txtLocalizacaoMaterial.Text
+                    txtLocalizacaoMaterial.Text,
+                    labelChaveNotaFiscal.Text
                 });
                 switch (retorno)
                 {

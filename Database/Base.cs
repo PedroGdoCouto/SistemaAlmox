@@ -34,7 +34,7 @@ namespace Database
                             break;
                         case "material":
                             queryUpdate =
-                                "UPDATE materiais SET nomeMaterial = (@nome), descricaoMaterial = (@descricao), quantidadeMaterial = (@quantidade), localizacaoMaterial = (@localizacao) WHERE idMaterial::text = (@id)";
+                                "UPDATE materiais SET nomeMaterial = (@nome), descricaoMaterial = (@descricao), quantidadeMaterial = (@quantidade), localizacaoMaterial = (@localizacao), chaveNotaFiscal = (@nota) WHERE idMaterial::text = (@id)";
 
                             using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
                             {
@@ -43,6 +43,7 @@ namespace Database
                                 pgUpdate.Parameters.AddWithValue("descricao", args[2]);
                                 pgUpdate.Parameters.AddWithValue("quantidade", int.Parse(args[3]));
                                 pgUpdate.Parameters.AddWithValue("localizacao", args[4]);
+                                pgUpdate.Parameters.AddWithValue("nota", args[5]);
                                 if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
                             }
                             break;
@@ -70,60 +71,13 @@ namespace Database
                     return @"Não foi possível iniciar a conexão com o banco de dados.
 Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 }
+                pgConnection.Close();
             }
 
             return "nulo";
         }
 
-        protected static DataTable BuscaTodoRegistro(string tipoBusca)
-        {
-            var dataTable = new DataTable();
-            using (var pgConnection = new NpgsqlConnection(ConnectionString))
-            {
-                try
-                {
-                    pgConnection.Open();
-                    switch (tipoBusca)
-                    {
-                        case "instituicao":
-                            var querySelect = "SELECT cnpjInstituicao, razaoSocialInstituicao, enderecoInstituicao FROM instituicoes";
-
-                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
-                            {
-                                pgDataTable.Fill(dataTable);
-                            }
-                            break;
-                        case "material":
-                            querySelect =
-                                "SELECT * FROM materiais";
-
-                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
-                            {
-                                pgDataTable.Fill(dataTable);
-                            }
-                            break;
-                        case "usuario":
-                            querySelect = "SELECT cpfUsuario, nomeUsuario, emailUsuario, DataNascimento FROM usuarios";
-                                /* "SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario, dataNascimento FROM usuarios"; */
-
-                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
-                            {
-                                pgDataTable.Fill(dataTable);
-                            }
-                            break;
-                    }
-                }
-                catch (NpgsqlException e)
-                {
-                    return new DataTable(e.Message);
-                }
-                pgConnection.Close();
-            }
-
-            return dataTable;
-        }
-
-        protected static string BuscaUnicoCnpj(string pesquisa)
+        protected static string BuscaRegistroInstituicao(string pesquisa)
         {
             using (var pgConnection = new NpgsqlConnection(ConnectionString))
             {
@@ -148,9 +102,159 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 {
                     return "offline";
                 }
+                pgConnection.Close();
             }
             
             return "nulo";
+        }
+
+        protected static string BuscaRegistroMaterial(string tipoBusca, int pesquisa = 0)
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    switch (tipoBusca)
+                    {
+                        case "chave":
+                            var querySelect =
+                                "SELECT chaveNotaFiscal FROM materiais WHERE idMaterial = (@idMaterial)";
+                            
+                            using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                            {
+                                pgSelect.Parameters.AddWithValue("idMaterial", pesquisa);
+                                using (var reader = pgSelect.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        return reader.GetString(0);
+                                    }
+                                }
+                            }
+                            break;
+                        case "id":
+                            querySelect =
+                                "SELECT idMaterial FROM materiais ORDER BY idMaterial DESC LIMIT 1";
+
+                            using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                            {
+                                using (var reader = pgSelect.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        return reader.GetInt32(0).ToString();
+                                    }
+                                }
+                            }
+                            break;
+                        case "nome":
+                            querySelect =
+                                "SELECT concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) FROM materiais WHERE idMaterial = (@idMaterial)";
+
+                            using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                            {
+                                pgSelect.Parameters.AddWithValue("idMaterial", pesquisa);
+                                using (var reader = pgSelect.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        return reader.GetString(0);
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException)
+                {
+                    return "offline";
+                }
+                pgConnection.Close();
+            }
+
+            return "nulo";
+        }
+
+        protected static string BuscaRegistroUsuario(string pesquisa)
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    const string querySelect =
+                        "SELECT initcap(substring(nomeUsuario FROM '[^ ]+'::text)) FROM usuarios WHERE emailUsuario = (@email)";
+
+                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                    {
+                        pgSelect.Parameters.AddWithValue("email", pesquisa);
+                        using (var reader = pgSelect.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                return reader.GetString(0);
+                            }
+                        }
+                    }
+                }
+                catch (NpgsqlException)
+                {
+                    return "offline";
+                }
+                pgConnection.Close();
+            }
+
+            return "nulo";
+        }
+
+        protected static DataTable BuscaTodoRegistro(string tipoBusca)
+        {
+            var dataTable = new DataTable();
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    switch (tipoBusca)
+                    {
+                        case "instituicao":
+                            var querySelect =
+                                "SELECT cnpjInstituicao, razaoSocialInstituicao, enderecoInstituicao FROM instituicoes";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                        case "material":
+                            querySelect =
+                                "SELECT idMaterial, concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) AS nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial, chaveNotaFiscal FROM materiais";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                        case "usuario":
+                            querySelect =
+                                "SELECT cpfUsuario, nomeUsuario, emailUsuario, dataNascimento FROM usuarios";
+
+                            using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                            {
+                                pgDataTable.Fill(dataTable);
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return new DataTable(e.Message);
+                }
+                pgConnection.Close();
+            }
+
+            return dataTable;
         }
 
         protected static DataTable BuscaUnicoRegistro(string pesquisa, string termoBusca, string tipoBusca = "")
@@ -178,15 +282,15 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                             {
                                 case "codigo":
                                     querySelect =
-                                        $"SELECT * FROM materiais WHERE idMaterial::text LIKE '%{pesquisa}%'";
+                                        $"SELECT idMaterial, concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) AS nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial, chaveNotaFiscal FROM materiais WHERE idMaterial::text LIKE '%{pesquisa}%'";
                                     break;
                                 case "local":
                                     querySelect =
-                                        $"SELECT * FROM materiais WHERE localizacaoMaterial LIKE '%{pesquisa}%'";
+                                        $"SELECT idMaterial, concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) AS nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial, chaveNotaFiscal FROM materiais WHERE localizacaoMaterial LIKE '%{pesquisa}%'";
                                     break;
                                 case "nome":
                                     querySelect =
-                                        $"SELECT * FROM materiais WHERE nomeMaterial LIKE '%{pesquisa}%'";
+                                        $"SELECT idMaterial, concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) AS nomeMaterial, descricaoMaterial, quantidadeMaterial, localizacaoMaterial, chaveNotaFiscal FROM materiais WHERE nomeMaterial LIKE '%{pesquisa}%'";
                                     break;
                             }
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
@@ -197,7 +301,6 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                         case "usuario":
                             querySelect =
                                 $"SELECT cpfUsuario, nomeUsuario, emailUsuario, dataNascimento FROM usuarios WHERE cpfUsuario = '{pesquisa}'";
-                                /* $"SELECT cpfUsuario, substring(nomeUsuario FROM '[^ ]+'::text), emailUsuario, dataNascimento FROM usuarios WHERE cpfUsuario = '{pesquisa}'"; */
 
                             using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
                             {
@@ -210,6 +313,7 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 {
                     return new DataTable(e.Message);
                 }
+                pgConnection.Close();
             }
 
             return dataTable;
@@ -238,7 +342,7 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                             break;
                         case "material":
                             queryInsert =
-                                "INSERT INTO materiais VALUES (DEFAULT, (@nome), (@descricao), (@quantidade), (@localizacao))";
+                                "INSERT INTO materiais VALUES (DEFAULT, (@nome), (@descricao), (@quantidade), (@localizacao), (@nota))";
 
                             using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
                             {
@@ -246,6 +350,7 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                                 pgInsert.Parameters.AddWithValue("descricao", args[1]);
                                 pgInsert.Parameters.AddWithValue("quantidade", int.Parse(args[2]));
                                 pgInsert.Parameters.AddWithValue("localizacao", args[3]);
+                                pgInsert.Parameters.AddWithValue("nota", args[4]);
                                 if (pgInsert.ExecuteNonQuery() == 1) return "registrado";
                             }
                             break;
@@ -275,7 +380,7 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 pgConnection.Close();
             }
             
-            return @"nulo";
+            return "nulo";
         }
 
         protected static string ExcluirDados(string pesquisa, string termoBusca)
@@ -294,16 +399,6 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                             using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
                             {
                                 pgDelete.Parameters.AddWithValue("cnpj", pesquisa);
-                                if (pgDelete.ExecuteNonQuery() == 1) return "excluido";
-                            }
-                            break;
-                        case "material":
-                            queryDelete =
-                                "DELETE FROM materiais WHERE idMaterial::text = (@id)";
-
-                            using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
-                            {
-                                pgDelete.Parameters.AddWithValue("id", pesquisa);
                                 if (pgDelete.ExecuteNonQuery() == 1) return "excluido";
                             }
                             break;
@@ -365,6 +460,125 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
             return "nulo";
         }
 
+        protected static string RegistroMaterial(string[] args, string operacao, string tipoRegistro)
+        {
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    switch (tipoRegistro)
+                    {
+                        case "entrada":
+                            switch (operacao)
+                            {
+                                case "busca":
+                                    const string querySelect =
+                                        "SELECT dataRegistro FROM registroEntrada WHERE idMaterial = (@idMaterial) ORDER BY idRegistro DESC LIMIT 1";
+                                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                                    {
+                                        pgSelect.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
+                                        using (var reader = pgSelect.ExecuteReader())
+                                        {
+                                            while (reader.Read())
+                                            {
+                                                return reader.GetString(0);
+                                            }
+                                        }
+                                    }
+
+                                    break;
+                                case "registro":
+                                    const string queryInsert =
+                                        "INSERT INTO registroEntrada VALUES (DEFAULT, (@entrada), (@quantidade), (@idMaterial), (@nota))";
+
+                                    using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                                    {
+                                        pgInsert.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
+                                        pgInsert.Parameters.AddWithValue("quantidade", int.Parse(args[1]));
+                                        pgInsert.Parameters.AddWithValue("entrada", args[2]);
+                                        pgInsert.Parameters.AddWithValue("nota", args[5]);
+                                        if (pgInsert.ExecuteNonQuery() == 1)
+                                        {
+                                            const string queryUpdate =
+                                                "UPDATE materiais SET quantidadeMaterial = quantidadeMaterial + (@quantidade), localizacaoMaterial = (@localizacao), chaveNotaFiscal = (@nota) WHERE idMaterial = (@idMaterial)";
+
+                                            using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
+                                            {
+                                                pgUpdate.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
+                                                pgUpdate.Parameters.AddWithValue("quantidade", int.Parse(args[1]));
+                                                pgUpdate.Parameters.AddWithValue("localizacao", args[3]);
+                                                pgUpdate.Parameters.AddWithValue("nota", args[4]);
+                                                if (pgUpdate.ExecuteNonQuery() == 1) return "registrado";
+                                            }
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            break;
+                        case "saida":
+                            switch (operacao)
+                            {
+                                case "busca":
+                                    const string querySelect =
+                                        "SELECT dataRegistro FROM registroSaida WHERE idMaterial = (@idMaterial) ORDER BY idRegistro DESC LIMIT 1";
+                                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
+                                    {
+                                        pgSelect.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
+                                        using (var reader = pgSelect.ExecuteReader())
+                                        {
+                                            while (reader.Read())
+                                            {
+                                                return reader.GetString(0);
+                                            }
+                                        }
+                                    }
+
+                                    break;
+                                case "registro":
+                                    const string queryInsert =
+                                        "INSERT INTO registroSaida VALUES (DEFAULT, (@saida), (@quantidade), (@idMaterial), (@instituicao))";
+
+                                    using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                                    {
+                                        pgInsert.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
+                                        pgInsert.Parameters.AddWithValue("quantidade", int.Parse(args[1]));
+                                        pgInsert.Parameters.AddWithValue("saida", args[2]);
+                                        pgInsert.Parameters.AddWithValue("instituicao", args[3]);
+                                        if (pgInsert.ExecuteNonQuery() == 1)
+                                        {
+                                            const string queryUpdate =
+                                                "UPDATE materiais SET quantidadeMaterial = quantidadeMaterial - (@quantidade) WHERE idMaterial = (@idMaterial)";
+
+                                            using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
+                                            {
+                                                pgUpdate.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
+                                                pgUpdate.Parameters.AddWithValue("quantidade", int.Parse(args[1]));
+                                                if (pgUpdate.ExecuteNonQuery() == 1) return "registrado";
+                                            }
+                                        }
+                                    }
+
+                                    break;
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return "offline: " + e.Message;
+                }
+                catch (Exception e)
+                {
+                    return "Erro: " + e.Message;
+                }
+                pgConnection.Close();
+            }
+            
+            return "nulo";
+        }
+
         protected static string ResgateAcesso(string[] args)
         {
             using (var pgConnection = new NpgsqlConnection(ConnectionString))
@@ -406,10 +620,6 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                             if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
                         }
                     }
-                    else
-                    {
-                        return @"nulo";
-                    }
                 }
                 catch (NpgsqlException e)
                 {
@@ -419,100 +629,6 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                 pgConnection.Close();
             }
 
-            return "nulo";
-        }
-
-        protected static string RegistroEstoque(string[] args, string operacao, string tipoRegistro, string estoque = "")
-        {
-            using (var pgConnection = new NpgsqlConnection(ConnectionString))
-            {
-                try
-                {
-                    pgConnection.Open();
-                    switch (tipoRegistro)
-                    {
-                        case "entrada":
-                            switch (operacao)
-                            {
-                                case "busca":
-                                    const string querySelect =
-                                        "SELECT dataRegistro FROM registroEntrada WHERE idMaterial = (@idMaterial) ORDER BY idRegistro DESC LIMIT 1";
-                                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
-                                    {
-                                        pgSelect.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
-                                        using (var reader = pgSelect.ExecuteReader())
-                                        {
-                                            while (reader.Read())
-                                            {
-                                                return reader.GetString(0);
-                                            }
-                                        }
-                                    }
-
-                                    break;
-                                case "registro":
-                                    break;
-                            }
-
-                            break;
-                        case "saida":
-                            switch (operacao)
-                            {
-                                case "busca":
-                                    const string querySelect =
-                                        "SELECT dataRegistro FROM registroSaida WHERE idMaterial = (@idMaterial) ORDER BY idRegistro DESC LIMIT 1";
-                                    using (var pgSelect = new NpgsqlCommand(querySelect, pgConnection))
-                                    {
-                                        pgSelect.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
-                                        using (var reader = pgSelect.ExecuteReader())
-                                        {
-                                            while (reader.Read())
-                                            {
-                                                return reader.GetString(0);
-                                            }
-                                        }
-                                    }
-
-                                    break;
-                                case "registro":
-                                    const string queryInsert =
-                                        "INSERT INTO registroSaida VALUES (DEFAULT, (@saida), (@quantidade), (@instituicao), (@idMaterial))";
-
-                                    using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
-                                    {
-                                        pgInsert.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
-                                        pgInsert.Parameters.AddWithValue("quantidade", int.Parse(args[1]));
-                                        pgInsert.Parameters.AddWithValue("saida", args[2]);
-                                        pgInsert.Parameters.AddWithValue("instituicao", args[3]);
-                                        if (pgInsert.ExecuteNonQuery() == 1)
-                                        {
-                                            const string queryUpdate =
-                                                "UPDATE materiais SET quantidadeMaterial = (@estoque) WHERE idMaterial = (@idMaterial)";
-
-                                            using (var pgUpdate = new NpgsqlCommand(queryUpdate, pgConnection))
-                                            {
-                                                pgUpdate.Parameters.AddWithValue("idMaterial", int.Parse(args[0]));
-                                                pgUpdate.Parameters.AddWithValue("estoque", int.Parse(estoque));
-                                                if (pgUpdate.ExecuteNonQuery() == 1) return "registrado";
-                                            }
-                                        }
-                                    }
-
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                catch (NpgsqlException)
-                {
-                    return "offline";
-                }
-                catch (Exception e)
-                {
-                    return "Erro: " + e.Message;
-                }
-            }
-            
             return "nulo";
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Business;
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Interface
@@ -57,7 +58,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.7",
+Versão: 2019.0.8",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -72,14 +73,6 @@ Versão: 2019.0.7",
         
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var interfaceUsuario = new PainelUsuario {InterfaceInicial = this};
-            interfaceUsuario.Show();
-            Hide();
-            /*
-            var interfaceAdministrador = new PainelAdministrador {InterfaceInicial = this};
-            interfaceAdministrador.Show();
-            Hide();
-            /*
             if (string.IsNullOrEmpty(txtEmailLogin.Text) || string.IsNullOrEmpty(txtSenhaLogin.Text))
             {
                 MessageBox.Show(
@@ -96,16 +89,76 @@ Versão: 2019.0.7",
                 switch (retorno)
                 {
                     case "adm":
+                        var nome = Usuario.BuscaUsuario(txtEmailLogin.Text);
+                        switch (nome)
+                        {
+                            case "offline":
+                                MessageBox.Show(
+                                    @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema.",
+                                    @"Erro no processamento",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error
+                                );
+                                break;
+                            case "nulo":
+                                MessageBox.Show(
+                                    @"Usuário não identificado no banco.",
+                                    @"Usuário não registrado",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning
+                                );
+                                break;
+                            default:
+                                MessageBox.Show(
+                                    $@"Administrador {nome} autenticado.
+Seja bem-vindo!",
+                                    @"Acesso ao aplicativo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
+                                break;
+                        }
                         txtEmailLogin.Clear();
                         txtSenhaLogin.Clear();
-                        var interfaceAdministrador = new PainelAdministrador {InterfaceInicial = this};
+                        var interfaceAdministrador = new PainelAdministrador(nome) {InterfaceInicial = this};
                         interfaceAdministrador.Show();
                         Hide();
                         break;
                     case "usuario":
+                        nome = Usuario.BuscaUsuario(txtEmailLogin.Text);
+                        switch (nome)
+                        {
+                            case "offline":
+                                MessageBox.Show(
+                                    @"Não foi possível iniciar a conexão com o banco de dados.
+Caso o erro persista, contate o administrador do sistema.",
+                                    @"Erro no processamento",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error
+                                );
+                                break;
+                            case "nulo":
+                                MessageBox.Show(
+                                    @"Usuário não identificado no banco.",
+                                    @"Usuário não registrado",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning
+                                );
+                                break;
+                            default:
+                                MessageBox.Show(
+                                    $@"Usuário autenticado.
+Seja bem-vindo {nome}!",
+                                    @"Acesso ao aplicativo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
+                                break;
+                        }
                         txtEmailLogin.Clear();
                         txtSenhaLogin.Clear();
-                        var interfaceUsuario = new PainelUsuario {InterfaceInicial = this};
+                        var interfaceUsuario = new PainelUsuario(nome) {InterfaceInicial = this};
                         interfaceUsuario.Show();
                         Hide();
                         break;
@@ -124,6 +177,7 @@ Versão: 2019.0.7",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning
                         );
+                        txtSenhaLogin.Clear();
                         break;
                     default:
                         MessageBox.Show(
@@ -135,7 +189,6 @@ Versão: 2019.0.7",
                         break;
                 }
             }
-            */
         }
 
         private void chkExibeSenha_CheckedChanged(object sender, EventArgs e)

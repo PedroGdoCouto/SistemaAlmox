@@ -9,18 +9,18 @@ namespace Interface
     public sealed partial class DetalhamentoMaterial : Form
     {
         public Form InterfaceUsuario;
-        private readonly Material _material = new Material();
         public DetalhamentoMaterial(IReadOnlyList<string> args)
         {
             InitializeComponent();
+            var material = new Material();
             labelIdMaterial.Text = args[0];
             txtNomeMaterial.Text = args[1];
             txtDescricaoMaterial.Text = args[2];
             txtQuantidadeMaterial.Text = args[3];
             txtLocalizacaoMaterial.Text = args[4];
             txtChaveNotaFiscal.Text = args[5];
-            /* txtUltimaEntrada.Text = _material.EntradaEstoque(labelIdMaterial.Text, "busca"); */
-            txtUltimaSaida.Text = _material.SaidaEstoque(new[] {labelIdMaterial.Text}, "busca");
+            txtUltimaEntrada.Text = material.EntradaEstoque(new[] {labelIdMaterial.Text}, "busca");
+            txtUltimaSaida.Text = material.SaidaEstoque(new[] {labelIdMaterial.Text}, "busca");
             if (int.Parse(txtQuantidadeMaterial.Text) == 0) btnConfirmar.Enabled = false;
             menuStripDetalhamentoMaterial.Renderer = new ProjectRenderer();
         }
@@ -72,7 +72,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.7",
+Versão: 2019.0.8",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -86,7 +86,7 @@ Versão: 2019.0.7",
             {
                 labelIdMaterial.Text,
                 txtQuantidadeMaterial.Text,
-                txtNomeMaterial.Text + " - " + txtDescricaoMaterial.Text
+                txtNomeMaterial.Text + " " + txtDescricaoMaterial.Text
             }) {InterfaceUsuario = InterfaceUsuario};
             interfaceRegistraSaida.Show();
             Hide();

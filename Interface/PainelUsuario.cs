@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Business;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Business;
 
 namespace Interface
 {
     public sealed partial class PainelUsuario : Form
     {
         public Form InterfaceInicial;
-        public PainelUsuario()
+        public PainelUsuario(string usuario)
         {
             InitializeComponent();
+            labelNomeUsuario.Text = $@"Bem-vindo {usuario}!";
             menuStripUsuario.Renderer = new ProjectRenderer();
         }
         
@@ -37,7 +38,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.7",
+Versão: 2019.0.8",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information

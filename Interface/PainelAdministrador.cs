@@ -8,9 +8,10 @@ namespace Interface
     public sealed partial class PainelAdministrador : Form
     {
         public Form InterfaceInicial;
-        public PainelAdministrador()
+        public PainelAdministrador(string usuario)
         {
             InitializeComponent();
+            labelNomeUsuario.Text = $@"Bem-vindo {usuario}!";
             menuStripAdministrador.Renderer = new ProjectRenderer();
         }
         
@@ -37,7 +38,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.7",
+Versão: 2019.0.8",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -131,7 +132,8 @@ Versão: 2019.0.7",
                     dataGridMaterial.Rows[e.RowIndex].Cells["colNomeMaterial"].Value.ToString(),
                     dataGridMaterial.Rows[e.RowIndex].Cells["colDescricaoMaterial"].Value.ToString(),
                     dataGridMaterial.Rows[e.RowIndex].Cells["colQuantidadeMaterial"].Value.ToString(),
-                    dataGridMaterial.Rows[e.RowIndex].Cells["colLocalizacaoMaterial"].Value.ToString()
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colLocalizacaoMaterial"].Value.ToString(),
+                    dataGridMaterial.Rows[e.RowIndex].Cells["colChaveNotaFiscal"].Value.ToString()
                 }) {InterfaceAdministrador = this};
                 interfaceAdministraMaterial.Show();
                 Hide();

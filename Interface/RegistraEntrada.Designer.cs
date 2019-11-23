@@ -34,14 +34,20 @@ namespace Interface
             System.ComponentModel.ComponentResourceManager resources =
                 new System.ComponentModel.ComponentResourceManager(typeof(RegistraEntrada));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.labelChaveNotaFiscal = new System.Windows.Forms.Label();
+            this.cmbNomeMaterial = new System.Windows.Forms.ComboBox();
+            this.linkLimpeza = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnConfirmar = new System.Windows.Forms.Button();
+            this.btnRegistrar = new System.Windows.Forms.Button();
             this.txtLocalizacaoMaterial = new System.Windows.Forms.TextBox();
             this.txtChaveNotaFiscal = new System.Windows.Forms.TextBox();
             this.labelIdMaterial = new System.Windows.Forms.Label();
             this.txtQuantidadeMaterial = new System.Windows.Forms.NumericUpDown();
-            this.txtNomeMaterial = new System.Windows.Forms.TextBox();
             this.btnPesquisarMaterial = new System.Windows.Forms.Button();
             this.txtPesquisaMaterial = new System.Windows.Forms.TextBox();
             this.panelTop = new System.Windows.Forms.Panel();
@@ -50,11 +56,6 @@ namespace Interface
             this.label1 = new System.Windows.Forms.Label();
             this.menuStripRegistroEntrada = new System.Windows.Forms.MenuStrip();
             this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.linkLimpeza = new System.Windows.Forms.LinkLabel();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.txtQuantidadeMaterial)).BeginInit();
@@ -66,6 +67,8 @@ namespace Interface
             // 
             this.panelMain.BackColor = System.Drawing.Color.Transparent;
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMain.Controls.Add(this.labelChaveNotaFiscal);
+            this.panelMain.Controls.Add(this.cmbNomeMaterial);
             this.panelMain.Controls.Add(this.linkLimpeza);
             this.panelMain.Controls.Add(this.label5);
             this.panelMain.Controls.Add(this.label4);
@@ -73,12 +76,11 @@ namespace Interface
             this.panelMain.Controls.Add(this.label2);
             this.panelMain.Controls.Add(this.picLogo);
             this.panelMain.Controls.Add(this.btnCancelar);
-            this.panelMain.Controls.Add(this.btnConfirmar);
+            this.panelMain.Controls.Add(this.btnRegistrar);
             this.panelMain.Controls.Add(this.txtLocalizacaoMaterial);
             this.panelMain.Controls.Add(this.txtChaveNotaFiscal);
             this.panelMain.Controls.Add(this.labelIdMaterial);
             this.panelMain.Controls.Add(this.txtQuantidadeMaterial);
-            this.panelMain.Controls.Add(this.txtNomeMaterial);
             this.panelMain.Controls.Add(this.btnPesquisarMaterial);
             this.panelMain.Controls.Add(this.txtPesquisaMaterial);
             this.panelMain.Controls.Add(this.panelTop);
@@ -87,6 +89,81 @@ namespace Interface
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(800, 600);
             this.panelMain.TabIndex = 0;
+            // 
+            // labelChaveNotaFiscal
+            // 
+            this.labelChaveNotaFiscal.Location = new System.Drawing.Point(250, 56);
+            this.labelChaveNotaFiscal.Name = "labelChaveNotaFiscal";
+            this.labelChaveNotaFiscal.Size = new System.Drawing.Size(300, 23);
+            this.labelChaveNotaFiscal.TabIndex = 0;
+            this.labelChaveNotaFiscal.Text = "Chave Nota Fiscal";
+            this.labelChaveNotaFiscal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelChaveNotaFiscal.Visible = false;
+            // 
+            // cmbNomeMaterial
+            // 
+            this.cmbNomeMaterial.AccessibleDescription = "";
+            this.cmbNomeMaterial.AccessibleName = "";
+            this.cmbNomeMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbNomeMaterial.FormattingEnabled = true;
+            this.cmbNomeMaterial.Location = new System.Drawing.Point(200, 240);
+            this.cmbNomeMaterial.Name = "cmbNomeMaterial";
+            this.cmbNomeMaterial.Size = new System.Drawing.Size(294, 28);
+            this.cmbNomeMaterial.TabIndex = 2;
+            this.cmbNomeMaterial.SelectedIndexChanged +=
+                new System.EventHandler(this.cmbNomeMaterial_SelectedIndexChanged);
+            // 
+            // linkLimpeza
+            // 
+            this.linkLimpeza.Font = new System.Drawing.Font("Ubuntu", 10F);
+            this.linkLimpeza.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLimpeza.LinkColor = System.Drawing.Color.SteelBlue;
+            this.linkLimpeza.Location = new System.Drawing.Point(545, 324);
+            this.linkLimpeza.Name = "linkLimpeza";
+            this.linkLimpeza.Size = new System.Drawing.Size(55, 23);
+            this.linkLimpeza.TabIndex = 6;
+            this.linkLimpeza.TabStop = true;
+            this.linkLimpeza.Text = "Limpar";
+            this.linkLimpeza.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLimpeza.VisitedLinkColor = System.Drawing.Color.DarkGray;
+            this.linkLimpeza.LinkClicked +=
+                new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLimpeza_LinkClicked);
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(500, 214);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(100, 23);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Quantidade";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(500, 269);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 23);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Localização";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(200, 269);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(294, 23);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Chave da Nota Fiscal";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(200, 213);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(294, 23);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Nome do material";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // picLogo
             // 
@@ -112,27 +189,36 @@ namespace Interface
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.MouseEnter += new System.EventHandler(this.btnCancelar_MouseEnter);
+            this.btnCancelar.MouseLeave += new System.EventHandler(this.btnCancelar_MouseLeave);
             // 
-            // btnConfirmar
+            // btnRegistrar
             // 
-            this.btnConfirmar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
-            this.btnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmar.ForeColor = System.Drawing.Color.Green;
-            this.btnConfirmar.Location = new System.Drawing.Point(250, 350);
-            this.btnConfirmar.Name = "btnConfirmar";
-            this.btnConfirmar.Size = new System.Drawing.Size(147, 40);
-            this.btnConfirmar.TabIndex = 7;
-            this.btnConfirmar.Text = "Registrar";
-            this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
+            this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrar.ForeColor = System.Drawing.Color.Green;
+            this.btnRegistrar.Location = new System.Drawing.Point(250, 350);
+            this.btnRegistrar.Name = "btnRegistrar";
+            this.btnRegistrar.Size = new System.Drawing.Size(147, 40);
+            this.btnRegistrar.TabIndex = 7;
+            this.btnRegistrar.Text = "Registrar";
+            this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            this.btnRegistrar.MouseEnter += new System.EventHandler(this.btnRegistrar_MouseEnter);
+            this.btnRegistrar.MouseLeave += new System.EventHandler(this.btnRegistrar_MouseLeave);
             // 
             // txtLocalizacaoMaterial
             // 
+            this.txtLocalizacaoMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtLocalizacaoMaterial.Location = new System.Drawing.Point(500, 295);
             this.txtLocalizacaoMaterial.MaxLength = 10;
             this.txtLocalizacaoMaterial.Name = "txtLocalizacaoMaterial";
             this.txtLocalizacaoMaterial.Size = new System.Drawing.Size(100, 26);
             this.txtLocalizacaoMaterial.TabIndex = 5;
             this.txtLocalizacaoMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtLocalizacaoMaterial.KeyPress +=
+                new System.Windows.Forms.KeyPressEventHandler(this.txtLocalizacaoMaterial_KeyPress);
             // 
             // txtChaveNotaFiscal
             // 
@@ -142,15 +228,18 @@ namespace Interface
             this.txtChaveNotaFiscal.Size = new System.Drawing.Size(294, 26);
             this.txtChaveNotaFiscal.TabIndex = 4;
             this.txtChaveNotaFiscal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtChaveNotaFiscal.KeyPress +=
+                new System.Windows.Forms.KeyPressEventHandler(this.txtChaveNotaFiscal_KeyPress);
             // 
             // labelIdMaterial
             // 
-            this.labelIdMaterial.Location = new System.Drawing.Point(250, 324);
+            this.labelIdMaterial.Location = new System.Drawing.Point(250, 33);
             this.labelIdMaterial.Name = "labelIdMaterial";
             this.labelIdMaterial.Size = new System.Drawing.Size(300, 23);
             this.labelIdMaterial.TabIndex = 0;
             this.labelIdMaterial.Text = "ID Material";
             this.labelIdMaterial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelIdMaterial.Visible = false;
             // 
             // txtQuantidadeMaterial
             // 
@@ -163,16 +252,6 @@ namespace Interface
             this.txtQuantidadeMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtQuantidadeMaterial.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             this.txtQuantidadeMaterial.Value = new decimal(new int[] {1, 0, 0, 0});
-            // 
-            // txtNomeMaterial
-            // 
-            this.txtNomeMaterial.Enabled = false;
-            this.txtNomeMaterial.Location = new System.Drawing.Point(200, 239);
-            this.txtNomeMaterial.MaxLength = 200;
-            this.txtNomeMaterial.Name = "txtNomeMaterial";
-            this.txtNomeMaterial.Size = new System.Drawing.Size(294, 26);
-            this.txtNomeMaterial.TabIndex = 2;
-            this.txtNomeMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnPesquisarMaterial
             // 
@@ -189,15 +268,19 @@ namespace Interface
             this.btnPesquisarMaterial.Size = new System.Drawing.Size(26, 26);
             this.btnPesquisarMaterial.TabIndex = 1;
             this.btnPesquisarMaterial.UseVisualStyleBackColor = false;
+            this.btnPesquisarMaterial.Click += new System.EventHandler(this.btnPesquisarMaterial_Click);
             // 
             // txtPesquisaMaterial
             // 
+            this.txtPesquisaMaterial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPesquisaMaterial.Location = new System.Drawing.Point(398, 185);
             this.txtPesquisaMaterial.MaxLength = 200;
             this.txtPesquisaMaterial.Name = "txtPesquisaMaterial";
             this.txtPesquisaMaterial.Size = new System.Drawing.Size(170, 26);
             this.txtPesquisaMaterial.TabIndex = 0;
             this.txtPesquisaMaterial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPesquisaMaterial.TextChanged += new System.EventHandler(this.txtPesquisaMaterial_TextChanged);
+            this.txtPesquisaMaterial.Enter += new System.EventHandler(this.txtPesquisaMaterial_Enter);
             // 
             // panelTop
             // 
@@ -229,6 +312,7 @@ namespace Interface
             this.btnMinimize.TabStop = false;
             this.btnMinimize.Text = "—";
             this.btnMinimize.UseVisualStyleBackColor = false;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
             // btnClose
             // 
@@ -247,6 +331,7 @@ namespace Interface
             this.btnClose.TabStop = false;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // label1
             // 
@@ -280,56 +365,7 @@ namespace Interface
             this.menuToolSobre.Name = "menuToolSobre";
             this.menuToolSobre.Size = new System.Drawing.Size(56, 26);
             this.menuToolSobre.Text = "&Sobre";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(200, 213);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(294, 23);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Nome do material";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(200, 269);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(294, 23);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Número de chave NF";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(500, 269);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 23);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Localização";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(500, 214);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 23);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Quantidade";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // linkLimpeza
-            // 
-            this.linkLimpeza.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.linkLimpeza.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLimpeza.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpeza.Location = new System.Drawing.Point(545, 324);
-            this.linkLimpeza.Name = "linkLimpeza";
-            this.linkLimpeza.Size = new System.Drawing.Size(55, 23);
-            this.linkLimpeza.TabIndex = 6;
-            this.linkLimpeza.TabStop = true;
-            this.linkLimpeza.Text = "Limpar";
-            this.linkLimpeza.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.linkLimpeza.VisitedLinkColor = System.Drawing.Color.DarkGray;
+            this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
             // 
             // RegistraEntrada
             // 
@@ -346,7 +382,9 @@ namespace Interface
             this.MainMenuStrip = this.menuStripRegistroEntrada;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RegistraEntrada";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegistraEntrada";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistraEntrada_FormClosing);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.picLogo)).EndInit();
@@ -371,7 +409,6 @@ namespace Interface
         private System.Windows.Forms.Button btnPesquisarMaterial;
         private System.Windows.Forms.Label labelIdMaterial;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -379,8 +416,10 @@ namespace Interface
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLocalizacaoMaterial;
         private System.Windows.Forms.TextBox txtChaveNotaFiscal;
-        private System.Windows.Forms.TextBox txtNomeMaterial;
         private System.Windows.Forms.NumericUpDown txtQuantidadeMaterial;
         private System.Windows.Forms.LinkLabel linkLimpeza;
+        private System.Windows.Forms.Button btnRegistrar;
+        private System.Windows.Forms.ComboBox cmbNomeMaterial;
+        private System.Windows.Forms.Label labelChaveNotaFiscal;
     }
 }

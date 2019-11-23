@@ -104,18 +104,18 @@ namespace Interface
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(250, 319);
+            this.label6.Location = new System.Drawing.Point(403, 316);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(300, 23);
+            this.label6.Size = new System.Drawing.Size(197, 23);
             this.label6.TabIndex = 0;
             this.label6.Text = "Confirme a senha";
             this.label6.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(250, 264);
+            this.label5.Location = new System.Drawing.Point(200, 316);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(300, 23);
+            this.label5.Size = new System.Drawing.Size(197, 23);
             this.label5.TabIndex = 0;
             this.label5.Text = "Insira a nova senha";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -123,7 +123,7 @@ namespace Interface
             // chkExibeSenha
             // 
             this.chkExibeSenha.Font = new System.Drawing.Font("Ubuntu", 10F);
-            this.chkExibeSenha.Location = new System.Drawing.Point(250, 374);
+            this.chkExibeSenha.Location = new System.Drawing.Point(200, 371);
             this.chkExibeSenha.Name = "chkExibeSenha";
             this.chkExibeSenha.Size = new System.Drawing.Size(112, 23);
             this.chkExibeSenha.TabIndex = 5;
@@ -134,20 +134,20 @@ namespace Interface
             // 
             // txtValidaSenha
             // 
-            this.txtValidaSenha.Location = new System.Drawing.Point(250, 345);
+            this.txtValidaSenha.Location = new System.Drawing.Point(403, 342);
             this.txtValidaSenha.MaxLength = 50;
             this.txtValidaSenha.Name = "txtValidaSenha";
-            this.txtValidaSenha.Size = new System.Drawing.Size(300, 26);
+            this.txtValidaSenha.Size = new System.Drawing.Size(197, 26);
             this.txtValidaSenha.TabIndex = 4;
             this.txtValidaSenha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtValidaSenha.UseSystemPasswordChar = true;
             // 
             // txtSenhaResgate
             // 
-            this.txtSenhaResgate.Location = new System.Drawing.Point(250, 290);
+            this.txtSenhaResgate.Location = new System.Drawing.Point(200, 342);
             this.txtSenhaResgate.MaxLength = 50;
             this.txtSenhaResgate.Name = "txtSenhaResgate";
-            this.txtSenhaResgate.Size = new System.Drawing.Size(300, 26);
+            this.txtSenhaResgate.Size = new System.Drawing.Size(197, 26);
             this.txtSenhaResgate.TabIndex = 3;
             this.txtSenhaResgate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSenhaResgate.UseSystemPasswordChar = true;
@@ -157,7 +157,7 @@ namespace Interface
             this.linkLimpeza.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkLimpeza.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLimpeza.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkLimpeza.Location = new System.Drawing.Point(495, 374);
+            this.linkLimpeza.Location = new System.Drawing.Point(545, 371);
             this.linkLimpeza.Name = "linkLimpeza";
             this.linkLimpeza.Size = new System.Drawing.Size(55, 23);
             this.linkLimpeza.TabIndex = 6;
@@ -170,7 +170,7 @@ namespace Interface
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(403, 209);
+            this.label4.Location = new System.Drawing.Point(403, 261);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 23);
             this.label4.TabIndex = 0;
@@ -179,7 +179,7 @@ namespace Interface
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(250, 209);
+            this.label3.Location = new System.Drawing.Point(250, 261);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(147, 23);
             this.label3.TabIndex = 0;
@@ -188,7 +188,7 @@ namespace Interface
             // 
             // txtCpfResgate
             // 
-            this.txtCpfResgate.Location = new System.Drawing.Point(403, 235);
+            this.txtCpfResgate.Location = new System.Drawing.Point(403, 287);
             this.txtCpfResgate.Mask = "000,000,000-00";
             this.txtCpfResgate.Name = "txtCpfResgate";
             this.txtCpfResgate.Size = new System.Drawing.Size(147, 26);
@@ -197,7 +197,7 @@ namespace Interface
             // 
             // txtNascimentoResgate
             // 
-            this.txtNascimentoResgate.Location = new System.Drawing.Point(250, 235);
+            this.txtNascimentoResgate.Location = new System.Drawing.Point(250, 287);
             this.txtNascimentoResgate.Mask = "00/00/0000";
             this.txtNascimentoResgate.Name = "txtNascimentoResgate";
             this.txtNascimentoResgate.Size = new System.Drawing.Size(147, 26);
@@ -207,9 +207,9 @@ namespace Interface
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(250, 154);
+            this.label2.Location = new System.Drawing.Point(200, 206);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(300, 23);
+            this.label2.Size = new System.Drawing.Size(400, 23);
             this.label2.TabIndex = 0;
             this.label2.Text = "Insira o e-mail cadastrado";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -233,10 +233,10 @@ namespace Interface
             // txtEmailResgate
             // 
             this.txtEmailResgate.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.txtEmailResgate.Location = new System.Drawing.Point(250, 180);
+            this.txtEmailResgate.Location = new System.Drawing.Point(200, 232);
             this.txtEmailResgate.MaxLength = 200;
             this.txtEmailResgate.Name = "txtEmailResgate";
-            this.txtEmailResgate.Size = new System.Drawing.Size(300, 26);
+            this.txtEmailResgate.Size = new System.Drawing.Size(400, 26);
             this.txtEmailResgate.TabIndex = 0;
             this.txtEmailResgate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtEmailResgate.KeyPress +=

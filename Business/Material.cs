@@ -21,9 +21,10 @@ namespace Business
             DescricaoMaterial = args[2];
             QuantidadeMaterial = args[3];
             LocalizacaoMaterial = args[4];
+            ChaveNotaFiscal = args[5];
             return AtualizarDados(new []
             {
-                IdMaterial, NomeMaterial, DescricaoMaterial, QuantidadeMaterial, LocalizacaoMaterial
+                IdMaterial, NomeMaterial, DescricaoMaterial, QuantidadeMaterial, LocalizacaoMaterial, ChaveNotaFiscal
             }, "material");
         }
         
@@ -37,45 +38,47 @@ namespace Business
             return BuscaUnicoRegistro(pesquisa, "material", tipoBusca);
         }
 
-        public static string EntradaEstoque(string id, string operacao)
+        public static string BuscaMaterial(string tipoBusca, int id = 0)
         {
-            /*
-            var retorno = RegistroEstoque(new []
+            switch (tipoBusca)
             {
-            }, operacao, "saida");
-            switch (retorno)
-            {
-                case "offline":
-                    return retorno;
-                case "nulo":
-                    return retorno;
-                default:
-                    return retorno;
+                case "chave":
+                    return BuscaRegistroMaterial(tipoBusca, id);
+                case "nome":
+                    return BuscaRegistroMaterial(tipoBusca, id);
             }
-            */
-
-            return "nulo";
+            
+            return BuscaRegistroMaterial(tipoBusca);
         }
 
-        public static string ExcluirRegistro(string id)
-        {
-            return ExcluirDados(id, "material");
-        }
-
-        public string SaidaEstoque(string[] args, string operacao, string cnpj = "", string estoque = "")
+        public string EntradaEstoque(string[] args, string operacao)
         {
             IdMaterial = args[0];
-            if (operacao == "busca") return RegistroEstoque(new[] {IdMaterial}, operacao, "saida");
+            if (operacao == "busca") return RegistroMaterial(new[] {IdMaterial}, operacao, "entrada");
+            
+            QuantidadeMaterial = args[1];
+            UltimaEntrada = args[2];
+            LocalizacaoMaterial = args[3];
+            ChaveNotaFiscal = args[4];
+            return RegistroMaterial(new[]
+            {
+                IdMaterial, QuantidadeMaterial, UltimaEntrada, LocalizacaoMaterial, ChaveNotaFiscal, args[5]
+            }, operacao, "entrada");
+        }
+
+        public string SaidaEstoque(string[] args, string operacao)
+        {
+            IdMaterial = args[0];
+            if (operacao == "busca") return RegistroMaterial(new[] {IdMaterial}, operacao, "saida");
             
             QuantidadeMaterial = args[1];
             UltimaSaida = args[2];
-            if (int.Parse(estoque) - int.Parse(QuantidadeMaterial) < 0) return "invalido";
-            estoque = (int.Parse(estoque) - int.Parse(QuantidadeMaterial)).ToString();
+            if (int.Parse(args[3]) - int.Parse(QuantidadeMaterial) < 0) return "invalido";
             
-            return RegistroEstoque(new []
+            return RegistroMaterial(new []
             {
-                IdMaterial, QuantidadeMaterial, UltimaSaida, cnpj
-            }, operacao, "saida", estoque);
+                IdMaterial, QuantidadeMaterial, UltimaSaida, args[4]
+            }, operacao, "saida");
         }
 
         public string ValidarCadastro(string[] args)
@@ -84,9 +87,10 @@ namespace Business
             DescricaoMaterial = args[1];
             QuantidadeMaterial = args[2];
             LocalizacaoMaterial = args[3];
+            ChaveNotaFiscal = "0";
             return CadastrarDados(new []
             {
-                NomeMaterial, DescricaoMaterial, QuantidadeMaterial, LocalizacaoMaterial
+                NomeMaterial, DescricaoMaterial, QuantidadeMaterial, LocalizacaoMaterial, ChaveNotaFiscal
             }, "material");
         }
     }
