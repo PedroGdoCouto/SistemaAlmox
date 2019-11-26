@@ -34,6 +34,7 @@ namespace Interface
             System.ComponentModel.ComponentResourceManager resources =
                 new System.ComponentModel.ComponentResourceManager(typeof(RegistraSaida));
             this.panelMain = new System.Windows.Forms.Panel();
+            this.labelQuantidadeEstoque = new System.Windows.Forms.Label();
             this.linkLimpeza = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
@@ -53,7 +54,6 @@ namespace Interface
             this.label1 = new System.Windows.Forms.Label();
             this.menuStripRegistraSaida = new System.Windows.Forms.MenuStrip();
             this.menuToolSobre = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelQuantidadeEstoque = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.txtQuantidadeMaterial)).BeginInit();
@@ -84,6 +84,17 @@ namespace Interface
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(800, 600);
             this.panelMain.TabIndex = 0;
+            // 
+            // labelQuantidadeEstoque
+            // 
+            this.labelQuantidadeEstoque.BackColor = System.Drawing.Color.Transparent;
+            this.labelQuantidadeEstoque.Location = new System.Drawing.Point(250, 56);
+            this.labelQuantidadeEstoque.Name = "labelQuantidadeEstoque";
+            this.labelQuantidadeEstoque.Size = new System.Drawing.Size(300, 23);
+            this.labelQuantidadeEstoque.TabIndex = 0;
+            this.labelQuantidadeEstoque.Text = "Quantidade estoque";
+            this.labelQuantidadeEstoque.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelQuantidadeEstoque.Visible = false;
             // 
             // linkLimpeza
             // 
@@ -328,17 +339,6 @@ namespace Interface
             this.menuToolSobre.Size = new System.Drawing.Size(56, 26);
             this.menuToolSobre.Text = "&Sobre";
             this.menuToolSobre.Click += new System.EventHandler(this.menuToolSobre_Click);
-            // 
-            // labelQuantidadeEstoque
-            // 
-            this.labelQuantidadeEstoque.BackColor = System.Drawing.Color.Transparent;
-            this.labelQuantidadeEstoque.Location = new System.Drawing.Point(250, 56);
-            this.labelQuantidadeEstoque.Name = "labelQuantidadeEstoque";
-            this.labelQuantidadeEstoque.Size = new System.Drawing.Size(300, 23);
-            this.labelQuantidadeEstoque.TabIndex = 0;
-            this.labelQuantidadeEstoque.Text = "Quantidade estoque";
-            this.labelQuantidadeEstoque.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelQuantidadeEstoque.Visible = false;
             // 
             // RegistraSaida
             // 

@@ -233,7 +233,7 @@ namespace Interface
             this.linkEditarRegistro.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkEditarRegistro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkEditarRegistro.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkEditarRegistro.Location = new System.Drawing.Point(250, 404);
+            this.linkEditarRegistro.Location = new System.Drawing.Point(450, 404);
             this.linkEditarRegistro.Name = "linkEditarRegistro";
             this.linkEditarRegistro.Size = new System.Drawing.Size(100, 23);
             this.linkEditarRegistro.TabIndex = 8;
@@ -261,8 +261,8 @@ namespace Interface
             this.linkExcluirRegistro.BackColor = System.Drawing.Color.Transparent;
             this.linkExcluirRegistro.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkExcluirRegistro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkExcluirRegistro.LinkColor = System.Drawing.Color.Red;
-            this.linkExcluirRegistro.Location = new System.Drawing.Point(440, 404);
+            this.linkExcluirRegistro.LinkColor = System.Drawing.Color.DimGray;
+            this.linkExcluirRegistro.Location = new System.Drawing.Point(250, 404);
             this.linkExcluirRegistro.Name = "linkExcluirRegistro";
             this.linkExcluirRegistro.Size = new System.Drawing.Size(110, 23);
             this.linkExcluirRegistro.TabIndex = 9;

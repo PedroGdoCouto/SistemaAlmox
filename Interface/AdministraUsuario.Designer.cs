@@ -253,14 +253,13 @@ namespace Interface
             this.linkExcluirRegistro.BackColor = System.Drawing.Color.Transparent;
             this.linkExcluirRegistro.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkExcluirRegistro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkExcluirRegistro.LinkColor = System.Drawing.Color.Red;
-            this.linkExcluirRegistro.Location = new System.Drawing.Point(440, 377);
+            this.linkExcluirRegistro.LinkColor = System.Drawing.Color.DimGray;
+            this.linkExcluirRegistro.Location = new System.Drawing.Point(250, 377);
             this.linkExcluirRegistro.Name = "linkExcluirRegistro";
             this.linkExcluirRegistro.Size = new System.Drawing.Size(110, 23);
             this.linkExcluirRegistro.TabIndex = 7;
             this.linkExcluirRegistro.TabStop = true;
             this.linkExcluirRegistro.Text = "Excluir registro";
-            this.linkExcluirRegistro.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.linkExcluirRegistro.VisitedLinkColor = System.Drawing.Color.DarkGray;
             this.linkExcluirRegistro.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkExcluirRegistro_LinkClicked);
@@ -271,12 +270,13 @@ namespace Interface
             this.linkEditarRegistro.Font = new System.Drawing.Font("Ubuntu", 10F);
             this.linkEditarRegistro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkEditarRegistro.LinkColor = System.Drawing.Color.SteelBlue;
-            this.linkEditarRegistro.Location = new System.Drawing.Point(250, 377);
+            this.linkEditarRegistro.Location = new System.Drawing.Point(450, 377);
             this.linkEditarRegistro.Name = "linkEditarRegistro";
             this.linkEditarRegistro.Size = new System.Drawing.Size(100, 23);
             this.linkEditarRegistro.TabIndex = 6;
             this.linkEditarRegistro.TabStop = true;
             this.linkEditarRegistro.Text = "Editar registro";
+            this.linkEditarRegistro.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.linkEditarRegistro.VisitedLinkColor = System.Drawing.Color.DarkGray;
             this.linkEditarRegistro.LinkClicked +=
                 new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkEditarRegistro_LinkClicked);
@@ -439,7 +439,6 @@ namespace Interface
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.LinkLabel linkEditarRegistro;
-        private System.Windows.Forms.LinkLabel linkExcluirRegistro;
         private System.Windows.Forms.TextBox txtNomeUsuario;
         private System.Windows.Forms.TextBox txtEmailUsuario;
         private System.Windows.Forms.TextBox txtValidaSenha;
@@ -454,5 +453,6 @@ namespace Interface
         private System.Windows.Forms.MaskedTextBox txtNascimentoUsuario;
         private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Label labelNomeUsuario;
+        private System.Windows.Forms.LinkLabel linkExcluirRegistro;
     }
 }
