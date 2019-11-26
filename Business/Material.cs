@@ -33,9 +33,9 @@ namespace Business
             return BuscaTodoRegistro("material");
         }
 
-        public static DataTable BuscaUnica(string pesquisa, string tipoBusca)
+        public static DataTable BuscaHistorico(string tipoBusca, string pesquisa = "")
         {
-            return BuscaUnicoRegistro(pesquisa, "material", tipoBusca);
+            return BuscaHistoricoCompleto(tipoBusca, pesquisa);
         }
 
         public static string BuscaMaterial(string tipoBusca, int id = 0)
@@ -49,6 +49,11 @@ namespace Business
             }
             
             return BuscaRegistroMaterial(tipoBusca);
+        }
+
+        public static DataTable BuscaUnica(string pesquisa, string tipoBusca)
+        {
+            return BuscaUnicoRegistro(pesquisa, "material", tipoBusca);
         }
 
         public string EntradaEstoque(string[] args, string operacao)

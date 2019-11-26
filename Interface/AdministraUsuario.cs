@@ -66,7 +66,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.8",
+Versão: 2019.1.0",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -91,8 +91,8 @@ Versão: 2019.0.8",
             txtNascimentoUsuario.Mask = @"00/00/0000";
             txtSenhaUsuario.Enabled = true;
             txtValidaSenha.Enabled = true;
-            linkExcluirRegistro.Enabled = false;
-            linkEditarRegistro.Visible = false;
+            linkExcluirRegistro.Visible = false;
+            linkEditarRegistro.Enabled = false;
             chkAdministrador.Visible = true;
             btnConfirmar.Enabled = true;
         }
@@ -107,7 +107,7 @@ Versão: 2019.0.8",
                     MessageBoxIcon.Question
                 );
             if (!mensagem.Equals(DialogResult.Yes)) return;
-            var retorno = Usuario.ExcluirRegistro(txtCpfUsuario.Text);
+            var retorno = Usuario.ExcluirRegistro(txtCpfUsuario.Text, txtNomeUsuario.Text);
             switch (retorno)
             {
                 case "excluido":

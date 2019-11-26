@@ -1,7 +1,5 @@
 ﻿using System.Data;
 using Database;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Business
 {
@@ -40,6 +38,11 @@ namespace Business
             return BuscaTodoRegistro("usuario");
         }
 
+        public static DataTable BuscaHistorico(string tipoBusca, string pesquisa = "")
+        {
+            return BuscaHistoricoCompleto(tipoBusca, pesquisa);
+        }
+
         public static DataTable BuscaUnica(string termoBusca)
         {
             return BuscaUnicoRegistro(termoBusca, "usuario");
@@ -50,9 +53,9 @@ namespace Business
             return BuscaRegistroUsuario(email);
         }
 
-        public static string ExcluirRegistro(string cpf)
+        public static string ExcluirRegistro(string cpf, string nome)
         {
-            return ExcluirDados(cpf, "usuario");
+            return ExcluirDados(cpf, "usuario", nome);
         }
 
         public string ValidarCadastro(string[] args, bool adm)

@@ -1,8 +1,6 @@
 ﻿using Npgsql;
 using System;
 using System.Data;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 
 namespace Database
 {
@@ -30,6 +28,7 @@ namespace Database
                                 pgUpdate.Parameters.AddWithValue("razaoSocial", args[1]);
                                 pgUpdate.Parameters.AddWithValue("endereco", args[2]);
                                 if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
+
                             }
                             break;
                         case "material":
@@ -61,7 +60,20 @@ namespace Database
                                
                                 pgUpdate.Parameters.AddWithValue("tipo", tipoUsuario);
                                 pgUpdate.Parameters.AddWithValue("crypt", "bf");
-                                if (pgUpdate.ExecuteNonQuery() == 1) return "atualizado";
+                                if (pgUpdate.ExecuteNonQuery() == 1)
+                                {
+                                    const string queryInsert =
+                                        "INSERT INTO historicoUsuario VALUES (DEFAULT, (@registro), (@operacao), (@cpf), (@nome))";
+                                    
+                                    using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                                    {
+                                        pgInsert.Parameters.AddWithValue("registro", DateTime.Now.ToShortDateString());
+                                        pgInsert.Parameters.AddWithValue("operacao", "UPDATE");
+                                        pgInsert.Parameters.AddWithValue("cpf", args[0]);
+                                        pgInsert.Parameters.AddWithValue("nome", args[1]);
+                                        if (pgInsert.ExecuteNonQuery() == 1) return "atualizado";
+                                    }
+                                }
                             }
                             break;
                     }
@@ -75,6 +87,84 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
             }
 
             return "nulo";
+        }
+
+        protected static DataTable BuscaHistoricoCompleto(string tipoBusca, string pesquisa)
+        {
+            var dataTable = new DataTable();
+            using (var pgConnection = new NpgsqlConnection(ConnectionString))
+            {
+                try
+                {
+                    pgConnection.Open();
+                    string querySelect;
+                    switch (tipoBusca)
+                    {
+                        case "material":
+                            if (pesquisa == "")
+                            {
+                                querySelect =
+                                    "SELECT materiais.idMaterial" +
+                                    ", concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) nomeMaterial" +
+                                    ", quantidadeMaterial, localizacaoMaterial, registroEntrada.dataRegistro dataEntrada" +
+                                    ", registroSaida.dataRegistro dataSaida, registroEntrada.chaveNotaFiscal FROM materiais" +
+                                    " JOIN registroEntrada ON registroEntrada.idMaterial = materiais.idMaterial" +
+                                    " JOIN registroSaida ON registroSaida.idMaterial = materiais.idMaterial";
+
+                                using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                                {
+                                    pgDataTable.Fill(dataTable);
+                                }
+                            }
+                            else
+                            {
+                                querySelect =
+                                    "SELECT materiais.idMaterial" +
+                                    ", concat(substring(nomeMaterial FROM '[^ ]+'::text), ' ', descricaoMaterial) nomeMaterial" +
+                                    ", quantidadeMaterial, localizacaoMaterial, registroEntrada.dataRegistro dataEntrada" +
+                                    ", registroSaida.dataRegistro dataSaida, registroEntrada.chaveNotaFiscal FROM materiais" +
+                                    " JOIN registroEntrada ON registroEntrada.idMaterial = materiais.idMaterial" +
+                                    " JOIN registroSaida ON registroSaida.idMaterial = materiais.idMaterial" +
+                                    $" WHERE nomeMaterial LIKE '%{pesquisa}%'";
+
+                                using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                                {
+                                    pgDataTable.Fill(dataTable);
+                                }
+                            }
+                            break;
+                        case "usuario":
+                            if (pesquisa == "")
+                            {
+                                querySelect =
+                                    "SELECT dataRegistro, operacao, cpfUsuario, nomeUsuario FROM historicoUsuario";
+
+                                using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                                {
+                                    pgDataTable.Fill(dataTable);
+                                }
+                            }
+                            else
+                            {
+                                querySelect =
+                                    $"SELECT dataRegistro, operacao, cpfUsuario, nomeUsuario FROM historicoUsuario WHERE cpfUsuario = '{pesquisa}'";
+
+                                using (var pgDataTable = new NpgsqlDataAdapter(querySelect, pgConnection))
+                                {
+                                    pgDataTable.Fill(dataTable);
+                                }
+                            }
+                            break;
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    return new DataTable(e.Message);
+                }
+                pgConnection.Close();
+            }
+
+            return dataTable; 
         }
 
         protected static string BuscaRegistroInstituicao(string pesquisa)
@@ -367,7 +457,20 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                                 pgInsert.Parameters.AddWithValue("senha", args[4]);
                                 pgInsert.Parameters.AddWithValue("crypt", "bf");
                                 pgInsert.Parameters.AddWithValue("tipo", tipoUsuario);
-                                if (pgInsert.ExecuteNonQuery() == 1) return "registrado";
+                                if (pgInsert.ExecuteNonQuery() == 1)
+                                {
+                                    queryInsert =
+                                        "INSERT INTO historicoUsuario VALUES (DEFAULT, (@registro), (@operacao), (@cpf), (@nome))";
+                                    
+                                    using (var subPgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                                    {
+                                        subPgInsert.Parameters.AddWithValue("registro", DateTime.Now.ToShortDateString());
+                                        subPgInsert.Parameters.AddWithValue("operacao", "INSERT");
+                                        subPgInsert.Parameters.AddWithValue("cpf", args[0]);
+                                        subPgInsert.Parameters.AddWithValue("nome", args[1]);
+                                        if (subPgInsert.ExecuteNonQuery() == 1) return "registrado";
+                                    }
+                                }
                             }
                             break;
                     }
@@ -383,19 +486,19 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
             return "nulo";
         }
 
-        protected static string ExcluirDados(string pesquisa, string termoBusca)
+        protected static string ExcluirDados(string pesquisa, string tipoBusca, string nome = "")
         {
             using (var pgConnection = new NpgsqlConnection(ConnectionString))
             {
                 try
                 {
                     pgConnection.Open();
-                    switch (termoBusca)
+                    switch (tipoBusca)
                     {
                         case "instituicao":
                             var queryDelete =
                                 "DELETE FROM instituicoes WHERE cnpjInstituicao = (@cnpj)";
-                            
+                    
                             using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
                             {
                                 pgDelete.Parameters.AddWithValue("cnpj", pesquisa);
@@ -405,11 +508,24 @@ Caso o erro persista, contate o administrador do sistema. " + e.Message;
                         case "usuario":
                             queryDelete =
                                 "DELETE FROM usuarios WHERE cpfUsuario = (@cpf)";
-
+                    
                             using (var pgDelete = new NpgsqlCommand(queryDelete, pgConnection))
                             {
                                 pgDelete.Parameters.AddWithValue("cpf", pesquisa);
-                                if (pgDelete.ExecuteNonQuery() == 1) return "excluido";
+                                if (pgDelete.ExecuteNonQuery() == 1)
+                                {
+                                    const string queryInsert =
+                                        "INSERT INTO historicoUsuario VALUES (DEFAULT, (@registro), (@operacao), (@cpf), (@nome))";
+                                    
+                                    using (var pgInsert = new NpgsqlCommand(queryInsert, pgConnection))
+                                    {
+                                        pgInsert.Parameters.AddWithValue("registro", DateTime.Now.ToShortDateString());
+                                        pgInsert.Parameters.AddWithValue("operacao", "DELETE");
+                                        pgInsert.Parameters.AddWithValue("cpf", pesquisa);
+                                        pgInsert.Parameters.AddWithValue("nome", nome);
+                                        if (pgInsert.ExecuteNonQuery() == 1) return "excluido";
+                                    }
+                                }
                             }
                             break;
                     }

@@ -38,7 +38,7 @@ namespace Interface
             MessageBox.Show(
                 @"Plataforma para controle de almoxarifado
 Desenvolvedor: Pedro Couto
-Versão: 2019.0.8",
+Versão: 2019.1.0",
                 @"Sobre o sistema",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -220,6 +220,13 @@ Versão: 2019.0.8",
         }
 
         /* Funcionalidades da aplicação */
+        private void linkHistorico_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var interfaceHistorico = new HistoricoRegistro() {InterfaceAdministrador = this};
+            interfaceHistorico.Show();
+            Hide();
+        }
+        
         private void PainelAdministrador_Activated(object sender, EventArgs e)
         {
             dataGridInstituicao.DataSource = Instituicao.BuscaCompleta();
